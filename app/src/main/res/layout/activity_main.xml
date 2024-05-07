@@ -12,9 +12,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="#000"
-        android:background="#FA8181"
+        android:background="#4CAF50"
+        android:text="Login/Register"
         android:textAlignment="center"
-        android:text="TextView" />
+        android:textColor="#000"
+        android:textSize="20dp" />
 </LinearLayout>
