@@ -13,8 +13,14 @@
         android:layout_height="wrap_content"
         android:background="#4CAF50"
         android:text="Login/Register"
-        android:textAlignment="center"
+        android:textAlignment="inherit"
         android:textColor="#000"
-        android:textSize="20dp" />
+        android:textSize="50dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test" />
 </LinearLayout>
 
