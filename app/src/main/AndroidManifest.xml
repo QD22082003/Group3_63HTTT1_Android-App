@@ -12,11 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
+<!--        <activity-->
+<!--            android:name=".TrangTaiKhoanAdminActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".TrangDonHangAdminActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".TrangPhanHoiAdminActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".TrangChuAdminActivity"-->
+<!--            android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".TrangChuMonNgon_AdminActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".TrangThemTrangMiengAdminActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".TrangThemDoUongAdminActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".TrangThemMonNgonAdminActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
         <activity
-            android:name=".TrangMonNgon_Admin"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".Activity.Admin.TrangChuMonNgon_AdminActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
