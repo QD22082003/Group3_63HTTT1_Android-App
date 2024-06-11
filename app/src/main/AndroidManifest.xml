@@ -16,7 +16,9 @@
         <activity
             android:name=".ActivityAdmin.TrangChuMonNgon_AdminActivity"
             android:exported="false"/>
-
+        <activity
+            android:name=".ActivityUser.TrangChiTietUserActivity"
+            android:exported="false" />
         <activity
             android:name=".ActivityUser.TrangTrangMiengUserActivity"
             android:exported="false" />

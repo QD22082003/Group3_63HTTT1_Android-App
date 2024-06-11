@@ -38,7 +38,7 @@ public class trangDangNhapActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(trangDangNhapActivity.this, TrangChuMonNgon_AdminActivity.class);
+                Intent intent = new Intent(trangDangNhapActivity.this, TrangChuUserActivity.class);
                 startActivity(intent);
             }
         });
