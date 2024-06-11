@@ -1,20 +1,21 @@
-package com.example.android_food_app.Fragment;
+package com.example.android_food_app.FragmentAdmin;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.android_food_app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TrangDonHangFragment#newInstance} factory method to
+ * Use the {@link TrangTaiKhoanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrangDonHangFragment extends Fragment {
+public class TrangTaiKhoanFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +26,7 @@ public class TrangDonHangFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TrangDonHangFragment() {
+    public TrangTaiKhoanFragment() {
         // Required empty public constructor
     }
 
@@ -38,8 +39,8 @@ public class TrangDonHangFragment extends Fragment {
      * @return A new instance of fragment TrangChuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrangDonHangFragment newInstance(String param1, String param2) {
-        TrangDonHangFragment fragment = new TrangDonHangFragment();
+    public static TrangTaiKhoanFragment newInstance(String param1, String param2) {
+        TrangTaiKhoanFragment fragment = new TrangTaiKhoanFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,6 +61,6 @@ public class TrangDonHangFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trang_don_hang_admin, container, false);
+        return inflater.inflate(R.layout.fragment_trang_tai_khoan_admin, container, false);
     }
 }

@@ -1,14 +1,14 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterAdmin;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.android_food_app.Fragment.TrangDonHangFragment;
-import com.example.android_food_app.Fragment.TrangMonNgonFragment;
-import com.example.android_food_app.Fragment.TrangPhanHoiFragment;
-import com.example.android_food_app.Fragment.TrangTaiKhoanFragment;
+import com.example.android_food_app.FragmentAdmin.TrangDonHangFragment;
+import com.example.android_food_app.FragmentAdmin.TrangMonNgonFragment;
+import com.example.android_food_app.FragmentAdmin.TrangPhanHoiFragment;
+import com.example.android_food_app.FragmentAdmin.TrangTaiKhoanFragment;
 
 
 public class ViewPager2Adapter extends FragmentStateAdapter {

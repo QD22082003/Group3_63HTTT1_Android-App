@@ -12,13 +12,16 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         >
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgUser"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/ic_account"
-            android:layout_centerVertical="true"
-            />
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"
+            android:layout_centerVertical="true"/>
+
 
         <TextView
             android:id="@+id/txtName"

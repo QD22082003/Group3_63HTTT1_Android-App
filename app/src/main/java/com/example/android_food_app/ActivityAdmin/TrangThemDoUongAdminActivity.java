@@ -1,4 +1,4 @@
-package com.example.android_food_app.Activity.Admin;
+package com.example.android_food_app.ActivityAdmin;
 
 import android.os.Bundle;
 
