@@ -1,4 +1,4 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterUser;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.android_food_app.Fragment.FragmentSlider.PhotoFragment;
-import com.example.android_food_app.Model.Photo;
+import com.example.android_food_app.Fragment.FragmentSliderUser.PhotoFragment;
+import com.example.android_food_app.ModelUser.Photo;
 
 import java.util.List;
 

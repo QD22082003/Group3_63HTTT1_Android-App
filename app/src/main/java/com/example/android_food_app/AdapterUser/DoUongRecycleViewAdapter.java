@@ -1,5 +1,7 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterUser;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Model.SanPham;
+import com.example.android_food_app.ActivityUser.TrangChiTietUserActivity;
+import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
 public class DoUongRecycleViewAdapter extends RecyclerView.Adapter<DoUongRecycleViewAdapter.DoUongViewHolder> {
     private List<SanPham> listdouong;
+    private Context mContext;
+
+    public DoUongRecycleViewAdapter(List<SanPham> listdouong, Context mContext) {
+        this.listdouong = listdouong;
+        this.mContext = mContext;
+    }
+
     public void setDataDoUong(List<SanPham> listdouong) {
         this.listdouong = listdouong;
         notifyDataSetChanged();
@@ -29,29 +39,38 @@ public class DoUongRecycleViewAdapter extends RecyclerView.Adapter<DoUongRecycle
 
     @Override
     public void onBindViewHolder(@NonNull DoUongViewHolder holder, int position) {
-        SanPham monngon = listdouong.get(position);
-        if(monngon == null) {
+        SanPham douong = listdouong.get(position);
+        if(douong == null) {
             return;
         }
-        holder.imgMonNgon.setImageResource(monngon.getImgMonNgonID_Trangchu());
+        holder.imgMonNgon.setImageResource(douong.getImgMonNgonID_Trangchu());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (monngon.getPhanTram_Trangchu() != null && !monngon.getPhanTram_Trangchu().isEmpty()) {
-            holder.phanTram.setText(monngon.getPhanTram_Trangchu());
+        if (douong.getPhanTram_Trangchu() != null && !douong.getPhanTram_Trangchu().isEmpty()) {
+            holder.phanTram.setText(douong.getPhanTram_Trangchu());
             holder.phanTram.setVisibility(View.VISIBLE);
         } else {
             holder.phanTram.setVisibility(View.GONE);
         }
-        holder.txt_ten_mon.setText(monngon.getTenMon_Trangchu());
+        holder.txt_ten_mon.setText(douong.getTenMon_Trangchu());
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (monngon.getGiaCu_Trangchu() != null && !monngon.getGiaCu_Trangchu().isEmpty()) {
-            holder.giaCu.setText(monngon.getGiaCu_Trangchu());
+        if (douong.getGiaCu_Trangchu() != null && !douong.getGiaCu_Trangchu().isEmpty()) {
+            holder.giaCu.setText(douong.getGiaCu_Trangchu());
             holder.giaCu.setVisibility(View.VISIBLE);
             holder.gach.setVisibility(View.VISIBLE);
         } else {
             holder.giaCu.setVisibility(View.GONE);
             holder.gach.setVisibility(View.GONE);
         }
-        holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
+        holder.giaMoi.setText(douong.getGiaMoi_Trangchu());
+        //thiết lập click vào item
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentDoUong = new Intent(mContext, TrangChiTietUserActivity.class);
+                intentDoUong.putExtra("douong", douong); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                mContext.startActivity(intentDoUong);
+            }
+        });
 
 
     }

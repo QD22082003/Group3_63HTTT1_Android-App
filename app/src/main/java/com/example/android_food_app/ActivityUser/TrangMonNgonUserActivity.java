@@ -1,7 +1,6 @@
-package com.example.android_food_app.Activity;
+package com.example.android_food_app.ActivityUser;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,9 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Adapter.MonNgonRecycleViewAdapter;
-import com.example.android_food_app.Model.Photo;
-import com.example.android_food_app.Model.SanPham;
+import com.example.android_food_app.AdapterUser.MonNgonRecycleViewAdapter;
+import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;
@@ -25,6 +23,7 @@ public class TrangMonNgonUserActivity extends AppCompatActivity {
     private RecyclerView rcv_mongngon;
     private MonNgonRecycleViewAdapter adapter;
     private ImageView img_back;
+    private  List<SanPham> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class TrangMonNgonUserActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
 
         //khởi tạo adapter
-        adapter = new MonNgonRecycleViewAdapter();
+        adapter = new MonNgonRecycleViewAdapter(list,this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         rcv_mongngon.setLayoutManager(gridLayoutManager);
 

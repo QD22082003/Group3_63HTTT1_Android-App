@@ -1,4 +1,4 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterUser;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

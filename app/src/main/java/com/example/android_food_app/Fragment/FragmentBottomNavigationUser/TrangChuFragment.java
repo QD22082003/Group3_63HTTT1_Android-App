@@ -1,4 +1,4 @@
-package com.example.android_food_app.Fragment.FragmentBottomNavigation;
+package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android_food_app.Activity.TrangDoUongUserActivity;
-import com.example.android_food_app.Activity.TrangMonNgonUserActivity;
-import com.example.android_food_app.Activity.TrangTrangMiengUserActivity;
-import com.example.android_food_app.Adapter.TrangChuRecycleViewAdapter;
-import com.example.android_food_app.Model.SanPham;
-import com.example.android_food_app.Model.Photo;
-import com.example.android_food_app.Adapter.PhotoAdapterViewPager2;
+import com.example.android_food_app.ActivityUser.TrangDoUongUserActivity;
+import com.example.android_food_app.ActivityUser.TrangMonNgonUserActivity;
+import com.example.android_food_app.ActivityUser.TrangTrangMiengUserActivity;
+import com.example.android_food_app.AdapterUser.TrangChuRecycleViewAdapter;
+import com.example.android_food_app.ModelUser.SanPham;
+import com.example.android_food_app.ModelUser.Photo;
+import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;
@@ -158,7 +158,7 @@ public class TrangChuFragment extends Fragment {
         });
 
         //khởi tạo adapter cho rcv_trangchu
-        adapter_trangchu = new TrangChuRecycleViewAdapter();
+        adapter_trangchu = new TrangChuRecycleViewAdapter(getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),2);
         rcv_trangchu.setLayoutManager(gridLayoutManager);
         rcv_trangchu.setFocusable(false);

@@ -1,4 +1,4 @@
-package com.example.android_food_app.Fragment.FragmentBottomNavigation;
+package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
 import android.os.Bundle;
 

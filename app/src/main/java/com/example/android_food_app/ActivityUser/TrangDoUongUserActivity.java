@@ -1,4 +1,4 @@
-package com.example.android_food_app.Activity;
+package com.example.android_food_app.ActivityUser;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Adapter.DoUongRecycleViewAdapter;
-import com.example.android_food_app.Adapter.MonNgonRecycleViewAdapter;
-import com.example.android_food_app.Model.SanPham;
+import com.example.android_food_app.AdapterUser.DoUongRecycleViewAdapter;
+import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class TrangDoUongUserActivity extends AppCompatActivity {
     private RecyclerView rcv_douong;
     private DoUongRecycleViewAdapter adapter;
     private ImageView img_back;
+    private List<SanPham> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class TrangDoUongUserActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
 
         //khởi tạo adapter
-        adapter = new DoUongRecycleViewAdapter();
+        adapter = new DoUongRecycleViewAdapter(list, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         rcv_douong.setLayoutManager(gridLayoutManager);
 

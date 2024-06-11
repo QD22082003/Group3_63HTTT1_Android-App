@@ -1,4 +1,4 @@
-package com.example.android_food_app.Fragment.FragmentSlider;
+package com.example.android_food_app.Fragment.FragmentSliderUser;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.android_food_app.Model.Photo;
+import com.example.android_food_app.ModelUser.Photo;
 import com.example.android_food_app.R;
 
 /**

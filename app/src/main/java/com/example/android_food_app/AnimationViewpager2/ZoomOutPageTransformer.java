@@ -1,4 +1,4 @@
-package AnimationViewpager2;
+package com.example.android_food_app.AnimationViewpager2;
 
 import android.view.View;
 

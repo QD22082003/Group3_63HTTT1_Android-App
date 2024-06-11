@@ -17,11 +17,11 @@ import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class TrangMiengRecicleViewAdapter extends RecyclerView.Adapter<TrangMiengRecicleViewAdapter.TrangMiengViewHolder >{
+public class TrangMiengRecycleViewAdapter extends RecyclerView.Adapter<TrangMiengRecycleViewAdapter.TrangMiengViewHolder >{
     private List<SanPham> listtrangmieng;
     private Context mContext;
 
-    public TrangMiengRecicleViewAdapter(List<SanPham> listtrangmieng, Context mContext) {
+    public TrangMiengRecycleViewAdapter(List<SanPham> listtrangmieng, Context mContext) {
         this.listtrangmieng = listtrangmieng;
         this.mContext = mContext;
     }
@@ -34,7 +34,7 @@ public class TrangMiengRecicleViewAdapter extends RecyclerView.Adapter<TrangMien
     @Override
     public TrangMiengViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham, parent,false);
-        return new TrangMiengRecicleViewAdapter.TrangMiengViewHolder(view);
+        return new TrangMiengRecycleViewAdapter.TrangMiengViewHolder(view);
     }
 
     @Override
