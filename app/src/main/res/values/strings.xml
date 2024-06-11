@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Android-Food-App</string>
 
+
     <!--    Trang chủ User-->
     <string name="search_view">Tìm kiếm</string>
     <string name="txt_danhmuc">Danh mục món ngon</string>
@@ -35,5 +36,9 @@
     <string name="btn_huybo">Hủy bỏ</string>
     <string name="btn_themvaogiohang">Thêm vào giỏ hàng</string>
 
-
+    <string name="action_trangChu">Trang chủ</string>
+    <string name="action_phanHoi">Phản hồi</string>
+    <string name="action_donHang">Đơn hàng</string>
+    <string name="action_taiKhoan">Tài khoản</string>
 </resources>
+
