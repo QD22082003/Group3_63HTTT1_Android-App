@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Android-Food-App</string>
+    <string name="action_trangChu">Trang chủ</string>
+    <string name="action_phanHoi">Phản hồi</string>
+    <string name="action_donHang">Đơn hàng</string>
+    <string name="action_taiKhoan">Tài khoản</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_trangChu"
+        android:icon="@drawable/__icon__home_"
+        android:title="@string/action_trangChu" />
+    <item
+        android:id="@+id/action_phanHoi"
+        android:icon="@drawable/phan_hoi"
+        android:title="@string/action_phanHoi" />
+    <item
+        android:id="@+id/action_donHang"
+        android:icon="@drawable/don_hang"
+        android:title="@string/action_donHang" />
+    <item
+        android:id="@+id/action_taiKhoan"
+        android:icon="@drawable/trang_chu"
+        android:title="@string/action_taiKhoan" />
+</menu>
