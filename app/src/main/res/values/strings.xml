@@ -1,6 +1,35 @@
 <resources>
+    <!-- ************  String start Giang ************  -->
+    <!-- Bottom navigation-->
     <string name="app_name">Android-Food-App</string>
+    <string name="menu_home_title">Trang chủ</string>
+    <string name="menu_desc_title">Phản hồi</string>
+    <string name="menu_order_title">Đơn hàng</string>
+    <string name="menu_account_title">Tài khoản</string>
 
+    <!--  Trang Món ngon  -->
+    <string name="heading_1">MÓN NGON</string>
+    <string name="heading_1_2">THÊM MÓN NGON</string>
+    <string name="heading_2">ĐỒ UỐNG</string>
+    <string name="heading_2_1">THÊM ĐỒ UỐNG</string>
+    <string name="heading_3">ĐỒ TRÁNG MIỆNG</string>
+    <string name="heading_3_1">THÊM ĐỒ TRÁNG MIỆNG</string>
+    <string name="heading_desc">PHẢN HỒI</string>
+    <string name="heading_order">ĐƠN HÀNG</string>
+    <string name="heading_account">TÀI KHOẢN</string>
+    <string name="heading_revenue">DOANH THU</string>
+
+    <!-- Trang thêm món ngon, đồ uống, nước giải khát -->
+    <string name="label_name">Tên (*)</string>
+    <string name="label_desc">Mô tả</string>
+    <string name="label_price">Giá (*)</string>
+    <string name="label_sale">Khuyến mại</string>
+    <string name="label_img">Link ảnh URL (*)</string>
+    <string name="label_slider">Link ảnh URL Slider (*)</string>
+    <string name="label_url_other">Link ảnh URL khác (*)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- ************  String end Giang ************  -->
 
     <!--    Trang chủ User-->
     <string name="search_view">Tìm kiếm</string>

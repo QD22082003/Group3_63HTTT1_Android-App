@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
+
         <activity
+            android:name=".ActivityAdmin.TrangChuMonNgon_AdminActivity"
+            android:exported="true">
             android:name=".ActivityUser.TrangChiTietUserActivity"
             android:exported="false" />
         <activity
@@ -59,6 +62,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
     </application>
