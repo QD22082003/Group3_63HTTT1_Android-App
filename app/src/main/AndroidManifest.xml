@@ -23,46 +23,44 @@
             android:exported="false" />
         <activity
             android:name=".ActivityUser.TrangMonNgonUserActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".TrangChuUserActivity" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
         <activity
             android:name=".ActivityUser.TrangChuUserActivity"
-            android:name=".trangLichSuDonHang_User"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".trangLienHe"
-            android:exported="false" />
-        <activity
-            android:name=".trangChuAdmin"
-            android:exported="false" />
-        <activity
-            android:name=".doiMatKhau"
-            android:exported="false" />
-        <activity
-            android:name=".quenMatKhau"
-            android:exported="false" />
-        <activity
-            android:name=".trangDangKy"
-            android:exported="false" />
-        <activity
-            android:name=".trangDangNhapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".openPageActivity"
             android:exported="false">
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.trangLichSuDonHang_User"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Activity.trangLienHe"
             android:exported="false" />
+        <activity
+            android:name=".Activity.trangChuAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.doiMatKhau"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.quenMatKhau"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.trangDangKy"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Activity.trangDangNhapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.openPageActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

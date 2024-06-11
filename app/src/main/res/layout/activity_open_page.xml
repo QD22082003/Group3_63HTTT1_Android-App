@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FB7A43"
-    tools:context=".openPageActivity"
+    tools:context=".Activity.openPageActivity"
     >
 
     <de.hdodenhof.circleimageview.CircleImageView

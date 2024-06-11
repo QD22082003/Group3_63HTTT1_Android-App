@@ -1,4 +1,4 @@
-package com.example.android_food_app;
+package com.example.android_food_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,36 +12,37 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class openPageActivity extends AppCompatActivity {
-    Button loginButton;
-    TextView textViewRegister;
+import com.example.android_food_app.R;
+
+public class trangDangKy extends AppCompatActivity {
+    Button registerButton;
+    TextView textViewLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_open_page);
+        setContentView(R.layout.activity_trang_dang_ky);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        loginButton = findViewById(R.id.loginButton);
-        textViewRegister = findViewById(R.id.textViewRegister);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        registerButton = findViewById(R.id.registerButton);
+        textViewLogin = findViewById(R.id.textViewLogin);
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(openPageActivity.this, trangDangNhapActivity.class);
+                Intent intent =  new Intent(trangDangKy.this, trangChuAdmin.class);
+                startActivity(intent);
+            }
+        });
+        textViewLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =  new Intent(trangDangKy.this, trangDangNhapActivity.class);
                 startActivity(intent);
             }
         });
 
-        textViewRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(openPageActivity.this, trangDangKy.class);
-                startActivity(intent);
-            }
-        });
     }
 }

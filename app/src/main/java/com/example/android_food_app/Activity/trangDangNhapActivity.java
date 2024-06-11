@@ -1,9 +1,10 @@
-package com.example.android_food_app;
+package com.example.android_food_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,32 +13,39 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class trangDangKy extends AppCompatActivity {
-    Button registerButton;
-    TextView textViewLogin;
+import com.example.android_food_app.ActivityUser.TrangChuUserActivity;
+import com.example.android_food_app.R;
+
+public class trangDangNhapActivity extends AppCompatActivity {
+    EditText editTextEmailAddress, editTextPassword;
+    Button loginButton;
+    TextView textViewRegister;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_trang_dang_ky);
+        setContentView(R.layout.activity_trang_dang_nhap);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        registerButton = findViewById(R.id.registerButton);
-        textViewLogin = findViewById(R.id.textViewLogin);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+
+        loginButton = findViewById(R.id.loginButton);
+        textViewRegister = findViewById(R.id.textViewRegister);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =  new Intent(trangDangKy.this, trangChuAdmin.class);
+                Intent intent = new Intent(trangDangNhapActivity.this, TrangChuUserActivity.class);
                 startActivity(intent);
             }
         });
-        textViewLogin.setOnClickListener(new View.OnClickListener() {
+
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =  new Intent(trangDangKy.this, trangDangNhapActivity.class);
+                Intent intent = new Intent(trangDangNhapActivity.this, trangDangKy.class);
                 startActivity(intent);
             }
         });

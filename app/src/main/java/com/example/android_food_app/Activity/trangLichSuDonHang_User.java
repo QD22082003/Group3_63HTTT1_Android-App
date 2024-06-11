@@ -1,4 +1,4 @@
-package com.example.android_food_app;
+package com.example.android_food_app.Activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.android_food_app.R;
 
 public class trangLichSuDonHang_User extends AppCompatActivity {
     TextView orderIdTextView, orderDateTextView, orderAmountTextView;

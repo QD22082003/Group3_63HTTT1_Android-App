@@ -1,10 +1,9 @@
-package com.example.android_food_app;
+package com.example.android_food_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,16 +12,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class trangDangNhapActivity extends AppCompatActivity {
-    EditText editTextEmailAddress, editTextPassword;
+import com.example.android_food_app.R;
+
+public class openPageActivity extends AppCompatActivity {
     Button loginButton;
     TextView textViewRegister;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_trang_dang_nhap);
+        setContentView(R.layout.activity_open_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,7 +33,7 @@ public class trangDangNhapActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(trangDangNhapActivity.this, trangChuAdmin.class);
+                Intent intent = new Intent(openPageActivity.this, trangDangNhapActivity.class);
                 startActivity(intent);
             }
         });
@@ -42,10 +41,9 @@ public class trangDangNhapActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(trangDangNhapActivity.this, trangDangKy.class);
+                Intent intent = new Intent(openPageActivity.this, trangDangKy.class);
                 startActivity(intent);
             }
         });
-
     }
 }

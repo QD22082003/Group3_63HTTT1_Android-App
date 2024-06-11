@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".trangLichSuDonHang_User">
+    tools:context=".Activity.trangLichSuDonHang_User">
 
     <!-- Header -->
     <TextView
@@ -40,7 +40,7 @@
             android:layout_gravity="center_vertical"
 
             android:contentDescription="Back"
-            android:src="@drawable/ic_arrow_back" />
+           />
     </FrameLayout>
 
     <ScrollView
