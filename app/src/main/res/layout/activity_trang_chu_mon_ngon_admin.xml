@@ -33,7 +33,7 @@
             app:itemBackground="@color/white"
             app:itemTextColor="@color/labelColor"
             app:itemIconTint="@color/labelColor"
-            app:menu="@menu/menu_bottom_navigation"
+            app:menu="@menu/menu_bottom_navigation_admin"
             />
     </RelativeLayout>
 
