@@ -16,13 +16,55 @@
         <activity
             android:name=".ActivityAdmin.TrangChuMonNgon_AdminActivity"
             android:exported="true">
+            android:name=".ActivityUser.TrangChiTietUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangTrangMiengUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangDoUongUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangMonNgonUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangChuUserActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".Activity.trangLichSuDonHang_User"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Activity.trangLienHe"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.trangChuAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.doiMatKhau"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.quenMatKhau"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.trangDangKy"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Activity.trangDangNhapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.openPageActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
+
     </application>
 
 </manifest>
