@@ -1,7 +1,44 @@
 <resources>
     <string name="app_name">Android-Food-App</string>
+
+
+    <!--    Trang chủ User-->
+    <string name="search_view">Tìm kiếm</string>
+    <string name="txt_danhmuc">Danh mục món ngon</string>
+    <string name="txt_category_monngon">Món ngon</string>
+    <string name="txt_category_douong">Đồ uống</string>
+    <string name="txt_category_trangmieng">Tráng miệng</string>
+    <string name="txt_thich">Có thể bạn sẽ thích</string>
+
+    <string name="title_home">Trang chủ</string>
+    <string name="title_cart">Giỏ hàng</string>
+    <string name="title_comment">Phản hồi</string>
+    <string name="title_contact">Liên hệ</string>
+    <string name="title_user">Tài khoản</string>
+
+    <!--    Trang món ngon User-->
+    <string name="title_monngon">MÓN NGON</string>
+
+    <!--    Trang đồ uống User-->
+    <string name="title_douong">ĐỒ UỐNG</string>
+
+    <!--    Trang tráng miệng User-->
+    <string name="title_trangmieng">TRÁNG MIỆNG</string>
+
+    <!--    Trang chi tiết User-->
+    <string name="title_chitiet">CHI TIẾT</string>
+    <string name="title_gia">Giá:</string>
+    <string name="title_mota">Mô tả:</string>
+    <string name="title_hinhanh">Một số hình ảnh khác:</string>
+    <string name="title_button">Thêm vào giỏ hàng</string>
+
+<!--    BottomSheetDialog trang chi tiết-->
+    <string name="btn_huybo">Hủy bỏ</string>
+    <string name="btn_themvaogiohang">Thêm vào giỏ hàng</string>
+
     <string name="action_trangChu">Trang chủ</string>
     <string name="action_phanHoi">Phản hồi</string>
     <string name="action_donHang">Đơn hàng</string>
     <string name="action_taiKhoan">Tài khoản</string>
 </resources>
+

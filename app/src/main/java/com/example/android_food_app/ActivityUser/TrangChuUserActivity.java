@@ -1,4 +1,4 @@
-package com.example.android_food_app.Activity;
+package com.example.android_food_app.ActivityUser;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.android_food_app.Adapter.BottomAdapterViewpager2;
+import com.example.android_food_app.AdapterUser.BottomAdapterViewpager2;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

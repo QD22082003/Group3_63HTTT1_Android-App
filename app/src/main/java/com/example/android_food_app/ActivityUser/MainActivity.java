@@ -1,4 +1,4 @@
-package com.example.android_food_app.Activity;
+package com.example.android_food_app.ActivityUser;
 
 import android.os.Bundle;
 

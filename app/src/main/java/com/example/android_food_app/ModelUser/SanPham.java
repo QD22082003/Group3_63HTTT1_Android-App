@@ -1,6 +1,8 @@
-package com.example.android_food_app.Model;
+package com.example.android_food_app.ModelUser;
 
-public class SanPham {
+import java.io.Serializable;
+
+public class SanPham implements Serializable {
     private int imgMonNgonID_Trangchu;
 
     private String phanTram_Trangchu;

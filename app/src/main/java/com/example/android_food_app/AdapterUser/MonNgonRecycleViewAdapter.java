@@ -1,5 +1,7 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterUser;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Activity.TrangMonNgonUserActivity;
-import com.example.android_food_app.Model.SanPham;
+import com.example.android_food_app.ActivityUser.TrangChiTietUserActivity;
+import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
 public class MonNgonRecycleViewAdapter extends RecyclerView.Adapter<MonNgonRecycleViewAdapter.MonNgonViewHolder> {
     private List<SanPham> listmonngon;
+    private Context mContext;
+
+    public MonNgonRecycleViewAdapter(List<SanPham> listmonngon, Context mContext) {
+        this.listmonngon = listmonngon;
+        this.mContext = mContext;
+    }
 
     public void setDataMonngon(List<SanPham> listmonngon) {
         this.listmonngon = listmonngon;
@@ -56,6 +64,16 @@ public class MonNgonRecycleViewAdapter extends RecyclerView.Adapter<MonNgonRecyc
         }
         holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
 
+        //thiết lập click vào item
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, TrangChiTietUserActivity.class);
+                intent.putExtra("monngon", monngon); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                mContext.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -73,7 +91,6 @@ public class MonNgonRecycleViewAdapter extends RecyclerView.Adapter<MonNgonRecyc
         private TextView txt_ten_mon;
         private TextView giaCu;
         private TextView giaMoi;
-
         private View gach;
         public MonNgonViewHolder(@NonNull View itemView) {
 

@@ -1,5 +1,7 @@
-package com.example.android_food_app.Adapter;
+package com.example.android_food_app.AdapterUser;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,19 +9,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Model.SanPham;
+import com.example.android_food_app.ActivityUser.TrangChiTietUserActivity;
+import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
 public class TrangChuRecycleViewAdapter extends RecyclerView.Adapter<TrangChuRecycleViewAdapter.MonngonViewHolder> {
     private List<SanPham> list;
+    private FragmentActivity activity;
+
+
+    public TrangChuRecycleViewAdapter(FragmentActivity activity) {
+        this.activity = activity;
+
+    }
+
+
     public void setDataMonngon(List<SanPham> list) {
         this.list = list;
         notifyDataSetChanged();
     }
+
 
 
     @NonNull
@@ -54,6 +68,14 @@ public class TrangChuRecycleViewAdapter extends RecyclerView.Adapter<TrangChuRec
             holder.gach.setVisibility(View.GONE);
         }
         holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentTrangchu = new Intent(activity, TrangChiTietUserActivity.class);
+                intentTrangchu.putExtra("trangchu_menu", monngon); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                activity.startActivity(intentTrangchu);
+            }
+        });
 
     }
 

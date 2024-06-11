@@ -13,6 +13,21 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityUser.TrangChiTietUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangTrangMiengUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangDoUongUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityUser.TrangMonNgonUserActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".TrangChuUserActivity" -->
+        <!-- android:exported="false" /> -->
+        <activity
+            android:name=".ActivityUser.TrangChuUserActivity"
             android:name=".trangLichSuDonHang_User"
             android:exported="true">
             <intent-filter>
