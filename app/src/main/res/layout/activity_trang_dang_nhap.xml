@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextEmailAddress"
+        android:id="@+id/inputEmail"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -41,7 +41,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/inputPassword"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail"
         app:layout_constraintVertical_bias="0.1"
         />
 
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
         app:layout_constraintVertical_bias="0.1"
         />
 
@@ -88,7 +88,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bạn đã chưa c tài khoản? "
+            android:text="Bạn đã chưa có tài khoản? "
             android:textColor="#FB7A43"
             android:textSize="18sp"
             android:textStyle="italic"
