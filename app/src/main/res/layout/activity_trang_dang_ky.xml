@@ -16,14 +16,14 @@
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/inputEmail"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,11 +37,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.05"
         />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/inputPassword"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -54,9 +54,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail"
         app:layout_constraintVertical_bias="0.1"
         />
+    <EditText
+        android:id="@+id/inputPassword2"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nhập lại mật khẩu"
+        android:inputType="textPassword"
+        android:textStyle="italic|bold"
+        android:textSize="20sp"
+        android:paddingEnd="10dp"
+        android:drawableEnd="@drawable/ic_eye"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
+        app:layout_constraintVertical_bias="0.1"
+        />
+
+
 
     <Button
         android:id="@+id/registerButton"
@@ -69,9 +88,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword2"
         app:layout_constraintVertical_bias="0.1"
-         />
+        />
 
     <LinearLayout
         android:id="@+id/loginRegisterLayout"

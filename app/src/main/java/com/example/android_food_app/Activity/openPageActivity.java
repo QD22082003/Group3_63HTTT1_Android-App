@@ -2,6 +2,7 @@ package com.example.android_food_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +31,14 @@ public class openPageActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         textViewRegister = findViewById(R.id.textViewRegister);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(openPageActivity.this, trangDangNhapActivity.class);
+                startActivity(intent);
+                finish(); // Finish current activity so it's not in the back stack
+            }
+        }, 5000);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
