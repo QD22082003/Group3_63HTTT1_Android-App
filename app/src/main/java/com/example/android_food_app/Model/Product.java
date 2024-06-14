@@ -1,35 +1,42 @@
 package com.example.android_food_app.Model;
 
 public class Product {
-    private int resourceId;
-    private String title, desc;
-    private double priceOld, priceNew;
-    private String sale, popular;
+    private int id;
+    private String name, desc, priceOld, priceNew, sale;
+    private byte[] imgUrl, imgUrlSlide;
+    private Boolean popular;
+    private byte[] imgUrlOther;
+    public Product(){
 
-    public Product(int resourceId, String title, String desc, double priceOld, double priceNew, String sale, String popular) {
-        this.resourceId = resourceId;
-        this.title = title;
+    }
+
+    public Product(int id, String name, String desc, String priceOld, String priceNew, String sale, byte[] imgUrl, byte[] imgUrlSlide, Boolean popular, byte[] imgUrlOther) {
+        this.id = id;
+        this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
         this.priceNew = priceNew;
         this.sale = sale;
+        this.imgUrl = imgUrl;
+        this.imgUrlSlide = imgUrlSlide;
         this.popular = popular;
+        this.imgUrlOther = imgUrlOther;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public int getId() {
+        return id;
     }
 
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDesc() {
@@ -40,19 +47,19 @@ public class Product {
         this.desc = desc;
     }
 
-    public double getPriceOld() {
+    public String getPriceOld() {
         return priceOld;
     }
 
-    public void setPriceOld(double priceOld) {
+    public void setPriceOld(String priceOld) {
         this.priceOld = priceOld;
     }
 
-    public double getPriceNew() {
+    public String getPriceNew() {
         return priceNew;
     }
 
-    public void setPriceNew(double priceNew) {
+    public void setPriceNew(String priceNew) {
         this.priceNew = priceNew;
     }
 
@@ -64,11 +71,35 @@ public class Product {
         this.sale = sale;
     }
 
-    public String getPopular() {
+    public byte[] getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(byte[] imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public byte[] getImgUrlSlide() {
+        return imgUrlSlide;
+    }
+
+    public void setImgUrlSlide(byte[] imgUrlSlide) {
+        this.imgUrlSlide = imgUrlSlide;
+    }
+
+    public Boolean getPopular() {
         return popular;
     }
 
-    public void setPopular(String popular) {
+    public void setPopular(Boolean popular) {
         this.popular = popular;
+    }
+
+    public byte[] getImgUrlOther() {
+        return imgUrlOther;
+    }
+
+    public void setImgUrlOther(byte[] imgUrlOther) {
+        this.imgUrlOther = imgUrlOther;
     }
 }

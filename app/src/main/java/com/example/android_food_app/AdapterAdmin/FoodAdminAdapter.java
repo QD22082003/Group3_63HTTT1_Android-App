@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Model.Product;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 
 import java.text.DecimalFormat;
@@ -21,14 +21,14 @@ import java.util.List;
 public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.FoodViewHolder> {
 
     private Context mContext;
-    private List<Product> mListProduct;
+    private List<Product1> mListProduct1;
 
     public FoodAdminAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<Product> list) {
-        this.mListProduct = list;
+    public void setData(List<Product1> list) {
+        this.mListProduct1 = list;
         notifyDataSetChanged();
     }
 
@@ -41,30 +41,30 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-        Product product = mListProduct.get(position);
-        if (product == null) {
+        Product1 product1 = mListProduct1.get(position);
+        if (product1 == null) {
             return;
         }
 
-        holder.img.setImageResource(product.getResourceId());
-        holder.txt_title.setText(product.getTitle());
+        holder.img.setImageResource(product1.getResourceId());
+        holder.txt_title.setText(product1.getTitle());
 
-        holder.txt_price_old.setText(formatPrice(product.getPriceOld()));
-        holder.txt_price_new.setText(formatPrice(product.getPriceNew()));
+        holder.txt_price_old.setText(formatPrice(product1.getPriceOld()));
+        holder.txt_price_new.setText(formatPrice(product1.getPriceNew()));
 
-        holder.txt_popular.setText(product.getPopular());
-        holder.txt_desc.setText(product.getDesc());
+        holder.txt_popular.setText(product1.getPopular());
+        holder.txt_desc.setText(product1.getDesc());
 
         // Kiểm tra hiển thị phần giảm giá khi có
-        if (product.getSale() != null && !product.getSale().isEmpty()) {
-            holder.txt_sale.setText(product.getSale());
+        if (product1.getSale() != null && !product1.getSale().isEmpty()) {
+            holder.txt_sale.setText(product1.getSale());
             holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
             holder.txt_sale.setVisibility(View.GONE);
         }
 
         // Kiểm tra hiển thị phần giá cũ khi có giảm giá
-        if (product.getPriceOld() > 0) {
+        if (product1.getPriceOld() > 0) {
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
         } else {
@@ -77,8 +77,8 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
     @Override
     public int getItemCount() {
-        if (mListProduct != null) {
-            return mListProduct.size();
+        if (mListProduct1 != null) {
+            return mListProduct1.size();
         }
         return 0;
     }

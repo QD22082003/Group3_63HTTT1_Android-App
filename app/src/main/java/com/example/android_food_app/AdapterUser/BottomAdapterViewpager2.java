@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.GioHangFragment;
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.LienHeFragment;
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.PhanHoiFragment;
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.TaiKhoanFragment;
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.TrangChuFragment;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.CartUserFragment;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.ContactUserFragment;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.FeedbackUserFragment;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.AccountUserFragment;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.HomeUserFragment;
 
 public class BottomAdapterViewpager2 extends FragmentStateAdapter {
     public BottomAdapterViewpager2(@NonNull FragmentActivity fragmentActivity) {
@@ -20,12 +20,12 @@ public class BottomAdapterViewpager2 extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0: return new TrangChuFragment();
-            case 1: return new GioHangFragment();
-            case 2: return new PhanHoiFragment();
-            case 3: return new LienHeFragment();
-            case 4: return new TaiKhoanFragment();
-            default: return new TrangChuFragment();
+            case 0: return new HomeUserFragment();
+            case 1: return new CartUserFragment();
+            case 2: return new FeedbackUserFragment();
+            case 3: return new ContactUserFragment();
+            case 4: return new AccountUserFragment();
+            default: return new HomeUserFragment();
         }
     }
 
