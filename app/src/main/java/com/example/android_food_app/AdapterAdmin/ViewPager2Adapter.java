@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.android_food_app.FragmentAdmin.TrangDonHangFragment;
-import com.example.android_food_app.FragmentAdmin.TrangMonNgonFragment;
+import com.example.android_food_app.FragmentAdmin.TrangChuMonNgonFragment;
 import com.example.android_food_app.FragmentAdmin.TrangPhanHoiFragment;
 import com.example.android_food_app.FragmentAdmin.TrangTaiKhoanFragment;
 
@@ -21,7 +21,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new TrangMonNgonFragment();
+                return new TrangChuMonNgonFragment();
             case 1:
                 return new TrangPhanHoiFragment();
             case 2:
@@ -29,7 +29,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
             case 3:
                 return new TrangTaiKhoanFragment();
             default:
-                return new TrangMonNgonFragment();
+                return new TrangChuMonNgonFragment();
         }
     }
 

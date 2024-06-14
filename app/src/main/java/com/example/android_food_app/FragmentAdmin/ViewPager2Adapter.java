@@ -15,7 +15,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new TrangMonNgonFragment();
+                return new TrangChuMonNgonFragment();
             case 1:
                 return new TrangPhanHoiFragment();
             case 2:
@@ -23,7 +23,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
             case 3:
                 return new TrangTaiKhoanFragment();
             default:
-                return new TrangMonNgonFragment();
+                return new TrangChuMonNgonFragment();
         }
     }
 

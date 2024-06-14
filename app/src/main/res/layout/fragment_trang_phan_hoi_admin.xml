@@ -8,7 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/txtTitleDesc"
+        android:id="@+id/txtTitleFeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
@@ -23,16 +23,16 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <RelativeLayout
-        android:id="@+id/realative_desc"
+        android:id="@+id/realative_feedback"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitleDesc"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleFeedback"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_user_desc"
+            android:id="@+id/rcv_feedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

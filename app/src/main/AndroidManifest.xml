@@ -13,9 +13,27 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
 
+        <!-- Activity Giang start -->
+         <activity
+         android:name=".ActivityAdmin.TrangTrangMiengAdminActivity"
+         android:exported="false" />
+         <activity
+         android:name=".ActivityAdmin.TrangDoUongAdminActivity"
+         android:exported="false" />
+
         <activity
-            android:name=".ActivityAdmin.TrangChuMonNgon_AdminActivity"
-            android:exported="false"/>
+            android:name=".ActivityAdmin.TrangMonNgonAdminActivity"
+            android:exported="false" />
+         <activity
+         android:name=".ActivityAdmin.TrangChuAdminActivity"
+         android:exported="false" />
+        <activity android:name=".ActivityAdmin.TrangThemMonNgonAdminActivity" />
+        <activity android:name=".ActivityAdmin.TrangThemDoUongAdminActivity" />
+        <activity android:name=".ActivityAdmin.TrangThemTrangMiengAdminActivity" />
+        <activity
+            android:name=".ActivityAdmin.TrangDoanhThuAdminActivity"
+            android:exported="false" />
+        <!-- Activity Giang end -->
         <activity
             android:name=".ActivityUser.TrangChiTietUserActivity"
             android:exported="false" />
@@ -30,13 +48,10 @@
             android:exported="false" />
         <activity
             android:name=".ActivityUser.TrangChuUserActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.trangLichSuDonHang_User"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.trangLienHe"
             android:exported="false" />
@@ -51,21 +66,19 @@
             android:exported="false" />
         <activity
             android:name=".Activity.trangDangKy"
-            android:exported="false" >
-        </activity>
-        <activity
-            android:name=".Activity.trangDangNhapActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.trangDangNhapActivity"
+            android:exported="false" /> <!-- RUN -->
+        <activity
             android:name=".Activity.openPageActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>

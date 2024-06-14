@@ -15,14 +15,14 @@ import com.example.android_food_app.FragmentAdmin.ViewPager2Adapter;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class TrangChuMonNgon_AdminActivity extends AppCompatActivity {
+public class TrangChuAdminActivity extends AppCompatActivity {
     private ViewPager2 mViewPager2;
     private BottomNavigationView mbottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_trang_chu_mon_ngon_admin);
+        setContentView(R.layout.activity_trang_chu_admin1);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

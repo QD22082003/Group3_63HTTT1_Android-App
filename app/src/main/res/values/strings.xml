@@ -61,7 +61,7 @@
     <string name="title_hinhanh">Một số hình ảnh khác:</string>
     <string name="title_button">Thêm vào giỏ hàng</string>
 
-<!--    BottomSheetDialog trang chi tiết-->
+    <!--    BottomSheetDialog trang chi tiết-->
     <string name="btn_huybo">Hủy bỏ</string>
     <string name="btn_themvaogiohang">Thêm vào giỏ hàng</string>
 
