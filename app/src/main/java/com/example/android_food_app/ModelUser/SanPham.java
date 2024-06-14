@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class SanPham implements Serializable {
     private int imgMonNgonID_Trangchu;
-
     private String phanTram_Trangchu;
     private String tenMon_Trangchu;
     private String giaCu_Trangchu;

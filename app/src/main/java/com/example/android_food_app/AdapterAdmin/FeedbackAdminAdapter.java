@@ -15,11 +15,11 @@ import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class UserAdapterDescAdmin extends RecyclerView.Adapter<UserAdapterDescAdmin.UserViewHolder> {
+public class FeedbackAdminAdapter extends RecyclerView.Adapter<FeedbackAdminAdapter.UserViewHolder> {
     private Context mContext;
     private List<User> mListUser;
 
-    public UserAdapterDescAdmin(Context mContext) {
+    public FeedbackAdminAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -31,7 +31,7 @@ public class UserAdapterDescAdmin extends RecyclerView.Adapter<UserAdapterDescAd
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_desc_admin, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feedback_admin, parent, false);
         return new UserViewHolder(view);
     }
 

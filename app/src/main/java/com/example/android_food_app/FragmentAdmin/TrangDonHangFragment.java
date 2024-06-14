@@ -6,8 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_food_app.AdapterAdmin.FeedbackAdminAdapter;
+import com.example.android_food_app.AdapterAdmin.OrderAdminAdapter;
+import com.example.android_food_app.Model.Order;
+import com.example.android_food_app.Model.User;
 import com.example.android_food_app.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,13 +24,13 @@ import com.example.android_food_app.R;
  * create an instance of this fragment.
  */
 public class TrangDonHangFragment extends Fragment {
+    private RecyclerView rcv_order;
+    private OrderAdminAdapter mAdapter;
+    private List<Order> mListOrder;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -60,6 +69,20 @@ public class TrangDonHangFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trang_don_hang_admin, container, false);
+//        return inflater.inflate(R.layout.fragment_trang_don_hang_admin, container, false);
+        View view = inflater.inflate(R.layout.fragment_trang_don_hang_admin, container, false);
+        rcv_order = view.findViewById(R.id.rcv_order);
+        mAdapter = new OrderAdminAdapter(getContext());
+        rcv_order.setAdapter(mAdapter);
+        rcv_order.setLayoutManager(new LinearLayoutManager(getContext()));
+        initData();
+        mAdapter.setData(mListOrder);
+        return view;
+    }
+
+    private void initData() {
+        mListOrder = new ArrayList<>();
+        mListOrder.add(new Order("1", "gianghoang150503@gmail.com", "User 1", "123456789", "SN 31, ngách 788/26, Thanh Liệt, Thanh Trì, Hà Nội", "Hamburger Bò - SL 01 Salad trộn cá ngừ - SL 02", "09-05-2024, 10:11AM", 195000, "Đã thanh toán"));
+        mListOrder.add(new Order("2", "user2@example.com", "User 2", "987654321", "456 Đường DEF", "Menu 2", "2024-06-14", 250000, "Chưa thanh toán"));
     }
 }

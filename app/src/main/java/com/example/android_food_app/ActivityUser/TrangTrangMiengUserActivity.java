@@ -23,7 +23,6 @@ public class TrangTrangMiengUserActivity extends AppCompatActivity {
     private RecyclerView rcv_trangmieng;
     private TrangMiengRecycleViewAdapter adapter;
     private ImageView img_back;
-
     private  List<SanPham> list = new ArrayList<>();
 
     @Override
