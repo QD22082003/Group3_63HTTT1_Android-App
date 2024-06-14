@@ -1,6 +1,5 @@
 package com.example.android_food_app.FragmentAdmin;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,21 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.example.android_food_app.ActivityAdmin.TrangDoUongAdminActivity;
-import com.example.android_food_app.ActivityAdmin.TrangDoanhThuAdminActivity;
-import com.example.android_food_app.ActivityAdmin.TrangMonNgonAdminActivity;
-import com.example.android_food_app.ActivityAdmin.TrangTrangMiengAdminActivity;
 import com.example.android_food_app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TrangChuFragment#newInstance} factory method to
+ * Use the {@link TrangMonNgonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrangChuFragment extends Fragment {
+public class TrangMonNgonFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,7 +26,7 @@ public class TrangChuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TrangChuFragment() {
+    public TrangMonNgonFragment() {
         // Required empty public constructor
     }
 
@@ -46,8 +39,8 @@ public class TrangChuFragment extends Fragment {
      * @return A new instance of fragment TrangMonNgonFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrangChuFragment newInstance(String param1, String param2) {
-        TrangChuFragment fragment = new TrangChuFragment();
+    public static TrangMonNgonFragment newInstance(String param1, String param2) {
+        TrangMonNgonFragment fragment = new TrangMonNgonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,35 +60,7 @@ public class TrangChuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_trang_chu_admin, container, false);
-        View view = inflater.inflate(R.layout.fragment_trang_chu_admin, container, false);
-        Button btnMonNgon = view.findViewById(R.id.btnMonNgon);
-        Button btnDoUong = view.findViewById(R.id.btnDoUong);
-        Button btnTrangMieng = view.findViewById(R.id.btnTrangMieng);
-        btnMonNgon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TrangMonNgonAdminActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnDoUong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TrangDoUongAdminActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnTrangMieng.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TrangTrangMiengAdminActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_trang_chu_admin, container, false);
     }
 }

@@ -12,7 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.android_food_app.ActivityAdmin.TrangChuAdminActivity;
 import com.example.android_food_app.R;
 
 public class trangDangKy extends AppCompatActivity {
@@ -33,7 +32,7 @@ public class trangDangKy extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =  new Intent(trangDangKy.this, TrangChuAdminActivity.class);
+                Intent intent =  new Intent(trangDangKy.this, trangChuAdmin.class);
                 startActivity(intent);
             }
         });
