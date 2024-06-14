@@ -12,10 +12,10 @@ import com.example.android_food_app.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TrangMonNgonFragment#newInstance} factory method to
+ * Use the {@link TrangChuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrangMonNgonFragment extends Fragment {
+public class TrangChuFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class TrangMonNgonFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TrangMonNgonFragment() {
+    public TrangChuFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class TrangMonNgonFragment extends Fragment {
      * @return A new instance of fragment TrangMonNgonFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrangMonNgonFragment newInstance(String param1, String param2) {
-        TrangMonNgonFragment fragment = new TrangMonNgonFragment();
+    public static TrangChuFragment newInstance(String param1, String param2) {
+        TrangChuFragment fragment = new TrangChuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
