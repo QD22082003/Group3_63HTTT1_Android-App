@@ -5,6 +5,7 @@ public class Order {
     private double total;
     private String pay;
 
+    // Constructo cho Đơn Hàng (Order)
     public Order(String id, String email, String name, String phone, String address, String menu, String date, double total, String pay) {
         this.id = id;
         this.email = email;
@@ -17,6 +18,7 @@ public class Order {
         this.pay = pay;
     }
 
+    // Constructo cho Doanh thu (Revenue)
     public Order(String id, String date, double total) {
         this.id = id;
         this.date = date;

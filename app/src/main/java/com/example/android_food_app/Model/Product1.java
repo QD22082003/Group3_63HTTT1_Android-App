@@ -2,18 +2,25 @@ package com.example.android_food_app.Model;
 
 public class Product1 {
     private int resourceId;
-    private String title, desc;
-    private double priceOld, priceNew;
+    private String name, desc;
+    private String priceOld, priceNew;
     private String sale, popular;
 
-    public Product1(int resourceId, String title, String desc, double priceOld, double priceNew, String sale, String popular) {
+    public Product1(int resourceId, String name, String desc, String priceOld, String priceNew, String sale, String popular) {
         this.resourceId = resourceId;
-        this.title = title;
+        this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
         this.priceNew = priceNew;
         this.sale = sale;
         this.popular = popular;
+    }
+
+    public Product1(int resourceId, String name, String priceOld, String priceNew) {
+        this.resourceId = resourceId;
+        this.name = name;
+        this.priceOld = priceOld;
+        this.priceNew = priceNew;
     }
 
     public int getResourceId() {
@@ -24,12 +31,12 @@ public class Product1 {
         this.resourceId = resourceId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDesc() {
@@ -40,19 +47,19 @@ public class Product1 {
         this.desc = desc;
     }
 
-    public double getPriceOld() {
+    public String getPriceOld() {
         return priceOld;
     }
 
-    public void setPriceOld(double priceOld) {
+    public void setPriceOld(String priceOld) {
         this.priceOld = priceOld;
     }
 
-    public double getPriceNew() {
+    public String getPriceNew() {
         return priceNew;
     }
 
-    public void setPriceNew(double priceNew) {
+    public void setPriceNew(String priceNew) {
         this.priceNew = priceNew;
     }
 

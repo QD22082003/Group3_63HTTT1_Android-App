@@ -47,10 +47,10 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
         }
 
         holder.img.setImageResource(product1.getResourceId());
-        holder.txt_title.setText(product1.getTitle());
+        holder.txt_name.setText(product1.getName());
 
-        holder.txt_price_old.setText(formatPrice(product1.getPriceOld()));
-        holder.txt_price_new.setText(formatPrice(product1.getPriceNew()));
+        holder.txt_price_old.setText(product1.getPriceOld());
+        holder.txt_price_new.setText(product1.getPriceNew());
 
         holder.txt_popular.setText(product1.getPopular());
         holder.txt_desc.setText(product1.getDesc());
@@ -64,13 +64,12 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
         }
 
         // Kiểm tra hiển thị phần giá cũ khi có giảm giá
-        if (product1.getPriceOld() > 0) {
+        if (product1.getPriceOld() != null && !product1.getPriceOld().isEmpty() && !product1.getPriceOld().equals("0")) {
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
         } else {
             holder.txt_price_old.setVisibility(View.GONE);
             holder.line.setVisibility(View.GONE);
-            holder.txt_title_price_old.setVisibility(View.GONE);
         }
 
     }
@@ -85,9 +84,9 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         private ImageView img;
-        private TextView txt_title, txt_price_old, txt_price_new, txt_popular, txt_desc;
+        private TextView txt_name, txt_price_old, txt_price_new, txt_popular, txt_desc;
 
-        private TextView txt_sale, txt_title_price_old, txt_title_price_new, txt_title_popular;
+        private TextView txt_sale;
         private View line;
         private ImageView img_edit, img_trash;
 
@@ -95,7 +94,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             super(itemView);
 
             img = itemView.findViewById(R.id.img);
-            txt_title = itemView.findViewById(R.id.txt_title);
+            txt_name = itemView.findViewById(R.id.txt_name);
             txt_price_old = itemView.findViewById(R.id.txt_price_old);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);
             txt_popular = itemView.findViewById(R.id.txt_popular);
@@ -103,24 +102,10 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
 
             txt_sale = itemView.findViewById(R.id.txt_sale);
-            txt_title_price_old = itemView.findViewById(R.id.txt_title_price_old);
-            txt_title_price_new = itemView.findViewById(R.id.txt_title_price_new);
-            txt_title_popular = itemView.findViewById(R.id.txt_title_popular);
             line = itemView.findViewById(R.id.line);
             img_edit = itemView.findViewById(R.id.img_edit);
             img_trash = itemView.findViewById(R.id.img_trash);
         }
-    }
-
-    // Thêm phương thức định dạng giá
-    private String formatPrice(double price) {
-        if (price == 0) {
-            return "0";
-        }
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setGroupingSeparator(' '); // Sử dụng khoảng trắng làm dấu phân cách nhóm số
-        DecimalFormat decimalFormat = new DecimalFormat("#,###", symbols);
-        return decimalFormat.format(price);
     }
 
 }
