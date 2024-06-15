@@ -15,13 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 
 import com.example.android_food_app.ActivityAdmin.HomeAdminActivity;
 import com.example.android_food_app.ActivityUser.HomeUserActivity;
@@ -40,14 +38,17 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
     EditText inputEmail, inputPassword;
     Button loginButton;
-    TextView textViewRegister;
+    TextView textViewRegister, textForgotPassword;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
+        // Thiết lập EdgeToEdge nếu cần thiết (loại bỏ nếu không sử dụng)
+        // EdgeToEdge.enable(this);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -56,15 +57,17 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         textViewRegister = findViewById(R.id.textViewRegister);
+        textForgotPassword = findViewById(R.id.textForgotPassword);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
+
         // Bắt sự kiện khi người dùng nhấn vào biểu tượng mắt
         inputPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (inputPassword.getRight() - inputPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (inputPassword.getRight() - inputPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // Xử lý khi nhấn vào biểu tượng mắt
                         if (inputPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
                             // Hiển thị mật khẩu
@@ -79,11 +82,22 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang kiểm tra...");
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickDangNhap();
+            }
+        });
+
+        textForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -111,13 +125,13 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
                             dbRef.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    progressDialog.dismiss();
                                     if (snapshot.exists()) {
                                         Long role = snapshot.child("role").getValue(Long.class);
                                         if (role != null && role == 0) { // role == 0 là admin
@@ -139,8 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

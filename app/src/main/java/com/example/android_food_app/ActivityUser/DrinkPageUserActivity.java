@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.DrinkUserAdapter;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
@@ -24,7 +25,7 @@ public class DrinkPageUserActivity extends AppCompatActivity {
     private RecyclerView rcv_douong;
     private DrinkUserAdapter adapter;
     private ImageView img_back;
-    private List<SanPham> list;
+    private List<Product1> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class DrinkPageUserActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         rcv_douong.setLayoutManager(gridLayoutManager);
 
-        adapter.setDataDoUong(getListDoUong());
+        adapter.setDataDrink(getListDrink());
         rcv_douong.setAdapter(adapter);
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -55,21 +56,9 @@ public class DrinkPageUserActivity extends AppCompatActivity {
         });
     }
 
-    private List<SanPham> getListDoUong() {
-        List<SanPham> list = new ArrayList<>();
-        list.add(new SanPham(R.drawable.nuocchanh, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocduahau, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocchanh, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocduahau, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocchanh, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.logocategory_douong, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocduahau, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.logocategory_douong, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocduahau, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.logocategory_douong, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.nuocduahau, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.logocategory_douong, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-
+    private List<Product1> getListDrink() {
+        List<Product1> list = new ArrayList<>();
+        list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
         return list;
     }
 }

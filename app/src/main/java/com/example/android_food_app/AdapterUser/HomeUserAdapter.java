@@ -12,13 +12,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.ActivityUser.DetailPageUserActivity;
+import com.example.android_food_app.Model.Product;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class HomeUserAdapter extends RecyclerView.Adapter<HomeUserAdapter.MonngonViewHolder> {
-    private List<SanPham> list;
+public class HomeUserAdapter extends RecyclerView.Adapter<HomeUserAdapter.ProductViewHolder> {
+    private List<Product1> list;
     private FragmentActivity activity;
 
 
@@ -28,7 +30,7 @@ public class HomeUserAdapter extends RecyclerView.Adapter<HomeUserAdapter.Monngo
     }
 
 
-    public void setDataMonngon(List<SanPham> list) {
+    public void setDataProduct(List<Product1> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -37,41 +39,41 @@ public class HomeUserAdapter extends RecyclerView.Adapter<HomeUserAdapter.Monngo
 
     @NonNull
     @Override
-    public MonngonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_user, parent,false);
-        return new MonngonViewHolder(view);
+        return new ProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonngonViewHolder holder, int position) {
-        SanPham monngon = list.get(position);
-        if(monngon == null) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        Product1 product = list.get(position);
+        if(product == null) {
             return;
         }
-        holder.imgMonNgon.setImageResource(monngon.getImgMonNgonID_Trangchu());
+        holder.img_food.setImageResource(product.getResourceId());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (monngon.getPhanTram_Trangchu() != null && !monngon.getPhanTram_Trangchu().isEmpty()) {
-            holder.phanTram.setText(monngon.getPhanTram_Trangchu());
-            holder.phanTram.setVisibility(View.VISIBLE);
+        if (product.getSale() != null && !product.getSale().isEmpty()) {
+            holder.txt_sale.setText(product.getSale());
+            holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
-            holder.phanTram.setVisibility(View.GONE);
+            holder.txt_sale.setVisibility(View.GONE);
         }
-        holder.txt_ten_mon.setText(monngon.getTenMon_Trangchu());
+        holder.txt_name.setText(product.getName());
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (monngon.getGiaCu_Trangchu() != null && !monngon.getGiaCu_Trangchu().isEmpty()) {
-            holder.giaCu.setText(monngon.getGiaCu_Trangchu());
-            holder.giaCu.setVisibility(View.VISIBLE);
-            holder.gach.setVisibility(View.VISIBLE);
+        if (product.getPriceOld() != null && !product.getPriceOld().isEmpty()) {
+            holder.txt_price_old.setText(product.getPriceOld());
+            holder.txt_price_old.setVisibility(View.VISIBLE);
+            holder.txt_price_old.setVisibility(View.VISIBLE);
         } else {
-            holder.giaCu.setVisibility(View.GONE);
-            holder.gach.setVisibility(View.GONE);
+            holder.txt_price_old.setVisibility(View.GONE);
+            holder.line.setVisibility(View.GONE);
         }
-        holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
+        holder.txt_price_new.setText(product.getPriceNew());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentTrangchu = new Intent(activity, DetailPageUserActivity.class);
-                intentTrangchu.putExtra("trangchu_menu", monngon); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                intentTrangchu.putExtra("home_recycleview_product", product); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
                 activity.startActivity(intentTrangchu);
             }
         });
@@ -86,23 +88,23 @@ public class HomeUserAdapter extends RecyclerView.Adapter<HomeUserAdapter.Monngo
         return 0;
     }
 
-    public class MonngonViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgMonNgon;
-        private TextView phanTram;
-        private TextView txt_ten_mon;
-        private TextView giaCu;
-        private TextView giaMoi;
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img_food;
+        private TextView txt_sale;
+        private TextView txt_name;
+        private TextView txt_price_old;
+        private TextView txt_price_new;
 
-        private View gach;
+        private View line;
 
-        public MonngonViewHolder(@NonNull View itemView) {
+        public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgMonNgon = itemView.findViewById(R.id.img_monngon);
-            phanTram = itemView.findViewById(R.id.txt_phan_tram);
-            txt_ten_mon = itemView.findViewById(R.id.txt_ten_mon);
-            giaCu = itemView.findViewById(R.id.txt_gia_cu);
-            giaMoi = itemView.findViewById(R.id.txt_gia_moi);
-            gach = itemView.findViewById(R.id.gach);
+            img_food = itemView.findViewById(R.id.img_food);
+            txt_sale = itemView.findViewById(R.id.txt_sale);
+            txt_name = itemView.findViewById(R.id.txt_name);
+            txt_price_old = itemView.findViewById(R.id.txt_price_old);
+            txt_price_new = itemView.findViewById(R.id.txt_price_new);
+            line = itemView.findViewById(R.id.line);
 
         }
     }

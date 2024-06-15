@@ -12,64 +12,65 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.ActivityUser.DetailPageUserActivity;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.MonNgonViewHolder> {
-    private List<SanPham> listmonngon;
+public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.FoodViewHolder> {
+    private List<Product1> list_food;
     private Context mContext;
 
-    public FoodUserAdapter(List<SanPham> listmonngon, Context mContext) {
-        this.listmonngon = listmonngon;
+    public FoodUserAdapter(List<Product1> list_food, Context mContext) {
+        this.list_food = list_food;
         this.mContext = mContext;
     }
 
-    public void setDataMonngon(List<SanPham> listmonngon) {
-        this.listmonngon = listmonngon;
+    public void setDataFood(List<Product1> list_food) {
+        this.list_food = list_food;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public MonNgonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_user, parent,false);
-        return new FoodUserAdapter.MonNgonViewHolder(view);
+        return new FoodUserAdapter.FoodViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonNgonViewHolder holder, int position) {
-        SanPham monngon = listmonngon.get(position);
-        if(monngon == null) {
+    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
+        Product1 food = list_food.get(position);
+        if(food == null) {
             return;
         }
-        holder.imgMonNgon.setImageResource(monngon.getImgMonNgonID_Trangchu());
+        holder.img_food.setImageResource(food.getResourceId());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (monngon.getPhanTram_Trangchu() != null && !monngon.getPhanTram_Trangchu().isEmpty()) {
-            holder.phanTram.setText(monngon.getPhanTram_Trangchu());
-            holder.phanTram.setVisibility(View.VISIBLE);
+        if (food.getSale() != null && !food.getSale().isEmpty()) {
+            holder.txt_sale.setText(food.getSale());
+            holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
-            holder.phanTram.setVisibility(View.GONE);
+            holder.txt_sale.setVisibility(View.GONE);
         }
-        holder.txt_ten_mon.setText(monngon.getTenMon_Trangchu());
+        holder.txt_name.setText(food.getName());
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (monngon.getGiaCu_Trangchu() != null && !monngon.getGiaCu_Trangchu().isEmpty()) {
-            holder.giaCu.setText(monngon.getGiaCu_Trangchu());
-            holder.giaCu.setVisibility(View.VISIBLE);
-            holder.gach.setVisibility(View.VISIBLE);
+        if (food.getPriceOld() != null && !food.getPriceOld().isEmpty()) {
+            holder.txt_price_old.setText(food.getPriceOld());
+            holder.txt_price_old.setVisibility(View.VISIBLE);
+            holder.line.setVisibility(View.VISIBLE);
         } else {
-            holder.giaCu.setVisibility(View.GONE);
-            holder.gach.setVisibility(View.GONE);
+            holder.txt_price_old.setVisibility(View.GONE);
+            holder.line.setVisibility(View.GONE);
         }
-        holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
+        holder.txt_price_new.setText(food.getPriceNew());
 
         //thiết lập click vào item
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DetailPageUserActivity.class);
-                intent.putExtra("monngon", monngon); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                intent.putExtra("food_recycleview", food); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
                 mContext.startActivity(intent);
             }
         });
@@ -79,28 +80,29 @@ public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.MonNgo
 
     @Override
     public int getItemCount() {
-        if(listmonngon != null) {
-            return listmonngon.size();
+        if(list_food != null) {
+            return list_food.size();
         }
         return 0;
     }
 
-    public  class MonNgonViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgMonNgon;
-        private TextView phanTram;
-        private TextView txt_ten_mon;
-        private TextView giaCu;
-        private TextView giaMoi;
-        private View gach;
-        public MonNgonViewHolder(@NonNull View itemView) {
+    public  class FoodViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img_food;
+        private TextView txt_sale;
+        private TextView txt_name;
+        private TextView txt_price_old;
+        private TextView txt_price_new;
+
+        private View line;
+        public FoodViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            imgMonNgon = itemView.findViewById(R.id.img_monngon);
-            phanTram = itemView.findViewById(R.id.txt_phan_tram);
-            txt_ten_mon = itemView.findViewById(R.id.txt_ten_mon);
-            giaCu = itemView.findViewById(R.id.txt_gia_cu);
-            giaMoi = itemView.findViewById(R.id.txt_gia_moi);
-            gach = itemView.findViewById(R.id.gach);
+            img_food = itemView.findViewById(R.id.img_food);
+            txt_sale = itemView.findViewById(R.id.txt_sale);
+            txt_name = itemView.findViewById(R.id.txt_name);
+            txt_price_old = itemView.findViewById(R.id.txt_price_old);
+            txt_price_new = itemView.findViewById(R.id.txt_price_new);
+            line = itemView.findViewById(R.id.line);
 
         }
     }

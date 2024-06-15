@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.DessertUserAdapter;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DessertPageUserActivity extends AppCompatActivity {
-    private RecyclerView rcv_trangmieng;
+    private RecyclerView rcv_dessert;
     private DessertUserAdapter adapter;
     private ImageView img_back;
-    private  List<SanPham> list = new ArrayList<>();
+    private  List<Product1> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +36,16 @@ public class DessertPageUserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        rcv_trangmieng = findViewById(R.id.rcv_trangmieng);
+        rcv_dessert = findViewById(R.id.rcv_dessert);
         img_back = findViewById(R.id.img_back);
 
         //khởi tạo adapter
         adapter = new DessertUserAdapter(list, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-        rcv_trangmieng.setLayoutManager(gridLayoutManager);
+        rcv_dessert.setLayoutManager(gridLayoutManager);
 
-        adapter.setDataTrangMieng(getListTrangMieng());
-        rcv_trangmieng.setAdapter(adapter);
+        adapter.setDataDessert(getListDessert());
+        rcv_dessert.setAdapter(adapter);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,21 +53,9 @@ public class DessertPageUserActivity extends AppCompatActivity {
             }
         });
     }
-    private List<SanPham> getListTrangMieng() {
-        List<SanPham> list = new ArrayList<>();
-        list.add(new SanPham(R.drawable.banhtiramisu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.kembat, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.dudu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.banhtiramisu, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.kembat, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.dudu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.banhtiramisu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.dudu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.banhtiramisu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.dudu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.banhtiramisu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.dudu, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-
+    private List<Product1> getListDessert() {
+        List<Product1> list = new ArrayList<>();
+        list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
         return list;
     }
 

@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.android_food_app.Activity.LoginActivity;
 import com.example.android_food_app.ActivityAdmin.RevenuePageAdminActivity;
 import com.example.android_food_app.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,12 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class AccountAdminFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -35,15 +34,6 @@ public class AccountAdminFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrangChuFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AccountAdminFragment newInstance(String param1, String param2) {
         AccountAdminFragment fragment = new AccountAdminFragment();
         Bundle args = new Bundle();
@@ -65,11 +55,18 @@ public class AccountAdminFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_trang_tai_khoan_admin, container, false);
-
         View view = inflater.inflate(R.layout.fragment_account_admin, container, false);
         LinearLayout revenueLayout = view.findViewById(R.id.revenue_layout);
         LinearLayout logoutLayout = view.findViewById(R.id.logout);
+        TextView email = view.findViewById(R.id.txt_email);
+
+        // Lấy thông tin người dùng hiện tại
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userEmail = currentUser.getEmail();
+            email.setText(userEmail);
+        }
+
         revenueLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,12 +74,15 @@ public class AccountAdminFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+                // Optional: Kết thúc hoạt động hiện tại để ngăn người dùng quay lại bằng nút back
+                getActivity().finish();
             }
         });
         return view;

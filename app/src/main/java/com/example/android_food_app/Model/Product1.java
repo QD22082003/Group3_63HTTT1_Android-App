@@ -1,6 +1,8 @@
 package com.example.android_food_app.Model;
 
-public class Product1 {
+import java.io.Serializable;
+
+public class Product1 implements Serializable {
     private int resourceId;
     private String name, desc;
     private String priceOld, priceNew;
@@ -14,6 +16,12 @@ public class Product1 {
         this.priceNew = priceNew;
         this.sale = sale;
         this.popular = popular;
+    }
+    public Product1(int resourceId, String name, String priceOld, String priceNew) {
+        this.resourceId = resourceId;
+        this.name = name;
+        this.priceOld = priceOld;
+        this.priceNew = priceNew;
     }
 
     public Product1(int resourceId, String name, String priceOld, String priceNew) {
@@ -78,4 +86,5 @@ public class Product1 {
     public void setPopular(String popular) {
         this.popular = popular;
     }
+
 }
