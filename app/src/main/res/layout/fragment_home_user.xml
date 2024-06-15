@@ -89,14 +89,14 @@
                    android:layout_weight="1">
                    <de.hdodenhof.circleimageview.CircleImageView
                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                       android:id="@+id/category_image_monngon"
+                       android:id="@+id/category_image_food"
                        android:layout_width="40dp"
                        android:layout_height="40dp"
                        android:src="@drawable/logocategory_monngon" />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="@string/txt_category_monngon"
+                       android:text="@string/txt_category_food"
                        android:fontFamily="@font/inter_regular"
                        android:textColor="@color/grey"/>
 
@@ -109,14 +109,14 @@
                    android:layout_weight="1">
                    <de.hdodenhof.circleimageview.CircleImageView
                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                       android:id="@+id/category_image_douong"
+                       android:id="@+id/category_image_drink"
                        android:layout_width="40dp"
                        android:layout_height="40dp"
                        android:src="@drawable/logocategory_douong" />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="@string/txt_category_douong"
+                       android:text="@string/txt_category_drink"
                        android:fontFamily="@font/inter_regular"
                        android:textColor="@color/grey"/>
 
@@ -129,14 +129,14 @@
                    android:layout_weight="1">
                    <de.hdodenhof.circleimageview.CircleImageView
                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                       android:id="@+id/category_image_trangmieng"
+                       android:id="@+id/category_image_dessert"
                        android:layout_width="40dp"
                        android:layout_height="40dp"
                        android:src="@drawable/logocategory_trangmieng" />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="@string/txt_category_trangmieng"
+                       android:text="@string/txt_category_dessert"
                        android:fontFamily="@font/inter_regular"
                        android:textColor="@color/grey"/>
 

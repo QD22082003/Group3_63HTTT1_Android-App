@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -25,15 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailPageUserActivity extends AppCompatActivity {
-    private RecyclerView rcv_chitiet;
+    private RecyclerView rcv_detail;
     private DetailUserAdadpter adapter;
     private ImageView img_back;
-    private ImageView img_chi_tiet;
-    private TextView txt_tenmon_chitiet;
-    private TextView txt_gia_chitiet;
-    private TextView txt_gia_cu_chitiet;
-    private TextView txt_mota_chitiet;
-    private View gach;
+    private ImageView img_detail;
+    private TextView txt_name_detail;
+    private TextView txt_price_new_detail;
+    private TextView txt_price_old_chitiet;
+    private TextView txt_desc_detail;
+    private View line;
     private Button btn_them;
     private Button btn_huybo;
     private Button btn_themvaogiohang;
@@ -53,15 +54,15 @@ public class DetailPageUserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        rcv_chitiet = findViewById(R.id.rcv_chitiet);
+        rcv_detail = findViewById(R.id.rcv_detail);
         img_back = findViewById(R.id.img_back);
-        img_chi_tiet = findViewById(R.id.img_chi_tiet);
-        txt_tenmon_chitiet = findViewById(R.id.txt_tenmon_chitiet);
-        txt_gia_chitiet = findViewById(R.id.txt_gia_chitiet);
-        txt_gia_cu_chitiet = findViewById(R.id.txt_gia_cu_chitiet);
-        txt_mota_chitiet = findViewById(R.id.txt_mota_chitiet);
+        img_detail = findViewById(R.id.img_detail);
+        txt_name_detail = findViewById(R.id.txt_name_detail);
+        txt_price_new_detail = findViewById(R.id.txt_price_new_detail);
+        txt_price_old_chitiet = findViewById(R.id.txt_price_old_chitiet);
+        txt_desc_detail = findViewById(R.id.txt_desc_detail);
         img_back = findViewById(R.id.img_back);
-        gach = findViewById(R.id.gach);
+        line = findViewById(R.id.line);
         btn_them = findViewById(R.id.btn_them);
 
 
@@ -69,47 +70,47 @@ public class DetailPageUserActivity extends AppCompatActivity {
         //khởi tạo adapter
         adapter = new DetailUserAdadpter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-        rcv_chitiet.setLayoutManager(gridLayoutManager);
+        rcv_detail.setLayoutManager(gridLayoutManager);
 
-        adapter.setDataHinhAnh(getListHinhAnh());
-        rcv_chitiet.setAdapter(adapter);
-        rcv_chitiet.setNestedScrollingEnabled(false);
-        rcv_chitiet.setFocusable(false);
+        adapter.setDataImgOther(getListImgOther());
+        rcv_detail.setAdapter(adapter);
+        rcv_detail.setNestedScrollingEnabled(false);
+        rcv_detail.setFocusable(false);
 
         // Nhận Intent
         Intent intent = getIntent();
-        SanPham sanPham = null;
+        Product1 product = null;
 
-        if (intent.hasExtra("douong")) {
-            sanPham = (SanPham) intent.getSerializableExtra("douong");
-        } else if (intent.hasExtra("monngon")) {
-            sanPham = (SanPham) intent.getSerializableExtra("monngon");
-        } else if (intent.hasExtra("trangmieng")) {
-            sanPham = (SanPham) intent.getSerializableExtra("trangmieng");
-        } else if (intent.hasExtra("trangchu_menu")) {
-            sanPham = (SanPham) intent.getSerializableExtra("trangchu_menu");
+        if (intent.hasExtra("drink_recycleview")) {
+            product = (Product1) intent.getSerializableExtra("drink_recycleview");
+        } else if (intent.hasExtra("food_recycleview")) {
+            product = (Product1) intent.getSerializableExtra("food_recycleview");
+        } else if (intent.hasExtra("dessert_recycleview")) {
+            product = (Product1) intent.getSerializableExtra("dessert_recycleview");
+        } else if (intent.hasExtra("home_recycleview_product")) {
+            product = (Product1) intent.getSerializableExtra("home_recycleview_product");
         }
 
-        if (sanPham != null) {
-            img_chi_tiet.setImageResource(sanPham.getImgMonNgonID_Trangchu());
-            txt_tenmon_chitiet.setText(sanPham.getTenMon_Trangchu());
-            txt_gia_chitiet.setText(sanPham.getGiaMoi_Trangchu());
-            if (sanPham.getGiaCu_Trangchu() != null && !sanPham.getGiaCu_Trangchu().isEmpty()) {
-                txt_gia_cu_chitiet.setText(sanPham.getGiaCu_Trangchu());
-                txt_gia_cu_chitiet.setVisibility(View.VISIBLE);
+        if (product != null) {
+            img_detail.setImageResource(product.getResourceId());
+            txt_name_detail.setText(product.getName());
+            txt_price_new_detail.setText(product.getPriceNew());
+            if (product.getPriceOld() != null && !product.getPriceOld().isEmpty()) {
+                txt_price_old_chitiet.setText(product.getPriceOld());
+                txt_price_old_chitiet.setVisibility(View.VISIBLE);
             } else {
-                txt_gia_cu_chitiet.setVisibility(View.GONE);
-                gach.setVisibility(View.GONE);
+                txt_price_old_chitiet.setVisibility(View.GONE);
+                line.setVisibility(View.GONE);
             }
         }
 
         //lắng nghe khi click vào button thêm vào giỏ hàng
-        SanPham finalSanPham = sanPham;
+        Product1 finalProduct = product;
         btn_them.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                clickOpenBottomSheetDialog(finalSanPham);
+                clickOpenBottomSheetDialog(finalProduct);
             }
         });
 
@@ -123,16 +124,12 @@ public class DetailPageUserActivity extends AppCompatActivity {
 
 
     }
-    private List<SanPham> getListHinhAnh() {
-        List<SanPham> list = new ArrayList<>();
-        list.add(new SanPham(R.drawable.saladcahoi, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.saladcahoi, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.saladcahoi, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.saladcahoi, "", "Salad cá hồi", "", "59 000 VNĐ"));
-
+    private List<Product1> getListImgOther() {
+        List<Product1> list = new ArrayList<>();
+        list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
         return list;
     }
-    private void clickOpenBottomSheetDialog(SanPham sanPham) {
+    private void clickOpenBottomSheetDialog(Product1 product) {
         View viewBottomDialog = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_chitiet, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailPageUserActivity.this);
         bottomSheetDialog.setContentView(viewBottomDialog);
@@ -144,11 +141,11 @@ public class DetailPageUserActivity extends AppCompatActivity {
         txt_gia_chitiet_bottomsheet = viewBottomDialog.findViewById(R.id.txt_gia_chitiet_bottomsheet);
         txt_ten_chitiet_bottomsheet = viewBottomDialog.findViewById(R.id.txt_ten_chitiet_bottomsheet);
 
-        img_chitiet_bottomsheet.setImageResource(sanPham.getImgMonNgonID_Trangchu());
+        img_chitiet_bottomsheet.setImageResource(product.getResourceId());
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
-        txt_gia_chitiet_bottomsheet.setText(sanPham.getTenMon_Trangchu());
+        txt_gia_chitiet_bottomsheet.setText(product.getName());
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
-        txt_ten_chitiet_bottomsheet.setText(sanPham.getGiaMoi_Trangchu());
+        txt_ten_chitiet_bottomsheet.setText(product.getPriceNew());
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
 
         btn_huybo.setOnClickListener(new View.OnClickListener() {

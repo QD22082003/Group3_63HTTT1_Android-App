@@ -67,14 +67,13 @@ public class FoodPageAdminActivity extends AppCompatActivity {
 
     }
 
+    // Phương thức để lấy danh sách sản phẩm
     private List<Product1> getListFood() {
         List<Product1> list = new ArrayList<>();
-        list.add(new Product1(R.drawable.monngon1admin, "Product 1", "Description 1 test hello good morning bye", 100000, 50000, "Giảm 10%", "Có"));
-        list.add(new Product1(R.drawable.monngon2admin, "Product 2", "Description 2 test hello good morning bye", 0, 400000, "", "Không"));
-        list.add(new Product1(R.drawable.monngon1admin, "Product 3", "Description 3 test hello good morning bye", 0, 30000, "", "Không"));
-        list.add(new Product1(R.drawable.monngon2admin, "Product 4", "Description 4 test hello good morning bye Description 4 test hello good morning bye Description 4 test hello good morning bye", 240000, 200000, "Giảm 20%", "Có"));
-        list.add(new Product1(R.drawable.monngon2admin, "Product 5", "Description 5 test hello good morning bye", 30000, 20000, "Giảm 30%", "Có"));
-        list.add(new Product1(R.drawable.monngon2admin, "Product 6", "Description 6 test hello good morning bye", 140000, 20000, "Giảm 10%", "Có"));
+        list.add(new Product1(R.drawable.monngon1admin, "Product 1", "Description 1 test hello good morning bye", "100000 VNĐ", "50000 VNĐ", "Giảm 10%", "Có"));
+        list.add(new Product1(R.drawable.monngon2admin, "Product 2", "Description 2 test hello good morning bye", "0", "400000 VNĐ", "", "Không"));
+        list.add(new Product1(R.drawable.monngon1admin, "Product 3", "Description 3 test hello good morning bye", "", "30000 VNĐ", "", "Không"));
+        list.add(new Product1(R.drawable.monngon2admin, "Product 4", "Description 4 test hello good morning bye Description 4 test hello good morning bye Description 4 test hello good morning bye", "240000 VNĐ", "200000 VNĐ", "Giảm 20%", "Có"));
         return list;
     }
 }

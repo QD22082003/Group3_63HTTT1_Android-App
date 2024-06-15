@@ -34,9 +34,9 @@
     <!--    Trang chủ User-->
     <string name="search_view">Tìm kiếm</string>
     <string name="txt_danhmuc">Danh mục món ngon</string>
-    <string name="txt_category_monngon">Món ngon</string>
-    <string name="txt_category_douong">Đồ uống</string>
-    <string name="txt_category_trangmieng">Tráng miệng</string>
+    <string name="txt_category_food">Món ngon</string>
+    <string name="txt_category_drink">Đồ uống</string>
+    <string name="txt_category_dessert">Tráng miệng</string>
     <string name="txt_thich">Có thể bạn sẽ thích</string>
 
     <string name="title_home">Trang chủ</string>
@@ -52,13 +52,13 @@
     <string name="title_douong">ĐỒ UỐNG</string>
 
     <!--    Trang tráng miệng User-->
-    <string name="title_trangmieng">TRÁNG MIỆNG</string>
+    <string name="title_dessert">TRÁNG MIỆNG</string>
 
     <!--    Trang chi tiết User-->
-    <string name="title_chitiet">CHI TIẾT</string>
-    <string name="title_gia">Giá:</string>
-    <string name="title_mota">Mô tả:</string>
-    <string name="title_hinhanh">Một số hình ảnh khác:</string>
+    <string name="title_detail">CHI TIẾT</string>
+    <string name="title_price">Giá:</string>
+    <string name="title_desc">Mô tả:</string>
+    <string name="title_img">Một số hình ảnh khác:</string>
     <string name="title_button">Thêm vào giỏ hàng</string>
 
     <!--    BottomSheetDialog trang chi tiết-->

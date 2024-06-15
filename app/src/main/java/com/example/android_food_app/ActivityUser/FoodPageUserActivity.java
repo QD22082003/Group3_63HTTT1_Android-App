@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.FoodUserAdapter;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodPageUserActivity extends AppCompatActivity {
-    private RecyclerView rcv_mongngon;
+    private RecyclerView rcv_food;
     private FoodUserAdapter adapter;
     private ImageView img_back;
-    private  List<SanPham> list = new ArrayList<>();
+    private  List<Product1> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +36,16 @@ public class FoodPageUserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        rcv_mongngon = findViewById(R.id.rcv_monngon);
+        rcv_food = findViewById(R.id.rcv_food);
         img_back = findViewById(R.id.img_back);
 
         //khởi tạo adapter
         adapter = new FoodUserAdapter(list,this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-        rcv_mongngon.setLayoutManager(gridLayoutManager);
+        rcv_food.setLayoutManager(gridLayoutManager);
 
-        adapter.setDataMonngon(getListMonNgon());
-        rcv_mongngon.setAdapter(adapter);
+        adapter.setDataFood(getListFood());
+        rcv_food.setAdapter(adapter);
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,21 +56,10 @@ public class FoodPageUserActivity extends AppCompatActivity {
 
     }
 
-    private List<SanPham> getListMonNgon() {
-        List<SanPham> list = new ArrayList<>();
-        list.add(new SanPham(R.drawable.imgslider1, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider2, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider3, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider4, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider1, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider2, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider3, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider4, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider1, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider2, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider3, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-        list.add(new SanPham(R.drawable.imgslider4, "Giảm 10%", "Salad cá hồi", "69 000 VNĐ", "59 000 VNĐ"));
-
+    private List<Product1> getListFood() {
+        List<Product1> list = new ArrayList<>();
+        list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
+        list.add(new Product1(R.drawable.imgslider2, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
         return list;
     }
 }

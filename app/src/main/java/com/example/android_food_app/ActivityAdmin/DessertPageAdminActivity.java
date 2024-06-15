@@ -69,12 +69,11 @@ public class DessertPageAdminActivity extends AppCompatActivity {
 
     private List<Product1> getListDessert() {
         List<Product1> list = new ArrayList<>();
-        list.add(new Product1(R.drawable.trangmieng1admin, "Product 1", "Description 1 test hello good morning bye", 10000, 5000, "Giảm 10%", "Có"));
-        list.add(new Product1(R.drawable.trangmieng2admin, "Product 2", "Description 2 test hello good morning bye", 0, 40000, "", "Không"));
-        list.add(new Product1(R.drawable.trangmieng3admin, "Product 3", "Description 3 test hello good morning bye", 0, 30000, "", "Không"));
-        list.add(new Product1(R.drawable.trangmieng1admin, "Product 4", "Description 4 test hello good morning bye Description 4 test hello good morning bye Description 4 test hello good morning bye", 240000, 200000, "Giảm 20%", "Có"));
-        list.add(new Product1(R.drawable.trangmieng2admin, "Product 5", "Description 5 test hello good morning bye", 30000, 20000, "Giảm 30%", "Có"));
-        list.add(new Product1(R.drawable.trangmieng3admin, "Product 6", "Description 6 test hello good morning bye", 14000, 20000, "Giảm 10%", "Có"));
+        list.add(new Product1(R.drawable.trangmieng1admin, "Product 1", "Description 1 test hello good morning bye", "10000 VNĐ", "5000 VNĐ", "Giảm 10%", "Có"));
+        list.add(new Product1(R.drawable.trangmieng2admin, "Product 2", "Description 2 test hello good morning bye", "0", "40000 VNĐ", "", "Không"));
+        list.add(new Product1(R.drawable.trangmieng3admin, "Product 3", "Description 3 test hello good morning bye", "", "30000 VNĐ", "", "Không"));
+        list.add(new Product1(R.drawable.trangmieng1admin, "Product 4", "Description 4 test hello good morning bye Description 4 test hello good morning bye Description 4 test hello good morning bye", "240000 VNĐ", "200000 VNĐ", "Giảm 20%", "Có"));
+        list.add(new Product1(R.drawable.trangmieng2admin, "Product 5", "Description 5 test hello good morning bye", "30000 VNĐ", "20000 VNĐ", "Giảm 30%", "Có"));
         return list;
     }
 }

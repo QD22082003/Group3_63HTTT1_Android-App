@@ -9,79 +9,80 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class DetailUserAdadpter extends RecyclerView.Adapter<DetailUserAdadpter.ChiTietViewHolder>{
-    private List<SanPham> listhinhanhkhac;
-    public void setDataHinhAnh(List<SanPham> listhinhanhkhac) {
-        this.listhinhanhkhac = listhinhanhkhac;
+public class DetailUserAdadpter extends RecyclerView.Adapter<DetailUserAdadpter.DetailViewHolder>{
+    private List<Product1> listProductOther;
+    public void setDataImgOther(List<Product1> listProductOther) {
+        this.listProductOther = listProductOther;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ChiTietViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_user, parent,false);
-        return new DetailUserAdadpter.ChiTietViewHolder(view);
+        return new DetailUserAdadpter.DetailViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        if(listhinhanhkhac != null) {
-            return listhinhanhkhac.size();
+        if(listProductOther != null) {
+            return listProductOther.size();
         }
         return 0;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChiTietViewHolder holder, int position) {
-        SanPham monngon = listhinhanhkhac.get(position);
-        if(monngon == null) {
+    public void onBindViewHolder(@NonNull DetailViewHolder holder, int position) {
+        Product1 imgother  = listProductOther.get(position);
+        if(imgother == null) {
             return;
         }
-        holder.imgMonNgon.setImageResource(monngon.getImgMonNgonID_Trangchu());
+        holder.img_food.setImageResource(imgother.getResourceId());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (monngon.getPhanTram_Trangchu() != null && !monngon.getPhanTram_Trangchu().isEmpty()) {
-            holder.phanTram.setText(monngon.getPhanTram_Trangchu());
-            holder.phanTram.setVisibility(View.GONE);
+        if (imgother.getSale() != null && !imgother.getSale().isEmpty()) {
+            holder.txt_sale.setText(imgother.getSale());
+            holder.txt_sale.setVisibility(View.GONE);
         } else {
-            holder.phanTram.setVisibility(View.GONE);
+            holder.txt_sale.setVisibility(View.GONE);
         }
-        holder.txt_ten_mon.setText(monngon.getTenMon_Trangchu());
-        holder.txt_ten_mon.setVisibility(View.GONE);
+        holder.txt_name.setText(imgother.getName());
+        holder.txt_name.setVisibility(View.GONE);
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (monngon.getGiaCu_Trangchu() != null && !monngon.getGiaCu_Trangchu().isEmpty()) {
-            holder.giaCu.setText(monngon.getGiaCu_Trangchu());
-            holder.giaCu.setVisibility(View.GONE);
-            holder.gach.setVisibility(View.GONE);
+        if (imgother.getPriceOld() != null && !imgother.getPriceOld().isEmpty()) {
+            holder.txt_price_old.setText(imgother.getPriceOld());
+            holder.txt_price_old.setVisibility(View.GONE);
+            holder.line.setVisibility(View.GONE);
         } else {
-            holder.giaCu.setVisibility(View.GONE);
-            holder.gach.setVisibility(View.GONE);
+            holder.txt_price_old.setVisibility(View.GONE);
+            holder.line.setVisibility(View.GONE);
         }
-        holder.giaMoi.setText(monngon.getGiaMoi_Trangchu());
-        holder.giaMoi.setVisibility(View.GONE);
+        holder.txt_price_new.setText(imgother.getPriceNew());
+        holder.txt_price_new.setVisibility(View.GONE);
 
     }
 
-    public class ChiTietViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgMonNgon;
-        private TextView phanTram;
-        private TextView txt_ten_mon;
-        private TextView giaCu;
-        private TextView giaMoi;
-        private View gach;
+    public class DetailViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img_food;
+        private TextView txt_sale;
+        private TextView txt_name;
+        private TextView txt_price_old;
+        private TextView txt_price_new;
 
-        public ChiTietViewHolder(@NonNull View itemView) {
+        private View line;
+        public DetailViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgMonNgon = itemView.findViewById(R.id.img_monngon);
-            phanTram = itemView.findViewById(R.id.txt_phan_tram);
-            txt_ten_mon = itemView.findViewById(R.id.txt_ten_mon);
-            giaCu = itemView.findViewById(R.id.txt_gia_cu);
-            giaMoi = itemView.findViewById(R.id.txt_gia_moi);
-            gach = itemView.findViewById(R.id.gach);
+            img_food = itemView.findViewById(R.id.img_food);
+            txt_sale = itemView.findViewById(R.id.txt_sale);
+            txt_name = itemView.findViewById(R.id.txt_name);
+            txt_price_old = itemView.findViewById(R.id.txt_price_old);
+            txt_price_new = itemView.findViewById(R.id.txt_price_new);
+            line = itemView.findViewById(R.id.line);
         }
     }
 }

@@ -12,62 +12,63 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.ActivityUser.DetailPageUserActivity;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class DrinkUserAdapter extends RecyclerView.Adapter<DrinkUserAdapter.DoUongViewHolder> {
-    private List<SanPham> listdouong;
+public class DrinkUserAdapter extends RecyclerView.Adapter<DrinkUserAdapter.DrinkViewHolder> {
+    private List<Product1> list_drink;
     private Context mContext;
 
-    public DrinkUserAdapter(List<SanPham> listdouong, Context mContext) {
-        this.listdouong = listdouong;
+    public DrinkUserAdapter(List<Product1> list_drink, Context mContext) {
+        this.list_drink = list_drink;
         this.mContext = mContext;
     }
 
-    public void setDataDoUong(List<SanPham> listdouong) {
-        this.listdouong = listdouong;
+    public void setDataDrink(List<Product1> list_drink) {
+        this.list_drink = list_drink;
         notifyDataSetChanged();
     }
     @NonNull
     @Override
-    public DoUongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_user, parent,false);
-        return new DrinkUserAdapter.DoUongViewHolder(view);
+        return new DrinkUserAdapter.DrinkViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DoUongViewHolder holder, int position) {
-        SanPham douong = listdouong.get(position);
-        if(douong == null) {
+    public void onBindViewHolder(@NonNull DrinkViewHolder holder, int position) {
+        Product1 drink = list_drink.get(position);
+        if(drink == null) {
             return;
         }
-        holder.imgMonNgon.setImageResource(douong.getImgMonNgonID_Trangchu());
+        holder.img_food.setImageResource(drink.getResourceId());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (douong.getPhanTram_Trangchu() != null && !douong.getPhanTram_Trangchu().isEmpty()) {
-            holder.phanTram.setText(douong.getPhanTram_Trangchu());
-            holder.phanTram.setVisibility(View.VISIBLE);
+        if (drink.getSale() != null && !drink.getSale().isEmpty()) {
+            holder.txt_sale.setText(drink.getSale());
+            holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
-            holder.phanTram.setVisibility(View.GONE);
+            holder.txt_sale.setVisibility(View.GONE);
         }
-        holder.txt_ten_mon.setText(douong.getTenMon_Trangchu());
+        holder.txt_name.setText(drink.getName());
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (douong.getGiaCu_Trangchu() != null && !douong.getGiaCu_Trangchu().isEmpty()) {
-            holder.giaCu.setText(douong.getGiaCu_Trangchu());
-            holder.giaCu.setVisibility(View.VISIBLE);
-            holder.gach.setVisibility(View.VISIBLE);
+        if (drink.getPriceOld() != null && !drink.getPriceOld().isEmpty()) {
+            holder.txt_price_old.setText(drink.getPriceOld());
+            holder.txt_price_old.setVisibility(View.VISIBLE);
+            holder.line.setVisibility(View.VISIBLE);
         } else {
-            holder.giaCu.setVisibility(View.GONE);
-            holder.gach.setVisibility(View.GONE);
+            holder.txt_price_old.setVisibility(View.GONE);
+            holder.line.setVisibility(View.GONE);
         }
-        holder.giaMoi.setText(douong.getGiaMoi_Trangchu());
+        holder.txt_price_new.setText(drink.getPriceNew());
         //thiết lập click vào item
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentDoUong = new Intent(mContext, DetailPageUserActivity.class);
-                intentDoUong.putExtra("douong", douong); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                intentDoUong.putExtra("drink_recycleview", drink); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
                 mContext.startActivity(intentDoUong);
             }
         });
@@ -77,28 +78,28 @@ public class DrinkUserAdapter extends RecyclerView.Adapter<DrinkUserAdapter.DoUo
 
     @Override
     public int getItemCount() {
-        if(listdouong != null) {
-            return listdouong.size();
+        if(list_drink != null) {
+            return list_drink.size();
         }
         return 0;
     }
 
-    public class DoUongViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgMonNgon;
-        private TextView phanTram;
-        private TextView txt_ten_mon;
-        private TextView giaCu;
-        private TextView giaMoi;
+    public class DrinkViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img_food;
+        private TextView txt_sale;
+        private TextView txt_name;
+        private TextView txt_price_old;
+        private TextView txt_price_new;
 
-        private View gach;
-        public DoUongViewHolder(@NonNull View itemView) {
+        private View line;
+        public DrinkViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgMonNgon = itemView.findViewById(R.id.img_monngon);
-            phanTram = itemView.findViewById(R.id.txt_phan_tram);
-            txt_ten_mon = itemView.findViewById(R.id.txt_ten_mon);
-            giaCu = itemView.findViewById(R.id.txt_gia_cu);
-            giaMoi = itemView.findViewById(R.id.txt_gia_moi);
-            gach = itemView.findViewById(R.id.gach);
+            img_food = itemView.findViewById(R.id.img_food);
+            txt_sale = itemView.findViewById(R.id.txt_sale);
+            txt_name = itemView.findViewById(R.id.txt_name);
+            txt_price_old = itemView.findViewById(R.id.txt_price_old);
+            txt_price_new = itemView.findViewById(R.id.txt_price_new);
+            line = itemView.findViewById(R.id.line);
         }
     }
 

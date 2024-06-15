@@ -19,6 +19,8 @@ import com.example.android_food_app.ActivityUser.DrinkPageUserActivity;
 import com.example.android_food_app.ActivityUser.FoodPageUserActivity;
 import com.example.android_food_app.ActivityUser.DessertPageUserActivity;
 import com.example.android_food_app.AdapterUser.HomeUserAdapter;
+import com.example.android_food_app.Model.Product;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.ModelUser.Photo;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
@@ -40,12 +42,12 @@ public class HomeUserFragment extends Fragment {
     private CircleIndicator3 indicator3;
     private PhotoAdapterViewPager2 adapter;
     private List<Photo> list;
-    private List<SanPham> listMonNgon_Trangchu;
+    private List<Product1> list_product;
     private RecyclerView rcv_trangchu;
     private HomeUserAdapter adapter_trangchu;
-    private CircleImageView category_image_monngon;
-    private CircleImageView category_image_douong;
-    private CircleImageView category_image_trangmieng;
+    private CircleImageView category_image_food;
+    private CircleImageView category_image_drink;
+    private CircleImageView category_image_dessert;
 
     // Handler để cập nhật giao diện người dùng từ các luồng nền
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -102,8 +104,8 @@ public class HomeUserFragment extends Fragment {
         list = new ArrayList<>();
         list = getListPhoto();
 
-        listMonNgon_Trangchu = new ArrayList<>();
-        listMonNgon_Trangchu = getListMonNgon_Trangchu();
+        list_product = new ArrayList<>();
+        list_product = getListProduct();
     }
 
     @Override
@@ -124,13 +126,13 @@ public class HomeUserFragment extends Fragment {
         indicator3.setViewPager(viewPager2);
 
         //Ánh xạ CircleImageView
-        category_image_monngon = view.findViewById(R.id.category_image_monngon);
-        category_image_douong = view.findViewById(R.id.category_image_douong);
-        category_image_trangmieng = view.findViewById(R.id.category_image_trangmieng);
+        category_image_food = view.findViewById(R.id.category_image_food);
+        category_image_drink = view.findViewById(R.id.category_image_drink);
+        category_image_dessert = view.findViewById(R.id.category_image_dessert);
 
 
         //bắt sự kiện khi ấn vào CircleImageView
-        category_image_monngon.setOnClickListener(new View.OnClickListener() {
+        category_image_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_monngon = new Intent(getActivity(), FoodPageUserActivity.class);
@@ -139,7 +141,7 @@ public class HomeUserFragment extends Fragment {
             }
         });
 
-        category_image_douong.setOnClickListener(new View.OnClickListener() {
+        category_image_drink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_douong = new Intent(getActivity(), DrinkPageUserActivity.class);
@@ -148,7 +150,7 @@ public class HomeUserFragment extends Fragment {
             }
         });
 
-        category_image_trangmieng.setOnClickListener(new View.OnClickListener() {
+        category_image_dessert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_trangmieng = new Intent(getActivity(), DessertPageUserActivity.class);
@@ -164,7 +166,7 @@ public class HomeUserFragment extends Fragment {
         rcv_trangchu.setFocusable(false);
         rcv_trangchu.setNestedScrollingEnabled(false);
 
-        adapter_trangchu.setDataMonngon(getListMonNgon_Trangchu());
+        adapter_trangchu.setDataProduct(getListProduct());
         rcv_trangchu.setAdapter(adapter_trangchu);
 
 
@@ -196,24 +198,10 @@ public class HomeUserFragment extends Fragment {
         return list;
     }
 
-    private List<SanPham> getListMonNgon_Trangchu() {
-        List<SanPham> listMonNgon_Trangchu = new ArrayList<>();
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.imgslider1, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.imgslider2, "Giảm 20%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.kem, "Giảm 15%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.nuocchanh, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.banhtiramisu, "", "Salad cá hồi", "", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.logocategory_douong, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.kem, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.nuocchanh, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.logocategory_trangmieng, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.imgslider2, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.kem, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-        listMonNgon_Trangchu.add(new SanPham(R.drawable.nuocchanh, "Giảm 10%", "Salad cá hồi", "65 000 VNĐ", "59 000 VNĐ"));
-
-        return listMonNgon_Trangchu;
+    private List<Product1> getListProduct() {
+        List<Product1> listProduct = new ArrayList<>();
+        listProduct.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
+        return listProduct;
     }
 
     @Override
