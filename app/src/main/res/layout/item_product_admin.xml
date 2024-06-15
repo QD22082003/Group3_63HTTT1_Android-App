@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="30dp">
 
                 <TextView
-                    android:id="@+id/txt_title"
+                    android:id="@+id/txt_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Humburger Bò"
@@ -71,23 +71,16 @@
                             android:id="@+id/txt_price_old"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100.000"
+                            android:text="100000 VNĐ"
                             android:textSize="20sp"/>
 
                         <View
                             android:id="@+id/line"
-                            android:layout_width="75dp"
+                            android:layout_width="110dp"
                             android:layout_height="2dp"
                             android:layout_gravity="center_vertical"
                             android:background="@color/grey" />
                     </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/txt_title_price_old"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" VNĐ"
-                        android:textSize="20sp"/>
 
                 </LinearLayout>
 
@@ -101,19 +94,10 @@
                         android:id="@+id/txt_price_new"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="65000"
+                        android:text="65000 VNĐ"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/primaryColor"/>
-
-                    <TextView
-                        android:id="@+id/txt_title_price_new"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" VNĐ"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primaryColor" />
 
                 </LinearLayout>
 

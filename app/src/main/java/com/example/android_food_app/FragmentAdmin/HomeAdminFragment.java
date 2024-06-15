@@ -1,5 +1,6 @@
 package com.example.android_food_app.FragmentAdmin;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android_food_app.ActivityAdmin.DessertPageAdminActivity;
+import com.example.android_food_app.ActivityAdmin.DrinkPageAminActivity;
+import com.example.android_food_app.ActivityAdmin.FoodPageAdminActivity;
 import com.example.android_food_app.AdapterAdmin.HomeAdminAdapter;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.Model.Product1;
@@ -32,21 +36,14 @@ import me.relex.circleindicator.CircleIndicator3;
  * create an instance of this fragment.
  */
 public class HomeAdminFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private ViewPager2 viewPager2;
     private CircleIndicator3 indicator3;
     private PhotoAdapterViewPager2 adapter;
     private List<Photo> list;
-    private List<Product1> listMonNgon_Trangchu;
-    private RecyclerView rcv_trangchu;
-    private HomeAdminAdapter adapter_trangchu;
-    private CircleImageView category_image_monngon;
-    private CircleImageView category_image_douong;
-    private CircleImageView category_image_trangmieng;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private List<Product1> listProductHome;
+    private RecyclerView rcv_home_admin;
+    private HomeAdminAdapter adapterHomeAdmin;
+    private CircleImageView category_image_food, category_image_drink, category_image_dessert;
     private Handler handler = new Handler(Looper.getMainLooper());
 
     // Runnable là một giao diện đơn giản có một phương thức duy nhất là run().
@@ -63,10 +60,13 @@ public class HomeAdminFragment extends Fragment {
         }
     };
 
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
 
     public HomeAdminFragment() {
         // Required empty public constructor
@@ -96,30 +96,56 @@ public class HomeAdminFragment extends Fragment {
         list = new ArrayList<>();
         list = getListPhoto();
 
-        listMonNgon_Trangchu = new ArrayList<>();
-        listMonNgon_Trangchu = getListMonNgon_Trangchu();
+        listProductHome = new ArrayList<>();
+        listProductHome = getListProductHome();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_admin, container, false);
-        // Ánh xạ ViewPager2 và CircleIndicator3
+
         viewPager2 = view.findViewById(R.id.viewPager2);
+        category_image_food = view.findViewById(R.id.category_image_food);
+        category_image_drink = view.findViewById(R.id.category_image_drink);
+        category_image_dessert = view.findViewById(R.id.category_image_dessert);
         indicator3 = view.findViewById(R.id.indicator);
-        rcv_trangchu = view.findViewById(R.id.rcv_trangchu);
+        rcv_home_admin = view.findViewById(R.id.rcv_home_admin);
 
-        //khởi tạo adapter cho rcv_trangchu
-        adapter_trangchu = new HomeAdminAdapter(getActivity());
+        category_image_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FoodPageAdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        category_image_drink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DrinkPageAminActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        category_image_dessert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DessertPageAdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //khởi tạo adapter cho rcv_home_admin
+        adapterHomeAdmin = new HomeAdminAdapter(getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),2);
-        rcv_trangchu.setLayoutManager(gridLayoutManager);
-        rcv_trangchu.setFocusable(false);
-        rcv_trangchu.setNestedScrollingEnabled(false);
+        rcv_home_admin.setLayoutManager(gridLayoutManager);
+        rcv_home_admin.setFocusable(false);
+        rcv_home_admin.setNestedScrollingEnabled(false);
 
-        adapter_trangchu.setData(getListMonNgon_Trangchu());
-        rcv_trangchu.setAdapter(adapter_trangchu);
+        adapterHomeAdmin.setData(getListProductHome());
+        rcv_home_admin.setAdapter(adapterHomeAdmin);
 
         // Khởi tạo adapter và thiết lập cho ViewPager2
         adapter = new PhotoAdapterViewPager2(requireActivity(), list);
@@ -140,8 +166,6 @@ public class HomeAdminFragment extends Fragment {
         handler.postDelayed(runnable, 3000);
 
         return view;
-
-
     }
     private List<Photo> getListPhoto() {
         List<Photo> list = new ArrayList<>();
@@ -153,12 +177,14 @@ public class HomeAdminFragment extends Fragment {
         Log.d("TrangChuFragment", "Data size: " + list.size());
         return list;
     }
-    private List<Product1> getListMonNgon_Trangchu() {
-        List<Product1> listMonNgon_Trangchu = new ArrayList<>();
-        listMonNgon_Trangchu.add(new Product1(R.drawable.imgslider1, "", "Salad cá hồi", 20, 10000, "10%","có"));
+    private List<Product1> getListProductHome() {
+        List<Product1> listProductHome = new ArrayList<>();
+        listProductHome.add(new Product1(R.drawable.imgslider1, "Salad Cá hồi", "20000 VNĐ", "10000 VNĐ"));
+        listProductHome.add(new Product1(R.drawable.imgslider1, "Salad thập cẩm", "30000 VNĐ", "10000 VNĐ"));
+        listProductHome.add(new Product1(R.drawable.imgslider1, "Gà tần", "0", "10000 VNĐ"));
+        listProductHome.add(new Product1(R.drawable.imgslider1, "Đậu tẩm hành", "0", "10000 VNĐ"));
 
-
-        return listMonNgon_Trangchu;
+        return listProductHome;
     }
     @Override
     public void onPause() {
