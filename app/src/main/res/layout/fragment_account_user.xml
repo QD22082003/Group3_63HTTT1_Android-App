@@ -56,7 +56,7 @@
             android:background="@color/grey" />
 
         <LinearLayout
-            android:id="@+id/revenue_layout"
+            android:id="@+id/orderHistory_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -65,17 +65,17 @@
             android:background="@drawable/rounded_corners">
 
             <ImageView
-                android:id="@+id/img_revenue"
+                android:id="@+id/img_orderHistory"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_revenue"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
-                android:id="@+id/txt_revenue"
+                android:id="@+id/txt_orderHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Báo cáo doanh thu"
+                android:text="Lịch sử đặt hàng"
                 android:layout_marginLeft="50dp"
                 android:textSize="20sp"
                 android:textColor="@color/grey"
@@ -85,6 +85,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/changePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
