@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.android_food_app.Fragment.FragmentSliderUser.PhotoFragment;
-import com.example.android_food_app.ModelUser.Photo;
+import com.example.android_food_app.Model.Photo;
 
 import java.util.List;
 

@@ -12,9 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.AdapterUser.FoodUserAdapter;
+import com.example.android_food_app.AdapterUser.FoodUserRecycleViewAdapter;
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class FoodPageUserActivity extends AppCompatActivity {
     private RecyclerView rcv_food;
-    private FoodUserAdapter adapter;
+    private FoodUserRecycleViewAdapter adapter;
     private ImageView img_back;
     private  List<Product1> list = new ArrayList<>();
 
@@ -40,7 +39,7 @@ public class FoodPageUserActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
 
         //khởi tạo adapter
-        adapter = new FoodUserAdapter(list,this);
+        adapter = new FoodUserRecycleViewAdapter(list,this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         rcv_food.setLayoutManager(gridLayoutManager);
 

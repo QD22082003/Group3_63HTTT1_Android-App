@@ -1,4 +1,4 @@
-package com.example.android_food_app.ModelUser;
+package com.example.android_food_app.Model;
 
 import java.io.Serializable;
 

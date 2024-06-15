@@ -21,7 +21,7 @@ import com.example.android_food_app.ActivityAdmin.FoodPageAdminActivity;
 import com.example.android_food_app.AdapterAdmin.HomeAdminAdapter;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.Photo;
+import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;

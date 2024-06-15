@@ -18,11 +18,9 @@ import android.view.ViewGroup;
 import com.example.android_food_app.ActivityUser.DrinkPageUserActivity;
 import com.example.android_food_app.ActivityUser.FoodPageUserActivity;
 import com.example.android_food_app.ActivityUser.DessertPageUserActivity;
-import com.example.android_food_app.AdapterUser.HomeUserAdapter;
-import com.example.android_food_app.Model.Product;
+import com.example.android_food_app.AdapterUser.HomeUserRecycleViewAdapter;
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.SanPham;
-import com.example.android_food_app.ModelUser.Photo;
+import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.R;
 
@@ -44,7 +42,7 @@ public class HomeUserFragment extends Fragment {
     private List<Photo> list;
     private List<Product1> list_product;
     private RecyclerView rcv_trangchu;
-    private HomeUserAdapter adapter_trangchu;
+    private HomeUserRecycleViewAdapter adapter_trangchu;
     private CircleImageView category_image_food;
     private CircleImageView category_image_drink;
     private CircleImageView category_image_dessert;
@@ -160,7 +158,7 @@ public class HomeUserFragment extends Fragment {
         });
 
         //khởi tạo adapter cho rcv_trangchu
-        adapter_trangchu = new HomeUserAdapter(getActivity());
+        adapter_trangchu = new HomeUserRecycleViewAdapter(getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),2);
         rcv_trangchu.setLayoutManager(gridLayoutManager);
         rcv_trangchu.setFocusable(false);

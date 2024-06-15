@@ -13,80 +13,75 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.ActivityUser.DetailPageUserActivity;
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;
 
-public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.FoodViewHolder> {
-    private List<Product1> list_food;
+public class DessertUserRecycleViewAdapter extends RecyclerView.Adapter<DessertUserRecycleViewAdapter.DessertViewHolder >{
+    private List<Product1> list_dessert;
     private Context mContext;
 
-    public FoodUserAdapter(List<Product1> list_food, Context mContext) {
-        this.list_food = list_food;
+    public DessertUserRecycleViewAdapter(List<Product1> list_dessert, Context mContext) {
+        this.list_dessert = list_dessert;
         this.mContext = mContext;
     }
 
-    public void setDataFood(List<Product1> list_food) {
-        this.list_food = list_food;
+    public void setDataDessert(List<Product1> list_dessert) {
+        this.list_dessert = list_dessert;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
-    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DessertViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_user, parent,false);
-        return new FoodUserAdapter.FoodViewHolder(view);
+        return new DessertUserRecycleViewAdapter.DessertViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-        Product1 food = list_food.get(position);
-        if(food == null) {
+    public void onBindViewHolder(@NonNull DessertViewHolder holder, int position) {
+        Product1 dessert = list_dessert.get(position);
+        if(dessert == null) {
             return;
         }
-        holder.img_food.setImageResource(food.getResourceId());
+        holder.img_food.setImageResource(dessert.getResourceId());
         // Kiểm tra và hiển thị phần giảm giá khi có
-        if (food.getSale() != null && !food.getSale().isEmpty()) {
-            holder.txt_sale.setText(food.getSale());
+        if (dessert.getSale() != null && !dessert.getSale().isEmpty()) {
+            holder.txt_sale.setText(dessert.getSale());
             holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
             holder.txt_sale.setVisibility(View.GONE);
         }
-        holder.txt_name.setText(food.getName());
+        holder.txt_name.setText(dessert.getName());
         // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (food.getPriceOld() != null && !food.getPriceOld().isEmpty()) {
-            holder.txt_price_old.setText(food.getPriceOld());
+        if (dessert.getPriceOld() != null && !dessert.getPriceOld().isEmpty()) {
+            holder.txt_price_old.setText(dessert.getPriceOld());
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
         } else {
             holder.txt_price_old.setVisibility(View.GONE);
             holder.line.setVisibility(View.GONE);
         }
-        holder.txt_price_new.setText(food.getPriceNew());
-
-        //thiết lập click vào item
+        holder.txt_price_new.setText(dessert.getPriceNew());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, DetailPageUserActivity.class);
-                intent.putExtra("food_recycleview", food); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
-                mContext.startActivity(intent);
+                Intent intentDoUong = new Intent(mContext, DetailPageUserActivity.class);
+                intentDoUong.putExtra("dessert_recycleview", dessert); //đảm bảo dữ liệu của sp có thể được truyền vào intent phải khai báo Serializable
+                mContext.startActivity(intentDoUong);
             }
         });
-
 
     }
 
     @Override
     public int getItemCount() {
-        if(list_food != null) {
-            return list_food.size();
+        if (list_dessert != null) {
+            return  list_dessert.size();
         }
         return 0;
     }
 
-    public  class FoodViewHolder extends RecyclerView.ViewHolder {
+    public class  DessertViewHolder extends RecyclerView.ViewHolder {
         private ImageView img_food;
         private TextView txt_sale;
         private TextView txt_name;
@@ -94,8 +89,7 @@ public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.FoodVi
         private TextView txt_price_new;
 
         private View line;
-        public FoodViewHolder(@NonNull View itemView) {
-
+        public DessertViewHolder(@NonNull View itemView) {
             super(itemView);
             img_food = itemView.findViewById(R.id.img_food);
             txt_sale = itemView.findViewById(R.id.txt_sale);
@@ -103,7 +97,6 @@ public class FoodUserAdapter extends RecyclerView.Adapter<FoodUserAdapter.FoodVi
             txt_price_old = itemView.findViewById(R.id.txt_price_old);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);
             line = itemView.findViewById(R.id.line);
-
         }
     }
 
