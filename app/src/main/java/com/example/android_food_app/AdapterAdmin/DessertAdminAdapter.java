@@ -1,6 +1,8 @@
 package com.example.android_food_app.AdapterAdmin;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,24 +12,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Model.Product1;
+import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 
 import java.util.List;
 
 public class DessertAdminAdapter extends RecyclerView.Adapter<DessertAdminAdapter.DessertViewHolder> {
     private Context mContext;
-    private List<Product1> mListProduct1;
+    private List<Product> mListProduct;
 
     public DessertAdminAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<Product1> list) {
-        this.mListProduct1 = list;
+    public void setData(List<Product> list) {
+        this.mListProduct = list;
         notifyDataSetChanged();
     }
 
@@ -40,30 +39,35 @@ public class DessertAdminAdapter extends RecyclerView.Adapter<DessertAdminAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DessertViewHolder holder, int position) {
-        Product1 product1 = mListProduct1.get(position);
-        if (product1 == null) {
+        Product product = mListProduct.get(position);
+        if (product == null) {
             return;
         }
 
-        holder.img.setImageResource(product1.getResourceId());
-        holder.txt_name.setText(product1.getName());
+        // Chuyển đổi byte array sang Bitmap và set vào ImageView
+        if (product.getImgUrl() != null) {
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(product.getImgUrl(), 0, product.getImgUrl().length);
+            holder.imgUrl.setImageBitmap(bitmap1);
+        } else {
+            holder.imgUrl.setImageResource(R.drawable.imgslider1); // Placeholder image if no image is available
+        }
 
-        holder.txt_price_old.setText(product1.getPriceOld());
-        holder.txt_price_new.setText(product1.getPriceNew());
-
-        holder.txt_popular.setText(product1.getPopular());
-        holder.txt_desc.setText(product1.getDesc());
+        holder.txt_name.setText(product.getName());
+        holder.txt_price_old.setText(product.getPriceOld());
+        holder.txt_price_new.setText(product.getPriceNew());
+        holder.txt_popular.setText(product.getPopular() ? "Có" : "Không");
+        holder.txt_desc.setText(product.getDesc());
 
         // Kiểm tra hiển thị phần giảm giá khi có
-        if (product1.getSale() != null && !product1.getSale().isEmpty()) {
-            holder.txt_sale.setText(product1.getSale());
+        if (product.getSale() != null && !product.getSale().isEmpty()) {
+            holder.txt_sale.setText(product.getSale());
             holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
             holder.txt_sale.setVisibility(View.GONE);
         }
 
         // Kiểm tra hiển thị phần giá cũ khi có giảm giá
-        if (product1.getPriceOld() != null && !product1.getPriceOld().isEmpty() && !product1.getPriceOld().equals("0")) {
+        if (product.getPriceOld() != null && !product.getPriceOld().isEmpty() && !product.getPriceOld().equals("0")) {
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
         } else {
@@ -75,14 +79,14 @@ public class DessertAdminAdapter extends RecyclerView.Adapter<DessertAdminAdapte
 
     @Override
     public int getItemCount() {
-        if (mListProduct1 != null) {
-            return mListProduct1.size();
+        if (mListProduct != null) {
+            return mListProduct.size();
         }
         return 0;
     }
 
     public class DessertViewHolder extends RecyclerView.ViewHolder {
-        private ImageView img;
+        private ImageView imgUrl;
         private TextView txt_name, txt_price_old, txt_price_new, txt_popular, txt_desc;
 
         private TextView txt_sale;
@@ -92,7 +96,7 @@ public class DessertAdminAdapter extends RecyclerView.Adapter<DessertAdminAdapte
         public DessertViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img = itemView.findViewById(R.id.img);
+            imgUrl = itemView.findViewById(R.id.imgUrl);
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_price_old = itemView.findViewById(R.id.txt_price_old);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);

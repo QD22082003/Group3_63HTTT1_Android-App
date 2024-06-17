@@ -21,7 +21,7 @@
             android:layout_gravity="center">
 
             <ImageView
-                android:id="@+id/img_food"
+                android:id="@+id/imgUrl"
                 android:layout_width="@android:dimen/thumbnail_height"
                 android:layout_height="@android:dimen/thumbnail_height"
                 android:scaleType="centerCrop"
