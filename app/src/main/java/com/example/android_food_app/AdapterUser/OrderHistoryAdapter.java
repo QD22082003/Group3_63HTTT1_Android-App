@@ -1,30 +1,28 @@
-package com.example.android_food_app.AdapterAdmin;
+package com.example.android_food_app.AdapterUser;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_food_app.AdapterAdmin.OrderAdminAdapter;
 import com.example.android_food_app.Model.Order;
-import com.example.android_food_app.Model.User;
 import com.example.android_food_app.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 
-public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.OrderViewHolder> {
-
+public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder>{
     private Context mContext;
     private List<Order> mListOrder;
 
-    public OrderAdminAdapter(Context mContext) {
+    public OrderHistoryAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -35,13 +33,13 @@ public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.Or
 
     @NonNull
     @Override
-    public OrderAdminAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_admin, parent, false);
-        return new OrderViewHolder(view);
+    public OrderHistoryAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_history, parent, false);
+        return new OrderHistoryAdapter.OrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderAdminAdapter.OrderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderHistoryAdapter.OrderViewHolder holder, int position) {
         Order order = mListOrder.get(position);
         if (order == null) {
             return;
@@ -68,15 +66,7 @@ public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.Or
 
     // anh xa id
     public class  OrderViewHolder extends RecyclerView.ViewHolder {
-        public TextView txt_id_order;
-        public TextView txt_email_order;
-        public TextView txt_name_order;
-        public TextView txt_phone_order;
-        public TextView txt_address_order;
-        public TextView txt_menu_order;
-        public TextView txt_date_order;
-        public TextView txt_total_order;
-        public TextView txt_pay_order;
+        private TextView txt_id_order, txt_email_order, txt_name_order, txt_phone_order, txt_address_order, txt_menu_order, txt_date_order, txt_total_order, txt_pay_order;
         private RadioButton rad_total_order;
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 
 import java.util.List;

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!--   1. ID     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_title_id_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_id_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123456789"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="8dp"/>
+
+        </LinearLayout>
+
+        <!--   2. Email     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_title_email_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_email_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gianghoang150503@gmail.com"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="72dp"/>
+
+        </LinearLayout>
+
+        <!--   3. Họ tên     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_title_name_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Họ tên: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_name_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Đăng Hoàng Giang"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="62dp"/>
+
+        </LinearLayout>
+
+        <!--   4. Số điện thoại     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_title_phone_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_phone_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0398162589"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="8dp"/>
+
+        </LinearLayout>
+
+        <!--   5. Địa chỉ nhận     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_title_address_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ nhận: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_address_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SN 31, ngách 788/26, Thanh Liệt, Thanh Trì, Hà Nội"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="14dp"/>
+
+        </LinearLayout>
+
+        <!--   6. Thực đơn     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/txt_title_menu_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thực đơn: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_menu_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hamburger Bò - SL 01 Salad trộn cá ngừ - SL 02"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="33dp"/>
+
+        </LinearLayout>
+
+        <!--   7. Ngày đặt     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/txt_title_date_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày đặt: "
+                android:textSize="18sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_date_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09-05-2024, 10:11AM"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="38dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="400dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/primaryColor"/>
+
+        <!--   8. Tổng tiền     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/txt_title_total_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền: "
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_total_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="195 000"
+                android:textSize="18sp"
+                android:textColor="@color/primaryColor"
+                android:textStyle="bold"
+                android:layout_marginLeft="45dp"/>
+
+            <TextView
+                android:id="@+id/txt_title_vnd_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VNĐ"
+                android:textSize="18sp"
+                android:textColor="@color/primaryColor"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
+
+
+        </LinearLayout>
+
+        <!--   9. Thanh toán     -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/txt_title_pay_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán: "
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txt_pay_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiền mặt"
+                android:textSize="18sp"
+                android:textColor="@color/primaryColor"
+                android:textStyle="bold"
+                android:layout_marginLeft="30dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

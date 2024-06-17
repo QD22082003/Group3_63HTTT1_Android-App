@@ -5,13 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentAdmin.OrderAdminFragment">
+    tools:context=".ActivityUser.OrderHistoryActivity">
 
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/txtTitleOrderHistory"
-        android:text="Lịch sử đặt hàng"
+        android:text="LỊCH SỬ ĐẶT HÀNG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
@@ -60,7 +58,5 @@
             android:layout_marginBottom="10dp"/>
 
     </RelativeLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
