@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.android_food_app.Activity.ChangePasswordActivity;
 import com.example.android_food_app.Activity.LoginActivity;
 import com.example.android_food_app.ActivityUser.OrderHistoryActivity;
+import com.example.android_food_app.ActivityUser.ShipmentDetailPageActivity;
 import com.example.android_food_app.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,6 +62,7 @@ public class AccountUserFragment extends Fragment {
         LinearLayout logoutLayout = view.findViewById(R.id.logout);
         LinearLayout changePassword = view.findViewById(R.id.changePassword);
         LinearLayout orderHistory = view.findViewById(R.id.orderHistory_layout);
+        LinearLayout shipmentDetail = view.findViewById(R.id.shipmentDetail);
         TextView email = view.findViewById(R.id.txt_email);
 
         // Lấy thông tin người dùng hiện tại
@@ -92,6 +94,13 @@ public class AccountUserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), OrderHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        shipmentDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ShipmentDetailPageActivity.class);
                 startActivity(intent);
             }
         });

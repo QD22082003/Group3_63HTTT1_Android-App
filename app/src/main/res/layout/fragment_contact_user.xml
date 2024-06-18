@@ -84,7 +84,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:srcCompat="@drawable/ic_tiktok" />
+            app:srcCompat="@drawable/tiktok" />
 
         <ImageView
             android:id="@+id/imageView3"

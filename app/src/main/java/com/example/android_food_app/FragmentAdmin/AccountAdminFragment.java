@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.android_food_app.Activity.ChangePasswordActivity;
 import com.example.android_food_app.Activity.LoginActivity;
 import com.example.android_food_app.ActivityAdmin.RevenuePageAdminActivity;
 import com.example.android_food_app.R;
@@ -57,6 +58,7 @@ public class AccountAdminFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_admin, container, false);
         LinearLayout revenueLayout = view.findViewById(R.id.revenue_layout);
+        LinearLayout changePassword = view.findViewById(R.id.changePassword);
         LinearLayout logoutLayout = view.findViewById(R.id.logout);
         TextView email = view.findViewById(R.id.txt_email);
 
@@ -74,7 +76,13 @@ public class AccountAdminFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

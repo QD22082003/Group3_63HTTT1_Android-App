@@ -68,7 +68,7 @@
                 android:id="@+id/img_orderHistory"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_revenue"
+                android:src="@drawable/timeorderhistory"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
@@ -114,6 +114,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/shipmentDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -122,10 +123,10 @@
             android:background="@drawable/rounded_corners">
 
             <ImageView
-                android:id="@+id/img_logout"
+                android:id="@+id/txt_address_order"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_logout"
+                android:src="@drawable/address"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
