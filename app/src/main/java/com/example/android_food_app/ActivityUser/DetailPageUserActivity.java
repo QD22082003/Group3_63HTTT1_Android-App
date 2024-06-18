@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
 import com.example.android_food_app.Model.Product1;
-import com.example.android_food_app.ModelUser.SanPham;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
