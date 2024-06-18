@@ -4,10 +4,14 @@ import static android.content.ContentValues.TAG;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     TextView textViewRegister, textForgotPassword;
     private ProgressDialog progressDialog;
+    private Drawable checkDrawableGray, checkDrawableBlue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,31 @@ public class LoginActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang kiểm tra...");
+        // Tạo drawable cho dấu tích màu xám và màu xanh nước biển
+        checkDrawableGray = ContextCompat.getDrawable(this, R.drawable.ic_check);
+        checkDrawableBlue = ContextCompat.getDrawable(this, R.drawable.ic_check_blue);
+        inputEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (Patterns.EMAIL_ADDRESS.matcher(s.toString()).matches()) {
+                    // Nếu email hợp lệ, chuyển drawable thành dấu tích màu xanh nước biển
+                    inputEmail.setCompoundDrawablesWithIntrinsicBounds(null, null, checkDrawableBlue, null);
+                } else {
+                    // Nếu email không hợp lệ, chuyển drawable thành dấu tích màu xám
+                    inputEmail.setCompoundDrawablesWithIntrinsicBounds(null, null, checkDrawableGray, null);
+                }
+            }
+        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

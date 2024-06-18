@@ -13,9 +13,11 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityUser.OrderHistoryActivity"
+            android:name=".ActivityUser.ShipmentDetailPageActivity"
             android:exported="false" />
-        <!-- Activity Giang start -->
+        <activity
+            android:name=".ActivityUser.OrderHistoryActivity"
+            android:exported="false" /> <!-- Activity Giang start -->
         <activity
             android:name=".ActivityAdmin.DessertPageAdminActivity"
             android:exported="false" />

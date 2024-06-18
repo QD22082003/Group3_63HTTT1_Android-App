@@ -78,8 +78,8 @@
                 android:inputType="textMultiLine"
                 android:minLines="10"
                 android:padding="12dp"
-                android:textColorHint="@color/edtColor" />
-
+                android:textColorHint="@color/edtColor"
+                android:gravity="top" />
             <!-- Spacer -->
             <View
                 android:layout_width="match_parent"
