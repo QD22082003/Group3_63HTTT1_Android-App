@@ -7,7 +7,6 @@ public class Product {
     private Boolean popular;
     private byte[] imgUrlOther;
     public Product(){
-
     }
 
     public Product(int id, String name, String desc, String priceOld, String priceNew, String sale, byte[] imgUrl, byte[] imgUrlSlide, Boolean popular, byte[] imgUrlOther) {

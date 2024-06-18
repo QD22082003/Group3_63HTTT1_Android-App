@@ -1,6 +1,8 @@
 package com.example.android_food_app.FragmentAdmin;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,10 +22,11 @@ import com.example.android_food_app.ActivityAdmin.DrinkPageAminActivity;
 import com.example.android_food_app.ActivityAdmin.FoodPageAdminActivity;
 import com.example.android_food_app.AdapterAdmin.HomeAdminAdapter;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
-import com.example.android_food_app.Model.Product1;
+import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class HomeAdminFragment extends Fragment {
     private CircleIndicator3 indicator3;
     private PhotoAdapterViewPager2 adapter;
     private List<Photo> list;
-    private List<Product1> listProductHome;
+    private List<Product> listProductHome;
     private RecyclerView rcv_home_admin;
     private HomeAdminAdapter adapterHomeAdmin;
     private CircleImageView category_image_food, category_image_drink, category_image_dessert;
@@ -177,14 +180,20 @@ public class HomeAdminFragment extends Fragment {
         Log.d("TrangChuFragment", "Data size: " + list.size());
         return list;
     }
-    private List<Product1> getListProductHome() {
-        List<Product1> listProductHome = new ArrayList<>();
-        listProductHome.add(new Product1(R.drawable.imgslider1, "Salad Cá hồi", "20000 VNĐ", "10000 VNĐ"));
-        listProductHome.add(new Product1(R.drawable.imgslider1, "Salad thập cẩm", "30000 VNĐ", "10000 VNĐ"));
-        listProductHome.add(new Product1(R.drawable.imgslider1, "Gà tần", "0", "10000 VNĐ"));
-        listProductHome.add(new Product1(R.drawable.imgslider1, "Đậu tẩm hành", "0", "10000 VNĐ"));
-
+    private List<Product> getListProductHome() {
+        List<Product> listProductHome = new ArrayList<>();
+        listProductHome.add(new Product(1, "Salad Cá hồi", "Delicious salmon salad", "20000 VNĐ", "10000 VNĐ", "50%", getImageBytes(R.drawable.imgslider1), null, true, null));
+        listProductHome.add(new Product(2, "Salad thập cẩm", "Mixed salad", "30000 VNĐ", "10000 VNĐ", "67%", getImageBytes(R.drawable.imgslider2), null, true, null));
+        listProductHome.add(new Product(3, "Gà tần", "Stewed chicken", "0", "10000 VNĐ", null, getImageBytes(R.drawable.imgslider3), null, false, null));
+        listProductHome.add(new Product(4, "Đậu tẩm hành", "Tofu with scallions", "0", "10000 VNĐ", null, getImageBytes(R.drawable.imgslider4), null, false, null));
         return listProductHome;
+    }
+
+    private byte[] getImageBytes(int resourceId) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
     @Override
     public void onPause() {

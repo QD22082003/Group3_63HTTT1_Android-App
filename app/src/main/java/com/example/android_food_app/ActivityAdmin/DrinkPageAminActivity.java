@@ -1,6 +1,8 @@
 package com.example.android_food_app.ActivityAdmin;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,10 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterAdmin.DrinkAdminAdapter;
-import com.example.android_food_app.Model.Product1;
+import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,13 +68,17 @@ public class DrinkPageAminActivity extends AppCompatActivity {
         rcv_drink.setAdapter(drinkAdminAdapter);
     }
 
-    private List<Product1> getListDrink() {
-        List<Product1> list = new ArrayList<>();
-        list.add(new Product1(R.drawable.douong1admin, "Product 1", "Description 1 test hello good morning bye", "10000 VNĐ", "5000 VNĐ", "Giảm 10%", "Có"));
-        list.add(new Product1(R.drawable.douong2admin, "Product 2", "Description 2 test hello good morning bye", "0", "40000 VNĐ", "", "Không"));
-        list.add(new Product1(R.drawable.douong3admin, "Product 3", "Description 3 test hello good morning bye", "", "30000 VNĐ", "", "Không"));
-        list.add(new Product1(R.drawable.douong4admin, "Product 4", "Description 4 test hello good morning bye Description 4 test hello good morning bye Description 4 test hello good morning bye", "240000 VNĐ", "200000 VNĐ", "Giảm 20%", "Có"));
-        list.add(new Product1(R.drawable.douong1admin, "Product 5", "Description 5 test hello good morning bye", "30000 VNĐ", "20000 VNĐ", "Giảm 30%", "Có"));
+    private List<Product> getListDrink() {
+        List<Product> list = new ArrayList<>();
+        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
+        list.add(new Product(2, "Product 2", "Description 2", "0", "400000 VNĐ", "",  getImageBytes(R.drawable.imgslider2), null, false, null));
         return list;
+    }
+
+    private byte[] getImageBytes(int resourceId) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 }
