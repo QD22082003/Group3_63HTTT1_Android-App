@@ -50,16 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".ActivityUser.HomeUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.trangLichSuDonHang_User"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.trangLienHe"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.trangChuAdmin"
-            android:exported="false" />
+            android:exported="true" >
+        </activity>
+
         <activity
             android:name=".Activity.ChangePasswordActivity"
             android:exported="false" />
