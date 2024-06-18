@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                     } else {
-                                        Log.d(TAG, "No such document");
+                                        Log.d(TAG, "No such document    ");
                                     }
                                 }
 
