@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+
                         if (task.isSuccessful()) {
                             FirebaseUser user = auth.getCurrentUser();
                             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.exists()) {
                                         Long role = snapshot.child("role").getValue(Long.class);
+                                        progressDialog.dismiss();
                                         if (role != null && role == 0) { // role == 0 là admin
                                             Intent intent = new Intent(LoginActivity.this, HomeAdminActivity.class);
                                             startActivity(intent);

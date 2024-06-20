@@ -1,5 +1,6 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,6 +32,7 @@ public class AccountUserFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private ProgressDialog progressDialog;
 
     public AccountUserFragment() {
         // Required empty public constructor
@@ -64,6 +66,8 @@ public class AccountUserFragment extends Fragment {
         LinearLayout orderHistory = view.findViewById(R.id.orderHistory_layout);
         LinearLayout shipmentDetail = view.findViewById(R.id.shipmentDetail);
         TextView email = view.findViewById(R.id.txt_email);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Đang đăng xuất...");
 
         // Lấy thông tin người dùng hiện tại
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -75,6 +79,7 @@ public class AccountUserFragment extends Fragment {
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.show();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);

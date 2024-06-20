@@ -4,67 +4,82 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.Model.User;
+import com.example.android_food_app.Model.Feedback;
 import com.example.android_food_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class FeedbackAdminAdapter extends RecyclerView.Adapter<FeedbackAdminAdapter.UserViewHolder> {
+public class FeedbackAdminAdapter extends RecyclerView.Adapter<FeedbackAdminAdapter.FeedbackViewHolder> {
     private Context mContext;
-    private List<User> mListUser;
+    private List<Feedback> mListFeedback;
 
     public FeedbackAdminAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<User> list) {
-        this.mListUser = list;
-        notifyDataSetChanged(); // load du lieu vao useradapter
+    public void setData(List<Feedback> list) {
+        this.mListFeedback = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FeedbackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feedback_admin, parent, false);
-        return new UserViewHolder(view);
+        return new FeedbackViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = mListUser.get(position);
-        if (user == null) {
+    public void onBindViewHolder(@NonNull FeedbackViewHolder holder, int position) {
+        Feedback feedback = mListFeedback.get(position);
+        if (feedback == null) {
             return;
         }
 
-        holder.imgUser.setImageResource(user.getResourceId());
-        holder.txtName.setText(user.getName());
-        holder.txtDesc.setText(user.getDesc());
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(feedback.getUserID());
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String email = snapshot.child("email").getValue(String.class);
+                    holder.email.setText(email);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle possible errors
+            }
+        });
+
+        holder.comment.setText(feedback.getComment());
     }
 
     @Override
     public int getItemCount() {
-        if (mListUser != null) {
-            return mListUser.size();
+        if (mListFeedback != null) {
+            return mListFeedback.size();
         }
         return 0;
     }
 
-    // anh xa id
-    public class UserViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgUser;
-        private TextView txtName, txtDesc;
-        public UserViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgUser = itemView.findViewById(R.id.imgUser);
-            txtName = itemView.findViewById(R.id.txtName);
-            txtDesc = itemView.findViewById(R.id.txtDesc);
-        }
+    public class FeedbackViewHolder extends RecyclerView.ViewHolder {
+        private TextView email, comment;
 
+        public FeedbackViewHolder(@NonNull View itemView) {
+            super(itemView);
+            email = itemView.findViewById(R.id.email);
+            comment = itemView.findViewById(R.id.comment);
+        }
     }
 }

@@ -1,88 +1,72 @@
 package com.example.android_food_app.FragmentAdmin;
 
-
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterAdmin.FeedbackAdminAdapter;
-import com.example.android_food_app.Model.User;
+import com.example.android_food_app.Model.Feedback;
 import com.example.android_food_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FeedbackAdminFragment extends Fragment {
-    private RecyclerView rcv_feedback;
+    private RecyclerView rcvFeedback;
     private FeedbackAdminAdapter mAdapter;
-    private List<User> mListUser;
-
-    public static final String ARG_PARAM1 = "param1";
-    public static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
-
+    private List<Feedback> mListFeedback;
+    private ProgressDialog progressDialog;
 
     public FeedbackAdminFragment() {
         // Required empty public constructor
     }
 
-    public static FeedbackAdminFragment newInstance(String param1, String param2) {
-        FeedbackAdminFragment fragment = new FeedbackAdminFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feedback_admin, container, false);
-        rcv_feedback = view.findViewById(R.id.rcv_feedback);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Đang kiểm tra...");
+        rcvFeedback = view.findViewById(R.id.rcv_feedback);
         mAdapter = new FeedbackAdminAdapter(getContext());
-        rcv_feedback.setAdapter(mAdapter);
-        rcv_feedback.setLayoutManager(new LinearLayoutManager(getContext()));
-        initData();
-        mAdapter.setData(mListUser);
+        rcvFeedback.setAdapter(mAdapter);
+        rcvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        fetchDataFromFirebase();
+
         return view;
     }
 
-    private void initData() {
-        mListUser = new ArrayList<>();
-        mListUser.add(new User(R.drawable.user1, "User 1", "Description 1"));
-        mListUser.add(new User(R.drawable.user2, "User 2", "Description 2"));
-        mListUser.add(new User(R.drawable.user3, "User 3", "Description 3"));
-        mListUser.add(new User(R.drawable.user4, "User 4", "Description 4"));
+    private void fetchDataFromFirebase() {
+        progressDialog.show();
+        DatabaseReference feedbackRef = FirebaseDatabase.getInstance().getReference("feedbacks");
+        feedbackRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mListFeedback = new ArrayList<>();
+                progressDialog.dismiss();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Feedback feedback = dataSnapshot.getValue(Feedback.class);
+                    mListFeedback.add(feedback);
+                }
+                mAdapter.setData(mListFeedback);
+            }
 
-        mListUser.add(new User(R.drawable.user1, "User 1", "Description 1"));
-        mListUser.add(new User(R.drawable.user2, "User 2", "Description 2"));
-        mListUser.add(new User(R.drawable.user3, "User 3", "Description 3"));
-        mListUser.add(new User(R.drawable.user4, "User 4", "Description 4"));
-
-        mListUser.add(new User(R.drawable.user1, "User 5", "Description 5"));
-        mListUser.add(new User(R.drawable.user2, "User 6", "Description 6"));
-        mListUser.add(new User(R.drawable.user3, "User 7", "Description 7"));
-        mListUser.add(new User(R.drawable.user4, "User 8", "Description 8"));
-
-        mListUser.add(new User(R.drawable.user1, "User 5", "Description 5"));
-        mListUser.add(new User(R.drawable.user2, "User 6", "Description 6"));
-        mListUser.add(new User(R.drawable.user3, "User 7", "Description 7"));
-        mListUser.add(new User(R.drawable.user4, "User 8", "Description 8"));
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle possible errors.
+            }
+        });
     }
 }
