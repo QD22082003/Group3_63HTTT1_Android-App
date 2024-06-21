@@ -1,5 +1,7 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android_food_app.R;
 
@@ -25,6 +28,7 @@ public class ContactUserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageView facebook, tiktok, intasgram;
 
     public ContactUserFragment() {
         // Required empty public constructor
@@ -61,6 +65,33 @@ public class ContactUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact_user, container, false);
+
+        // Find the views
+        View facebook = view.findViewById(R.id.facebook);
+        View tiktok = view.findViewById(R.id.tiktok);
+
+        // Set OnClickListener for Facebook
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open Facebook link
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100034610440793"));
+                startActivity(intent);
+            }
+        });
+
+        // Set OnClickListener for TikTok
+        tiktok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open TikTok link
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100034610440793"));
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
+
 }

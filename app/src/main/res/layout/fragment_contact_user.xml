@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/facebook"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -79,7 +79,7 @@
             app:srcCompat="@drawable/ic_facebook" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/tiktok"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -87,7 +87,7 @@
             app:srcCompat="@drawable/tiktok" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/intasgram"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
