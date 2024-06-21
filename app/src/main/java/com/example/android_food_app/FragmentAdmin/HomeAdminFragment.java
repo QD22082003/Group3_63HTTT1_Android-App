@@ -182,19 +182,10 @@ public class HomeAdminFragment extends Fragment {
     }
     private List<Product> getListProductHome() {
         List<Product> listProductHome = new ArrayList<>();
-        listProductHome.add(new Product(1, "Salad Cá hồi", "Delicious salmon salad", "20000 VNĐ", "10000 VNĐ", "50%", getImageBytes(R.drawable.imgslider1), null, true, null));
-        listProductHome.add(new Product(2, "Salad thập cẩm", "Mixed salad", "30000 VNĐ", "10000 VNĐ", "67%", getImageBytes(R.drawable.imgslider2), null, true, null));
-        listProductHome.add(new Product(3, "Gà tần", "Stewed chicken", "0", "10000 VNĐ", null, getImageBytes(R.drawable.imgslider3), null, false, null));
-        listProductHome.add(new Product(4, "Đậu tẩm hành", "Tofu with scallions", "0", "10000 VNĐ", null, getImageBytes(R.drawable.imgslider4), null, false, null));
+//        listProductHome.add(new Product("Salad Cá hồi", "Delicious salmon salad", "20000 VNĐ", "10000 VNĐ", "50%", null, null , null));
         return listProductHome;
     }
 
-    private byte[] getImageBytes(int resourceId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
     @Override
     public void onPause() {
         super.onPause();

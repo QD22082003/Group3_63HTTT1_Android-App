@@ -45,14 +45,6 @@ public class HomeAdminAdapter extends RecyclerView.Adapter<HomeAdminAdapter.Home
             return;
         }
 
-        // Chuyển đổi byte array sang Bitmap và set vào ImageView
-        if (product.getImgUrl() != null) {
-            Bitmap bitmap1 = BitmapFactory.decodeByteArray(product.getImgUrl(), 0, product.getImgUrl().length);
-            holder.imgUrl.setImageBitmap(bitmap1);
-        } else {
-            holder.imgUrl.setImageResource(R.drawable.imgslider1); // Placeholder image if no image is available
-        }
-
         holder.txt_name.setText(product.getName());
         holder.txt_price_old.setText(product.getPriceOld());
         holder.txt_price_new.setText(product.getPriceNew());
