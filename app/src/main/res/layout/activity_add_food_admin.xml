@@ -244,22 +244,24 @@
                 <RadioGroup
                     android:id="@+id/radioGroup_popular"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
 
                     <RadioButton
                         android:id="@+id/rad_popular1"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
                         android:text="Có"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/primaryColor"
-                        android:background="@drawable/custom_edt_admin"/>
+                        android:layout_weight="1"/>
 
                     <RadioButton
                         android:id="@+id/rad_popular2"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_gravity="start|center_vertical"
@@ -267,7 +269,7 @@
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/primaryColor"
-                        android:background="@drawable/custom_edt_admin"/>
+                        android:layout_weight="1"/>
 
                 </RadioGroup>
             </LinearLayout>
