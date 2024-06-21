@@ -70,15 +70,8 @@ public class DrinkPageAminActivity extends AppCompatActivity {
 
     private List<Product> getListDrink() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
-        list.add(new Product(2, "Product 2", "Description 2", "0", "400000 VNĐ", "",  getImageBytes(R.drawable.imgslider2), null, false, null));
+//        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
         return list;
     }
 
-    private byte[] getImageBytes(int resourceId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
 }

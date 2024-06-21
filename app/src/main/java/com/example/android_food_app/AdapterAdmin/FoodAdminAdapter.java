@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 
@@ -23,8 +24,17 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
     private Context mContext;
     private List<Product> mListProduct;
 
-    public FoodAdminAdapter(Context mContext) {
+//    public FoodAdminAdapter(List<Product> mListProduct) {
+//        this.mListProduct = mListProduct;
+//    }
+
+//    public FoodAdminAdapter(Context mContext) {
+//        this.mContext = mContext;
+//    }
+
+    public FoodAdminAdapter(Context mContext, List<Product> mListProduct) {
         this.mContext = mContext;
+        this.mListProduct = mListProduct;
     }
 
     public void setData(List<Product> list) {
@@ -46,13 +56,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             return;
         }
 
-        // Chuyển đổi byte array sang Bitmap và set vào ImageView
-        if (product.getImgUrl() != null) {
-            Bitmap bitmap1 = BitmapFactory.decodeByteArray(product.getImgUrl(), 0, product.getImgUrl().length);
-            holder.imgUrl.setImageBitmap(bitmap1);
-        } else {
-            holder.imgUrl.setImageResource(R.drawable.imgslider1); // Placeholder image if no image is available
-        }
+        Glide.with(mContext).load(mListProduct.get(position).getImgURL()).into(holder.imgUrl);
 
         holder.txt_name.setText(product.getName());
         holder.txt_price_old.setText(product.getPriceOld());
@@ -68,7 +72,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             holder.txt_sale.setVisibility(View.GONE);
         }
 
-        // Kiểm tra hiển thị phần giá cũ khi có giảm giá
+//        // Kiểm tra hiển thị phần giá cũ khi có giảm giá
         if (product.getPriceOld() != null && !product.getPriceOld().isEmpty() && !product.getPriceOld().equals("0")) {
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
@@ -88,28 +92,23 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgUrl;
-        private TextView txt_name, txt_price_old, txt_price_new, txt_popular, txt_desc;
-
+        private TextView txt_name, txt_desc, txt_price_old, txt_price_new, txt_popular;
         private TextView txt_sale;
+        private ImageView imgUrl;
         private View line;
-        private ImageView img_edit, img_trash;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgUrl = itemView.findViewById(R.id.imgUrl);
             txt_name = itemView.findViewById(R.id.txt_name);
+            txt_desc = itemView.findViewById(R.id.txt_desc);
             txt_price_old = itemView.findViewById(R.id.txt_price_old);
+            txt_sale = itemView.findViewById(R.id.txt_sale);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);
             txt_popular = itemView.findViewById(R.id.txt_popular);
-            txt_desc = itemView.findViewById(R.id.txt_desc);
+            imgUrl = itemView.findViewById(R.id.imgUrl);
 
-
-            txt_sale = itemView.findViewById(R.id.txt_sale);
             line = itemView.findViewById(R.id.line);
-            img_edit = itemView.findViewById(R.id.img_edit);
-            img_trash = itemView.findViewById(R.id.img_trash);
         }
     }
 

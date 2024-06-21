@@ -1,33 +1,22 @@
 package com.example.android_food_app.Model;
 
 public class Product {
-    private int id;
     private String name, desc, priceOld, priceNew, sale;
-    private byte[] imgUrl, imgUrlSlide;
+    private String imgURL, imgURlSlider;
     private Boolean popular;
-    private byte[] imgUrlOther;
+    private String imgURLOther;
+
     public Product(){
     }
 
-    public Product(int id, String name, String desc, String priceOld, String priceNew, String sale, byte[] imgUrl, byte[] imgUrlSlide, Boolean popular, byte[] imgUrlOther) {
-        this.id = id;
+    public Product(String name, String desc, String priceOld, String sale, String imgURL, String imgURlSlider, String imgURLOther) {
         this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
-        this.priceNew = priceNew;
         this.sale = sale;
-        this.imgUrl = imgUrl;
-        this.imgUrlSlide = imgUrlSlide;
-        this.popular = popular;
-        this.imgUrlOther = imgUrlOther;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.imgURL = imgURL;
+        this.imgURlSlider = imgURlSlider;
+        this.imgURLOther = imgURLOther;
     }
 
     public String getName() {
@@ -70,20 +59,20 @@ public class Product {
         this.sale = sale;
     }
 
-    public byte[] getImgUrl() {
-        return imgUrl;
+    public String getImgURL() {
+        return imgURL;
     }
 
-    public void setImgUrl(byte[] imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 
-    public byte[] getImgUrlSlide() {
-        return imgUrlSlide;
+    public String getImgURlSlider() {
+        return imgURlSlider;
     }
 
-    public void setImgUrlSlide(byte[] imgUrlSlide) {
-        this.imgUrlSlide = imgUrlSlide;
+    public void setImgURlSlider(String imgURlSlider) {
+        this.imgURlSlider = imgURlSlider;
     }
 
     public Boolean getPopular() {
@@ -94,11 +83,20 @@ public class Product {
         this.popular = popular;
     }
 
-    public byte[] getImgUrlOther() {
-        return imgUrlOther;
+    // "Có" hoặc "Không" thay vì true/false
+    public String getPopularString() {
+        if (popular == null) {
+            return "Không";
+        } else {
+            return popular ? "Có" : "Không";
+        }
     }
 
-    public void setImgUrlOther(byte[] imgUrlOther) {
-        this.imgUrlOther = imgUrlOther;
+    public String getImgURLOther() {
+        return imgURLOther;
+    }
+
+    public void setImgURLOther(String imgURLOther) {
+        this.imgURLOther = imgURLOther;
     }
 }

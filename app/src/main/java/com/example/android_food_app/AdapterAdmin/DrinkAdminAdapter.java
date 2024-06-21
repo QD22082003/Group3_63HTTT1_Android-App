@@ -45,14 +45,6 @@ public class DrinkAdminAdapter extends RecyclerView.Adapter<DrinkAdminAdapter.Dr
             return;
         }
 
-        // Chuyển đổi byte array sang Bitmap và set vào ImageView
-        if (product.getImgUrl() != null) {
-            Bitmap bitmap1 = BitmapFactory.decodeByteArray(product.getImgUrl(), 0, product.getImgUrl().length);
-            holder.imgUrl.setImageBitmap(bitmap1);
-        } else {
-            holder.imgUrl.setImageResource(R.drawable.imgslider1); // Placeholder image if no image is available
-        }
-
         holder.txt_name.setText(product.getName());
         holder.txt_price_old.setText(product.getPriceOld());
         holder.txt_price_new.setText(product.getPriceNew());
@@ -88,7 +80,7 @@ public class DrinkAdminAdapter extends RecyclerView.Adapter<DrinkAdminAdapter.Dr
 
     public class DrinkViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgUrl;
-        private TextView txt_name, txt_price_old, txt_price_new, txt_popular, txt_desc;
+        private TextView txt_name, txt_desc, txt_price_old, txt_price_new, txt_popular;
         private TextView txt_sale;
         private View line;
         private ImageView img_edit, img_trash;
@@ -98,16 +90,12 @@ public class DrinkAdminAdapter extends RecyclerView.Adapter<DrinkAdminAdapter.Dr
 
             imgUrl = itemView.findViewById(R.id.imgUrl);
             txt_name = itemView.findViewById(R.id.txt_name);
+            txt_desc = itemView.findViewById(R.id.txt_desc);
             txt_price_old = itemView.findViewById(R.id.txt_price_old);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);
             txt_popular = itemView.findViewById(R.id.txt_popular);
-            txt_desc = itemView.findViewById(R.id.txt_desc);
-
-
             txt_sale = itemView.findViewById(R.id.txt_sale);
             line = itemView.findViewById(R.id.line);
-            img_edit = itemView.findViewById(R.id.img_edit);
-            img_trash = itemView.findViewById(R.id.img_trash);
         }
     }
 

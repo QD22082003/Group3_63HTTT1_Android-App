@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,20 +63,19 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         });
 
 
-        foodAdminAdapter = new FoodAdminAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcv_food.setLayoutManager(linearLayoutManager);
-        foodAdminAdapter.setData(getListFood());
-        rcv_food.setAdapter(foodAdminAdapter);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+//        rcv_food.setLayoutManager(linearLayoutManager);
+//
+//        foodAdminAdapter = new FoodAdminAdapter(this);
+//        foodAdminAdapter.setData(getListFood());
+//        rcv_food.setAdapter(foodAdminAdapter);
 
     }
 
     // Phương thức để lấy danh sách sản phẩm
     private List<Product> getListFood() {
         List<Product> list = new ArrayList<>();
-        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
-        list.add(new Product(2, "Product 2", "Description 2", "0", "400000 VNĐ", "",  getImageBytes(R.drawable.imgslider2), null, false, null));
-        list.add(new Product(3, "Product 3", "Description 2", "0", "400000 VNĐ", "",  getImageBytes(R.drawable.imgslider2), null, false, null));
+//        list.add(new Product("Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
         return list;
     }
 
