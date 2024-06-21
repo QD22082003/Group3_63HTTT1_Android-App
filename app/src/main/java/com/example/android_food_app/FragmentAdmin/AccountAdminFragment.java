@@ -1,5 +1,6 @@
 package com.example.android_food_app.FragmentAdmin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -30,6 +31,7 @@ public class AccountAdminFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private ProgressDialog progressDialog;
 
     public AccountAdminFragment() {
         // Required empty public constructor
@@ -61,7 +63,8 @@ public class AccountAdminFragment extends Fragment {
         LinearLayout changePassword = view.findViewById(R.id.changePassword);
         LinearLayout logoutLayout = view.findViewById(R.id.logout);
         TextView email = view.findViewById(R.id.txt_email);
-
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Đang đăng xuất...");
         // Lấy thông tin người dùng hiện tại
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -86,6 +89,7 @@ public class AccountAdminFragment extends Fragment {
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.show();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
