@@ -19,15 +19,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class FeedbackUserFragment extends Fragment {
 
     private EditText comment, email;
     private Button btnAddFeedback;
-    private DatabaseReference counterRef;
     private ProgressDialog progressDialog;
 
     public FeedbackUserFragment() {
@@ -66,9 +66,6 @@ public class FeedbackUserFragment extends Fragment {
         }
         btnAddFeedback = view.findViewById(R.id.btn_add_feedback);
 
-        // Tham chiếu tới counter trong Firebase
-        counterRef = FirebaseDatabase.getInstance().getReference("counter");
-
         btnAddFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,39 +89,28 @@ public class FeedbackUserFragment extends Fragment {
             String userId = currentUser.getUid();
             DatabaseReference feedbacksRef = FirebaseDatabase.getInstance().getReference("feedbacks");
 
-            // Lấy giá trị counter hiện tại và tăng lên
-            counterRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Long counter = snapshot.getValue(Long.class);
-                    if (counter == null) {
-                        counter = 0L;
-                    }
-                    long newId = counter + 1;
+            // Get the current date and time
+            String currentDate = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date());
 
-                    // Cập nhật giá trị counter mới
-                    counterRef.setValue(newId);
+            // Tạo một push reference để lấy ID tự động
+            DatabaseReference newFeedbackRef = feedbacksRef.push();
+            String feedbackId = newFeedbackRef.getKey();
 
-                    // Tạo đối tượng feedback với ID mới
-                    Feedback feedback = new Feedback(String.valueOf(newId), userId, userComment);
+            // Tạo đối tượng feedback với ID tự động và currentDate
+            Feedback feedback = new Feedback(feedbackId, userId, userComment, currentDate);
 
-                    // Lưu phản hồi vào Firebase với ID mới
-                    feedbacksRef.child(String.valueOf(newId)).setValue(feedback).addOnCompleteListener(task -> {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Phản hồi đã được gửi", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Gửi phản hồi thất bại", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Lỗi khi cập nhật phản hồi", Toast.LENGTH_SHORT).show();
+            // Lưu phản hồi vào Firebase với ID tự động
+            newFeedbackRef.setValue(feedback).addOnCompleteListener(task -> {
+                progressDialog.dismiss();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Phản hồi đã được gửi", Toast.LENGTH_SHORT).show();
+                    comment.setText(""); // Xóa nội dung trong EditText comment sau khi gửi thành công
+                } else {
+                    Toast.makeText(getContext(), "Gửi phản hồi thất bại", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
+            progressDialog.dismiss();
             Toast.makeText(getContext(), "Người dùng không hợp lệ", Toast.LENGTH_SHORT).show();
         }
     }
