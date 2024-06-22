@@ -26,7 +26,6 @@ import java.util.List;
 
 public class DessertPageAdminActivity extends AppCompatActivity {
     private RecyclerView rcv_dessert;
-    private DessertAdminAdapter dessertAdminAdapter;
     private FloatingActionButton fab_add;
     private ImageButton imgBack;
 
@@ -63,17 +62,8 @@ public class DessertPageAdminActivity extends AppCompatActivity {
         });
 
 
-        dessertAdminAdapter = new DessertAdminAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcv_dessert.setLayoutManager(linearLayoutManager);
-        dessertAdminAdapter.setData(getListDessert());
-        rcv_dessert.setAdapter(dessertAdminAdapter);
     }
 
-    private List<Product> getListDessert() {
-        List<Product> list = new ArrayList<>();
-//        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
-        return list;
-    }
+
 
 }

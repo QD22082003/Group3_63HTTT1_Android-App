@@ -24,9 +24,9 @@
     <string name="label_desc">Mô tả</string>
     <string name="label_price">Giá (*)</string>
     <string name="label_sale">Khuyến mại</string>
-    <string name="label_img">Link ảnh URL (*)</string>
-    <string name="label_slider">Link ảnh URL Slider (*)</string>
-    <string name="label_url_other">Link ảnh URL khác (*)</string>
+    <string name="label_img">Ảnh chính (*)</string>
+    <string name="label_slider">Ảnh Slider (*)</string>
+    <string name="label_url_other">Các ảnh khác (*)</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- ************  String end Giang ************  -->

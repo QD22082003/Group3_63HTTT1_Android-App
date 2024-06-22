@@ -19,9 +19,9 @@ import com.example.android_food_app.ActivityUser.DrinkPageUserActivity;
 import com.example.android_food_app.ActivityUser.FoodPageUserActivity;
 import com.example.android_food_app.ActivityUser.DessertPageUserActivity;
 import com.example.android_food_app.AdapterUser.HomeUserRecycleViewAdapter;
-import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
+import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 
 import java.util.ArrayList;

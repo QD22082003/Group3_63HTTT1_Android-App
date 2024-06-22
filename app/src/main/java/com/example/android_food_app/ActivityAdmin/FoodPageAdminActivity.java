@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +23,11 @@ import com.example.android_food_app.AdapterAdmin.FoodAdminAdapter;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -27,7 +35,9 @@ import java.util.List;
 
 public class FoodPageAdminActivity extends AppCompatActivity {
     private RecyclerView rcv_food;
-    private FoodAdminAdapter foodAdminAdapter;
+    private List<Product> dataList;
+    private DatabaseReference databaseReference;
+    private ValueEventListener eventListener;
     private FloatingActionButton fab_add;
     private ImageButton imgBack;
     @Override
@@ -62,27 +72,41 @@ public class FoodPageAdminActivity extends AppCompatActivity {
             }
         });
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(FoodPageAdminActivity.this, 1);
+        rcv_food.setLayoutManager(gridLayoutManager);
 
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-//        rcv_food.setLayoutManager(linearLayoutManager);
-//
-//        foodAdminAdapter = new FoodAdminAdapter(this);
-//        foodAdminAdapter.setData(getListFood());
-//        rcv_food.setAdapter(foodAdminAdapter);
+        AlertDialog.Builder builder = new AlertDialog.Builder(FoodPageAdminActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_admin_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dataList = new ArrayList<>();
+        FoodAdminAdapter adapter = new FoodAdminAdapter(FoodPageAdminActivity.this, dataList);
+        rcv_food.setAdapter(adapter);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("products");
+        dialog.show();
+
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataList.clear();
+                for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
+                    Product product = itemSnapshot.getValue(Product.class);
+                    dataList.add(product);
+                }
+                adapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                dialog.dismiss();
+            }
+        });
 
     }
 
-    // Phương thức để lấy danh sách sản phẩm
-    private List<Product> getListFood() {
-        List<Product> list = new ArrayList<>();
-//        list.add(new Product("Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
-        return list;
-    }
 
-    private byte[] getImageBytes(int resourceId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        return stream.toByteArray();
-    }
 }
