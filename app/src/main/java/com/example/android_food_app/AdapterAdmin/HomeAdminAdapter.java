@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 
@@ -49,7 +50,6 @@ public class HomeAdminAdapter extends RecyclerView.Adapter<HomeAdminAdapter.Home
         holder.txt_price_old.setText(product.getPriceOld());
         holder.txt_price_new.setText(product.getPriceNew());
 
-
         // Kiểm tra và hiển thị phần giảm giá khi có
         if (product.getSale() != null && !product.getSale().isEmpty()) {
             holder.txt_sale.setText(product.getSale());
@@ -65,6 +65,16 @@ public class HomeAdminAdapter extends RecyclerView.Adapter<HomeAdminAdapter.Home
         } else {
             holder.txt_price_old.setVisibility(View.GONE);
             holder.line.setVisibility(View.GONE);
+        }
+
+        // Load hình ảnh từ URL vào ImageView bằng Glide
+        if (product.getImgURL() != null && !product.getImgURL().isEmpty()) {
+            Glide.with(activity)
+                    .load(product.getImgURL())
+                    .into(holder.imgUrl);
+        } else {
+            // Nếu không có URL hình ảnh, có thể ẩn hoặc đặt ảnh mặc định cho ImageView
+            holder.imgUrl.setVisibility(View.GONE);
         }
     }
 

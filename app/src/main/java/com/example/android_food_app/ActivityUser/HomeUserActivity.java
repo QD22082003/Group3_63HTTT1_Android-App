@@ -38,6 +38,7 @@ public class HomeUserActivity extends AppCompatActivity {
 
         adapter = new BottomAdapterViewpager2(this);
         viewPager2.setAdapter(adapter);
+        viewPager2.setOffscreenPageLimit(3);
 
         //chuyển page của viewpager thì bottom phải chuyển tương ứng và ngược lại
 

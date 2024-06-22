@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,11 @@ import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -42,7 +49,7 @@ public class HomeAdminFragment extends Fragment {
     private ViewPager2 viewPager2;
     private CircleIndicator3 indicator3;
     private PhotoAdapterViewPager2 adapter;
-    private List<Photo> list;
+    private List<Product> list;
     private List<Product> listProductHome;
     private RecyclerView rcv_home_admin;
     private HomeAdminAdapter adapterHomeAdmin;
@@ -97,10 +104,10 @@ public class HomeAdminFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Khởi tạo danh sách ảnh
         list = new ArrayList<>();
-        list = getListPhoto();
+        getListPhoto();
 
         listProductHome = new ArrayList<>();
-        listProductHome = getListProductHome();
+        getListProductHome();
     }
 
 
@@ -147,7 +154,7 @@ public class HomeAdminFragment extends Fragment {
         rcv_home_admin.setFocusable(false);
         rcv_home_admin.setNestedScrollingEnabled(false);
 
-        adapterHomeAdmin.setData(getListProductHome());
+        adapterHomeAdmin.setData(listProductHome);
         rcv_home_admin.setAdapter(adapterHomeAdmin);
 
         // Khởi tạo adapter và thiết lập cho ViewPager2
@@ -170,20 +177,117 @@ public class HomeAdminFragment extends Fragment {
 
         return view;
     }
-    private List<Photo> getListPhoto() {
-        List<Photo> list = new ArrayList<>();
-        list.add(new Photo(R.drawable.imgslider1));
-        list.add(new Photo(R.drawable.imgslider2));
-        list.add(new Photo(R.drawable.imgslider3));
-        list.add(new Photo(R.drawable.imgslider4));
-        // Thêm log để kiểm tra dữ liệu
-        Log.d("TrangChuFragment", "Data size: " + list.size());
-        return list;
+    private void getListPhoto() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("products");
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Product product = snapshot.getValue(Product.class);
+                if(product != null && product.getPopular() == true) {
+                    list.add(product);
+                    adapter.notifyDataSetChanged();
+                    indicator3.createIndicators(adapter.getItemCount(), 0);
+                }
+
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Product product = snapshot.getValue(Product.class);
+                if (product != null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getName().equals(product.getName())) {
+                            list.set(i, product);
+                            break;
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                // khi xóa 1 item
+                Product product = snapshot.getValue(Product.class);
+                if (product != null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getName().equals(product.getName())) {
+                            list.remove(i);
+                            break;
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                    indicator3.createIndicators(adapter.getItemCount(), 0);
+                }
+
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
-    private List<Product> getListProductHome() {
+    private void getListProductHome() {
         List<Product> listProductHome = new ArrayList<>();
-//        listProductHome.add(new Product("Salad Cá hồi", "Delicious salmon salad", "20000 VNĐ", "10000 VNĐ", "50%", null, null , null));
-        return listProductHome;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("products");
+
+        // Sử dụng query để lấy các sản phẩm có trường popular = true
+        myRef.orderByChild("popular").equalTo(true).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Product product = snapshot.getValue(Product.class);
+                if (product != null) {
+                    listProductHome.add(product);
+                    adapterHomeAdmin.setData(listProductHome); // Cập nhật dữ liệu vào adapter
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Xử lý khi có sự thay đổi dữ liệu
+                Product product = snapshot.getValue(Product.class);
+                if (product != null) {
+                    for (int i = 0; i < listProductHome.size(); i++) {
+                        if (listProductHome.get(i).getName().equals(product.getName())) {
+                            listProductHome.set(i, product);
+                            break;
+                        }
+                    }
+                    adapterHomeAdmin.setData(listProductHome);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                // Xử lý khi có sự xóa dữ liệu
+                Product product = snapshot.getValue(Product.class);
+                if (product == null || listProductHome == null || listProductHome.isEmpty()) {
+                    return;
+                }
+                for(int i = 0; i< listProductHome.size(); i++) {
+                    if(product.getName() == listProductHome.get(i).getName()){
+                        listProductHome.remove(listProductHome.get(i));
+                        break;
+                    }
+                }
+                adapterHomeAdmin.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Xử lý khi có sự di chuyển dữ liệu
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý khi có lỗi
+            }
+        });
+
     }
 
     @Override

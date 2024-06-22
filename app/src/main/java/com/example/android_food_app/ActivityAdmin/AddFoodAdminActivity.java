@@ -250,7 +250,7 @@ public class AddFoodAdminActivity extends AppCompatActivity {
         String sale = edt_sale.getText().toString();
         boolean isPopular = rad_popular1.isChecked(); // Lấy giá trị từ RadioButton
 
-        Product product = new Product(name, desc, price, sale, imgMainURL, imgSliderURL, imgOtherURL);
+        Product product = new Product(name, desc, price, sale, imgMainURL, imgSliderURL,isPopular, imgOtherURL);
         product.setPopular(isPopular); // Set giá trị popular từ RadioButton
         String popularDisplayValue = isPopular ? "Có" : "Không";
 

@@ -73,9 +73,11 @@ public class PhotoFragment extends Fragment {
 
         //set ảnh lên imgView của fragment_photo
         imgPhoto = view.findViewById(R.id.imgPhoto);
-        if (photo != null) {
-            Glide.with(this).load(photo.getImgID()).into(imgPhoto);
+        if (getArguments() != null) {
+            String imgURlSlider = getArguments().getString("imgURlSlider");
+            Glide.with(this).load(imgURlSlider).into(imgPhoto);
         }
+
         return view;
     }
 }
