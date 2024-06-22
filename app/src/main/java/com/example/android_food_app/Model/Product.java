@@ -1,6 +1,8 @@
 package com.example.android_food_app.Model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String name, desc, priceOld, priceNew, sale;
     private String imgURL, imgURlSlider;
     private Boolean popular;
@@ -9,13 +11,14 @@ public class Product {
     public Product(){
     }
 
-    public Product(String name, String desc, String priceOld, String sale, String imgURL, String imgURlSlider, String imgURLOther) {
+    public Product(String name, String desc, String priceOld, String sale, String imgURL, String imgURlSlider, Boolean popular, String imgURLOther) {
         this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
         this.sale = sale;
         this.imgURL = imgURL;
         this.imgURlSlider = imgURlSlider;
+        this.popular = popular;
         this.imgURLOther = imgURLOther;
     }
 
@@ -83,14 +86,6 @@ public class Product {
         this.popular = popular;
     }
 
-    // "Có" hoặc "Không" thay vì true/false
-    public String getPopularString() {
-        if (popular == null) {
-            return "Không";
-        } else {
-            return popular ? "Có" : "Không";
-        }
-    }
 
     public String getImgURLOther() {
         return imgURLOther;
