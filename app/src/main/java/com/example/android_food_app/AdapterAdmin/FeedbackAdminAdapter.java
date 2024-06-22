@@ -63,6 +63,7 @@ public class FeedbackAdminAdapter extends RecyclerView.Adapter<FeedbackAdminAdap
         });
 
         holder.comment.setText(feedback.getComment());
+        holder.date.setText(feedback.getDate()); // Set the date
     }
 
     @Override
@@ -74,12 +75,13 @@ public class FeedbackAdminAdapter extends RecyclerView.Adapter<FeedbackAdminAdap
     }
 
     public class FeedbackViewHolder extends RecyclerView.ViewHolder {
-        private TextView email, comment;
+        private TextView email, comment, date;
 
         public FeedbackViewHolder(@NonNull View itemView) {
             super(itemView);
             email = itemView.findViewById(R.id.email);
             comment = itemView.findViewById(R.id.comment);
+            date = itemView.findViewById(R.id.date); // Initialize the date TextView
         }
     }
 }
