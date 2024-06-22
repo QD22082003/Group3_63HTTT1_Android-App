@@ -1,6 +1,8 @@
 package com.example.android_food_app.Model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String name, desc, priceOld, priceNew, sale;
     private String imgURL, imgURlSlider;
     private Boolean popular;

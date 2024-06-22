@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FeedbackAdminFragment extends Fragment {
@@ -60,12 +62,21 @@ public class FeedbackAdminFragment extends Fragment {
                     Feedback feedback = dataSnapshot.getValue(Feedback.class);
                     mListFeedback.add(feedback);
                 }
+
+                // Sắp xếp danh sách theo ngày theo thứ tự giảm dần
+                Collections.sort(mListFeedback, new Comparator<Feedback>() {
+                    @Override
+                    public int compare(Feedback f1, Feedback f2) {
+                        return f2.getDate().compareTo(f1.getDate());
+                    }
+                });
+
                 mAdapter.setData(mListFeedback);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible errors.
+                // Xử lý lỗi có thể xảy ra.
             }
         });
     }

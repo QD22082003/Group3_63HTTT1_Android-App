@@ -66,8 +66,8 @@
             <ImageView
                 android:id="@+id/img_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
+                android:layout_height="@android:dimen/thumbnail_height"
+                android:scaleType="fitCenter"
                 android:src="@drawable/imgslider2" />
 
             <TextView

@@ -35,6 +35,7 @@ public class HomeAdminActivity extends AppCompatActivity {
 
         ViewPager2AdminAdapter adapter = new ViewPager2AdminAdapter(this);
         mViewPager2.setAdapter(adapter);
+        mViewPager2.setOffscreenPageLimit(3);
 
         mViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

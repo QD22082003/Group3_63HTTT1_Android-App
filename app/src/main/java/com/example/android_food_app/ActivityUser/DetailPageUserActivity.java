@@ -16,7 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
+import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -78,20 +80,28 @@ public class DetailPageUserActivity extends AppCompatActivity {
 
         // Nhận Intent
         Intent intent = getIntent();
-        Product1 product = null;
+        Product product = null;
 
         if (intent.hasExtra("drink_recycleview")) {
-            product = (Product1) intent.getSerializableExtra("drink_recycleview");
+            product = (Product) intent.getSerializableExtra("drink_recycleview");
         } else if (intent.hasExtra("food_recycleview")) {
-            product = (Product1) intent.getSerializableExtra("food_recycleview");
+            product = (Product) intent.getSerializableExtra("food_recycleview");
         } else if (intent.hasExtra("dessert_recycleview")) {
-            product = (Product1) intent.getSerializableExtra("dessert_recycleview");
-        } else if (intent.hasExtra("home_recycleview_product")) {
-            product = (Product1) intent.getSerializableExtra("home_recycleview_product");
+            product = (Product) intent.getSerializableExtra("dessert_recycleview");
+        } else if (intent.hasExtra("product_detail")) {
+            product = (Product) intent.getSerializableExtra("product_detail");
         }
 
         if (product != null) {
-            img_detail.setImageResource(product.getResourceId());
+            // Load hình ảnh từ URL vào ImageView bằng Glide
+            if (product.getImgURL() != null && !product.getImgURL().isEmpty()) {
+                Glide.with(this)
+                        .load(product.getImgURL())
+                        .into(img_detail); // hoặc vào bất kỳ ImageView nào khác cần hiển thị hình ảnh
+            } else {
+                // Xử lý nếu không có URL hình ảnh
+                img_detail.setVisibility(View.GONE);
+            }
             txt_name_detail.setText(product.getName());
             txt_price_new_detail.setText(product.getPriceNew());
             if (product.getPriceOld() != null && !product.getPriceOld().isEmpty()) {
@@ -104,7 +114,7 @@ public class DetailPageUserActivity extends AppCompatActivity {
         }
 
         //lắng nghe khi click vào button thêm vào giỏ hàng
-        Product1 finalProduct = product;
+        Product finalProduct = product;
         btn_them.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -128,7 +138,7 @@ public class DetailPageUserActivity extends AppCompatActivity {
         list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
         return list;
     }
-    private void clickOpenBottomSheetDialog(Product1 product) {
+    private void clickOpenBottomSheetDialog(Product product) {
         View viewBottomDialog = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_chitiet, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailPageUserActivity.this);
         bottomSheetDialog.setContentView(viewBottomDialog);
@@ -140,7 +150,15 @@ public class DetailPageUserActivity extends AppCompatActivity {
         txt_gia_chitiet_bottomsheet = viewBottomDialog.findViewById(R.id.txt_gia_chitiet_bottomsheet);
         txt_ten_chitiet_bottomsheet = viewBottomDialog.findViewById(R.id.txt_ten_chitiet_bottomsheet);
 
-        img_chitiet_bottomsheet.setImageResource(product.getResourceId());
+        // Load hình ảnh từ URL vào ImageView bằng Glide (ví dụ)
+        if (product.getImgURL() != null && !product.getImgURL().isEmpty()) {
+            Glide.with(this)
+                    .load(product.getImgURL())
+                    .into(img_chitiet_bottomsheet); // Load vào ImageView của bottom sheet
+        } else {
+            img_chitiet_bottomsheet.setVisibility(View.GONE); // Xử lý nếu không có hình ảnh
+        }
+
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
         txt_gia_chitiet_bottomsheet.setText(product.getName());
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
