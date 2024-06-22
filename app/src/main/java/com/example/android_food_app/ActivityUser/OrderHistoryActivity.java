@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryActivity extends AppCompatActivity {
-
     private RecyclerView recyclerViewOrderHistory;
     private OrderHistoryAdapter orderHistoryAdapter;
     private List<Order> orderList;

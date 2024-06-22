@@ -26,7 +26,6 @@ import java.util.List;
 
 public class DrinkPageAminActivity extends AppCompatActivity {
     private RecyclerView rcv_drink;
-    private DrinkAdminAdapter drinkAdminAdapter;
     private FloatingActionButton fab_add;
     private ImageButton imgBack;
     @Override
@@ -61,17 +60,8 @@ public class DrinkPageAminActivity extends AppCompatActivity {
             }
         });
 
-        drinkAdminAdapter = new DrinkAdminAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        rcv_drink.setLayoutManager(linearLayoutManager);
-        drinkAdminAdapter.setData(getListDrink());
-        rcv_drink.setAdapter(drinkAdminAdapter);
     }
 
-    private List<Product> getListDrink() {
-        List<Product> list = new ArrayList<>();
-//        list.add(new Product(1, "Product 1", "Description 1", "100000 VNĐ", "50000 VNĐ", "Giảm 10%",  getImageBytes(R.drawable.imgslider1), null, true, null));
-        return list;
-    }
+
 
 }

@@ -11,10 +11,11 @@ public class Product implements Serializable {
     public Product(){
     }
 
-    public Product(String name, String desc, String priceOld, String sale, String imgURL, String imgURlSlider, Boolean popular, String imgURLOther) {
+    public Product(String name, String desc, String priceOld, String priceNew, String sale, String imgURL, String imgURlSlider, Boolean popular, String imgURLOther) {
         this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
+        this.priceNew = priceNew;
         this.sale = sale;
         this.imgURL = imgURL;
         this.imgURlSlider = imgURlSlider;

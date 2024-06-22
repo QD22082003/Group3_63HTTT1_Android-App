@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -167,6 +170,11 @@ public class AddFoodAdminActivity extends AppCompatActivity {
 
     // Hàm upload ảnh chính lên Firebase
     private void saveMainImage() {
+        if (uriMainImage == null) {
+            Toast.makeText(AddFoodAdminActivity.this, "Vui lòng chọn hình ảnh chính", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Save Images")
                 .child(uriMainImage.getLastPathSegment());
 
@@ -196,10 +204,16 @@ public class AddFoodAdminActivity extends AppCompatActivity {
 
     // Hàm upload ảnh slider lên Firebase
     private void saveSliderImage(AlertDialog dialog) {
+        if (uriSliderImage == null) {
+            Toast.makeText(AddFoodAdminActivity.this, "Vui lòng chọn hình ảnh slider", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            return;
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Save Images")
                 .child(uriSliderImage.getLastPathSegment());
 
-        storageReference.putFile(uriSliderImage).addOnSuccessListener(  new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageReference.putFile(uriSliderImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
@@ -219,6 +233,12 @@ public class AddFoodAdminActivity extends AppCompatActivity {
 
     // Hàm upload ảnh khác lên Firebase
     private void saveOtherImage(AlertDialog dialog) {
+        if (uriOtherImage == null) {
+            Toast.makeText(AddFoodAdminActivity.this, "Vui lòng chọn hình ảnh khác", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+            return;
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Save Images")
                 .child(uriOtherImage.getLastPathSegment());
 
@@ -240,38 +260,77 @@ public class AddFoodAdminActivity extends AppCompatActivity {
         });
     }
 
+
     // Hàm upload dữ liệu sản phẩm lên Firebase
     private void uploadData(AlertDialog dialog) {
-        // Tạo ID trên thời gian hiện tại
-        String id = generateProductId();
-        String name = edt_name.getText().toString();
-        String desc = edt_desc.getText().toString();
-        String price = edt_price.getText().toString();
-        String sale = edt_sale.getText().toString();
-        boolean isPopular = rad_popular1.isChecked(); // Lấy giá trị từ RadioButton
+        try {
+            String name = edt_name.getText().toString().trim();
+            String desc = edt_desc.getText().toString().trim();
+            String price = edt_price.getText().toString().trim();
+            String sale = edt_sale.getText().toString().trim();
+            Boolean popular  = rad_popular1.isChecked(); // Lấy giá trị từ RadioButton
 
-        Product product = new Product(name, desc, price, sale, imgMainURL, imgSliderURL,isPopular, imgOtherURL);
-        product.setPopular(isPopular); // Set giá trị popular từ RadioButton
-        String popularDisplayValue = isPopular ? "Có" : "Không";
+            // Kiểm tra các trường dữ liệu
+            if (name.isEmpty()) {
+                throw new IllegalArgumentException("Vui lòng nhập tên sản phẩm");
+            } else if (desc.isEmpty()) {
+                throw new IllegalArgumentException("Vui lòng nhập mô tả sản phẩm");
+            } else if (price.isEmpty()) {
+                throw new IllegalArgumentException("Vui lòng nhập giá sản phẩm");
+            }
 
-        FirebaseDatabase.getInstance().getReference("products").child(id)
-                .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AddFoodAdminActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            finish();
+            // Tính priceNew nếu có giảm giá
+            double priceOld = Double.parseDouble(price.replaceAll("[^\\d]", ""));
+            double priceNew = priceOld; // Giá mặc định sẽ là giá cũ
+            if (!sale.isEmpty()) {
+                int salePercent = Integer.parseInt(sale.replaceAll("[^\\d]", ""));
+                priceNew = priceOld * (100 - salePercent) / 100;
+            }
+            // Format priceNew để lưu vào Firebase
+            DecimalFormat formatter = new DecimalFormat("###,###");
+            String priceNewFormatted = formatter.format(priceNew);
+
+            // TH đk đúng, upload dữ liệu
+            Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, imgOtherURL);
+
+            // Tạo ID trên thời gian hiện tại
+            String id = generateProductId();
+            FirebaseDatabase.getInstance().getReference("products").child(id)
+                    .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(AddFoodAdminActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                finish();
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        dialog.dismiss();
-                        Toast.makeText(AddFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            dialog.dismiss();
+                            Toast.makeText(AddFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        } catch (IllegalArgumentException e) {
+            dialog.dismiss();
+            Toast.makeText(AddFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            dialog.dismiss();
+            Toast.makeText(AddFoodAdminActivity.this, "Đã xảy ra lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
+
+    private void showProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddFoodAdminActivity.this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_admin_layout);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 
     // Hàm tạo ID sản phẩm dựa trên thời gian
     private String generateProductId() {

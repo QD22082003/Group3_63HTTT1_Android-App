@@ -16,6 +16,7 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityAdmin.DetailProductAdminActivity"
             android:name=".ActivityUser.UserFeedbackActivity"
             android:exported="false" />
         <activity
