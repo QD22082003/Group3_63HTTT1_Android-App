@@ -1,6 +1,7 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.android_food_app.ActivityUser.UserFeedbackActivity;
 import com.example.android_food_app.Model.Feedback;
 import com.example.android_food_app.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +32,7 @@ public class FeedbackUserFragment extends Fragment {
     private EditText comment, email;
     private Button btnAddFeedback;
     private ProgressDialog progressDialog;
+    FloatingActionButton user_feedback;
 
     public FeedbackUserFragment() {
         // Required empty public constructor
@@ -57,6 +61,7 @@ public class FeedbackUserFragment extends Fragment {
 
         comment = view.findViewById(R.id.comment);
         email = view.findViewById(R.id.email);
+        user_feedback = view.findViewById(R.id.user_feedback);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Đang kiểm tra...");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -72,7 +77,13 @@ public class FeedbackUserFragment extends Fragment {
                 addFeedback();
             }
         });
-
+        user_feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UserFeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
