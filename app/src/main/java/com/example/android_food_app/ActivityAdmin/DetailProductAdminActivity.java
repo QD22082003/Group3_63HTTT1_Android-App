@@ -84,13 +84,93 @@ public class DetailProductAdminActivity extends AppCompatActivity {
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showDeleteConfirmationDialog();
             }
         });
 
     }
 
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận xóa")
+                .setMessage("Bạn có chắc chắn muốn xóa sản phẩm này không?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteProduct1();
+                    }
+                })
+                .setNegativeButton("Không", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
+    private void deleteProduct() {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(imgUrl);
+        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                databaseReference.child(key).removeValue();
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Phương thức xóa sản phẩm và các ảnh liên quan từ Firebase Storage và Realtime Database
+    private void deleteProduct1() {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReferenceMain = storage.getReferenceFromUrl(imgUrl);
+        StorageReference storageReferenceOther = storage.getReferenceFromUrl(imgOtherUrl);
+        StorageReference storageReferenceSlider = storage.getReferenceFromUrl(imgSliderUrl);
+
+        // Xóa imgUrl
+        storageReferenceMain.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                // Xóa imgOther
+                storageReferenceOther.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // Xóa imgSlider
+                        storageReferenceSlider.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                // Nếu xóa thành công, xóa dữ liệu sản phẩm khỏi Realtime Database
+                                databaseReference.child(key).removeValue();
+                                Toast.makeText(DetailProductAdminActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh slider thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh phụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh chính thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 }
