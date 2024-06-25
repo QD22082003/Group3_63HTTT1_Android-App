@@ -7,11 +7,13 @@ public class Product implements Serializable {
     private String imgURL, imgURlSlider;
     private Boolean popular;
     private String imgURLOther;
+    private String productType;
+    private String key;
 
     public Product(){
     }
 
-    public Product(String name, String desc, String priceOld, String priceNew, String sale, String imgURL, String imgURlSlider, Boolean popular, String imgURLOther) {
+    public Product(String name, String desc, String priceOld, String priceNew, String sale, String imgURL, String imgURlSlider, Boolean popular, String productType, String imgURLOther) {
         this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
@@ -20,6 +22,7 @@ public class Product implements Serializable {
         this.imgURL = imgURL;
         this.imgURlSlider = imgURlSlider;
         this.popular = popular;
+        this.productType = productType;
         this.imgURLOther = imgURLOther;
     }
 
@@ -86,7 +89,12 @@ public class Product implements Serializable {
     public void setPopular(Boolean popular) {
         this.popular = popular;
     }
-
+    public String getProductType() {
+        return productType;
+    }
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
 
     public String getImgURLOther() {
         return imgURLOther;
@@ -94,5 +102,13 @@ public class Product implements Serializable {
 
     public void setImgURLOther(String imgURLOther) {
         this.imgURLOther = imgURLOther;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

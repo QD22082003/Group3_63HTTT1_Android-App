@@ -1,11 +1,10 @@
 package com.example.android_food_app.ActivityAdmin;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -14,9 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterAdmin.FoodAdminAdapter;
@@ -29,17 +26,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FoodPageAdminActivity extends AppCompatActivity {
     private RecyclerView rcv_food;
-    private List<Product> dataList;
+    private List<Product> mListProduct;
     private DatabaseReference databaseReference;
     private ValueEventListener eventListener;
     private FloatingActionButton fab_add;
     private ImageButton imgBack;
+    private SearchView search_view;
+    private FoodAdminAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +53,8 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         rcv_food = findViewById(R.id.rcv_food);
         fab_add = findViewById(R.id.fab_add);
         imgBack = findViewById(R.id.imgBack);
+        search_view = findViewById(R.id.search_view);
+        search_view.clearFocus();
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,20 +81,22 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        dataList = new ArrayList<>();
-        FoodAdminAdapter adapter = new FoodAdminAdapter(FoodPageAdminActivity.this, dataList);
+        mListProduct = new ArrayList<>();
+        adapter = new FoodAdminAdapter(FoodPageAdminActivity.this, mListProduct);
         rcv_food.setAdapter(adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("products");
         dialog.show();
 
+        // load data
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dataList.clear();
+                mListProduct.clear();
                 for (DataSnapshot itemSnapshot: snapshot.getChildren()) {
                     Product product = itemSnapshot.getValue(Product.class);
-                    dataList.add(product);
+                    product.setKey(itemSnapshot.getKey());
+                    mListProduct.add(product);
                 }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
@@ -105,6 +107,31 @@ public class FoodPageAdminActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchList(newText);
+                return true;
+            }
+        });
+
+    }
+
+    public void searchList(String text) {
+        ArrayList<Product> searchList = new ArrayList<>();
+        for (Product product: mListProduct) {
+            if (product.getName().toLowerCase().contains(text.toLowerCase())) {
+                searchList.add(product);
+            }
+        }
+
+        adapter.searchDataList(searchList);
 
     }
 
