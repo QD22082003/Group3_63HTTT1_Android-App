@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -32,15 +31,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class AddFoodAdminActivity extends AppCompatActivity {
     private EditText edt_name, edt_desc, edt_price, edt_sale;
@@ -48,8 +48,11 @@ public class AddFoodAdminActivity extends AppCompatActivity {
     private Uri uriMainImage, uriSliderImage, uriOtherImage;
     private String imgMainURL, imgSliderURL, imgOtherURL;
     private RadioButton rad_popular1;
+    private RadioGroup radioGroup_product_type;
     private Button btn_add;
     private ImageButton imgBack;
+    private DatabaseReference currentIdReference;
+    private long currentProductId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,27 @@ public class AddFoodAdminActivity extends AppCompatActivity {
         rad_popular1 = findViewById(R.id.rad_popular1);
         btn_add = findViewById(R.id.btn_add);
         imgBack = findViewById(R.id.imgBack);
+        radioGroup_product_type = findViewById(R.id.radioGroup_product_type);
+
+        // tạo 1 node để luu trữ giá trị id
+        currentIdReference = FirebaseDatabase.getInstance().getReference("currentProductId");
+        // Lấy giá trị currentProductId hiện tại
+        currentIdReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    currentProductId = snapshot.getValue(Long.class);
+                } else {
+                    currentProductId = 0; // Mặc định là 0 nếu chưa có sản phẩm nào
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddFoodAdminActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // ActivityResultLauncher cho ảnh chính
         ActivityResultLauncher<Intent> mainImageResultLauncher = registerForActivityResult(
@@ -290,11 +314,20 @@ public class AddFoodAdminActivity extends AppCompatActivity {
             DecimalFormat formatter = new DecimalFormat("###,###");
             String priceNewFormatted = formatter.format(priceNew);
 
-            // TH đk đúng, upload dữ liệu
-            Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, imgOtherURL);
+            // Lấy loại sản phẩm đã chọn từ RadioGroup
+            int selectedProductTypeId = radioGroup_product_type.getCheckedRadioButtonId();
+            RadioButton selectedProductTypeRadioButton = findViewById(selectedProductTypeId);
+            String productType = selectedProductTypeRadioButton.getText().toString();
 
-            // Tạo ID trên thời gian hiện tại
-            String id = generateProductId();
+            // TH đk đúng, upload dữ liệu
+            Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, productType, imgOtherURL);
+
+            // Tăng giá trị currentProductId lên 1
+            currentProductId++;
+            currentIdReference.setValue(currentProductId);
+            // Tạo ID trên giá trị node currentProductId
+            String id = String.valueOf(currentProductId);
+
             FirebaseDatabase.getInstance().getReference("products").child(id)
                     .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -322,19 +355,5 @@ public class AddFoodAdminActivity extends AppCompatActivity {
         }
     }
 
-    private void showProgressDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddFoodAdminActivity.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_admin_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
-
-
-    // Hàm tạo ID sản phẩm dựa trên thời gian
-    private String generateProductId() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault());
-        return sdf.format(new Date());
-    }
 }

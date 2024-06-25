@@ -1,16 +1,17 @@
 package com.example.android_food_app.AdapterAdmin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,20 +19,24 @@ import com.bumptech.glide.Glide;
 import com.example.android_food_app.ActivityAdmin.DetailProductAdminActivity;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
-
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.FoodViewHolder> {
-
     private Context mContext;
     private List<Product> mListProduct;
-
+    private FirebaseStorage firebaseStorage;
 
     public FoodAdminAdapter(Context mContext, List<Product> mListProduct) {
         this.mContext = mContext;
         this.mListProduct = mListProduct;
+        this.firebaseStorage = FirebaseStorage.getInstance();
     }
 
     @NonNull
@@ -48,6 +53,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             return;
         }
 
+        // Hiển thị 1 số thuộc tính sản phẩm lên trang danh sách
         Glide.with(mContext).load(mListProduct.get(position).getImgURL()).into(holder.imgUrl);
         holder.txt_name.setText(mListProduct.get(position).getName());
         holder.txt_desc.setText(mListProduct.get(position).getDesc());
@@ -55,11 +61,12 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
         holder.txt_price_old.setText(mListProduct.get(position).getPriceOld());
         holder.txt_popular.setText(mListProduct.get(position).getPopular() ? "Có" : "Không");
 
+        // Tính giá mới priceNew sau khi nhập khuyến mãi sale
         try {
-            String priceOldStr = product.getPriceOld().replaceAll("[^\\d]", ""); // Remove non-numeric characters
+            String priceOldStr = product.getPriceOld().replaceAll("[^\\d]", ""); // Xóa các ký tự không phải là số
             double priceOld = Double.parseDouble(priceOldStr);
 
-            // Check if sale is provided
+            // Kiểm tra xem có giảm giá hay không
             if (!product.getSale().isEmpty()) {
                 int salePercent = Integer.parseInt(product.getSale().replaceAll("[^\\d]", ""));
                 double priceNew = priceOld * (100 - salePercent) / 100;
@@ -81,6 +88,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             e.printStackTrace();
         }
 
+        // Ấn vào 1 layout item hiển thị sp sang trang DetailProductAdmin
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,14 +97,24 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
                 Intent intent = new Intent(mContext, DetailProductAdminActivity.class);
                 intent.putExtra("imgUrl", product.getImgURL());
-                intent.putExtra("imgDetail", product.getImgURLOther());
+                intent.putExtra("imgOther", product.getImgURLOther());
+                intent.putExtra("imgSlider", product.getImgURlSlider());
                 intent.putExtra("name", product.getName());
                 intent.putExtra("desc", product.getDesc());
                 intent.putExtra("price", product.getPriceOld());
                 intent.putExtra("sale", product.getSale());
                 intent.putExtra("popular", product.getPopular());
+                intent.putExtra("Key", product.getKey());
 
                 mContext.startActivity(intent);
+            }
+        });
+
+        // Chức năng xóa sp
+        holder.img_trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -109,10 +127,15 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
         return 0;
     }
 
+    public void searchDataList(ArrayList<Product> searchList) {
+        mListProduct = searchList;
+        notifyDataSetChanged();
+    }
+
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         private TextView txt_name, txt_desc, txt_sale, txt_price_old, txt_price_new, txt_popular, txt_sale0, txt_sale1, txt_title_price_new;
         private CardView recCard;
-        private ImageView imgUrl;
+        private ImageView imgUrl, img_edit, img_trash;
         private View line;
 
         public FoodViewHolder(@NonNull View itemView) {
@@ -127,6 +150,9 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             imgUrl = itemView.findViewById(R.id.imgUrl);
             recCard = itemView.findViewById(R.id.recCard);
 
+            img_trash = itemView.findViewById(R.id.img_trash);
+            img_edit = itemView.findViewById(R.id.img_edit);
+
             line = itemView.findViewById(R.id.line);
             txt_sale0 = itemView.findViewById(R.id.txt_sale0);
             txt_sale1 = itemView.findViewById(R.id.txt_sale1);
@@ -136,4 +162,3 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
 
 
 }
-
