@@ -96,7 +96,7 @@ public class DetailProductAdminActivity extends AppCompatActivity {
                 .setMessage("Bạn có chắc chắn muốn xóa sản phẩm này không?")
                 .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteProduct1();
+                        deleteProduct();
                     }
                 })
                 .setNegativeButton("Không", null)
@@ -104,28 +104,8 @@ public class DetailProductAdminActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void deleteProduct() {
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl(imgUrl);
-        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                databaseReference.child(key).removeValue();
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     // Phương thức xóa sản phẩm và các ảnh liên quan từ Firebase Storage và Realtime Database
-    private void deleteProduct1() {
+    private void deleteProduct() {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReferenceMain = storage.getReferenceFromUrl(imgUrl);
