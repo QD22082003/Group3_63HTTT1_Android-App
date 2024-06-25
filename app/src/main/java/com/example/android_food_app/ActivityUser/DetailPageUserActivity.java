@@ -2,6 +2,7 @@ package com.example.android_food_app.ActivityUser;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +24,11 @@ import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +48,7 @@ public class DetailPageUserActivity extends AppCompatActivity {
     private Button btn_themvaogiohang;
     private ImageView img_chitiet_bottomsheet;
     private TextView txt_ten_chitiet_bottomsheet, txt_gia_chitiet_bottomsheet;
-
-
-
+    private List<Product> productList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,40 +77,43 @@ public class DetailPageUserActivity extends AppCompatActivity {
         adapter = new DetailUserAdadpter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         rcv_detail.setLayoutManager(gridLayoutManager);
-
-        adapter.setDataImgOther(getListImgOther());
+        adapter.setData(productList);
         rcv_detail.setAdapter(adapter);
         rcv_detail.setNestedScrollingEnabled(false);
         rcv_detail.setFocusable(false);
 
-        // Nhận Intent
+        // Nhận Intent và lấy selectedProduct
         Intent intent = getIntent();
-        Product product = null;
-
+        Product selectedProduct = null;
         if (intent.hasExtra("drink_recycleview")) {
-            product = (Product) intent.getSerializableExtra("drink_recycleview");
+            selectedProduct = (Product) intent.getSerializableExtra("drink_recycleview");
         } else if (intent.hasExtra("food_recycleview")) {
-            product = (Product) intent.getSerializableExtra("food_recycleview");
+            selectedProduct = (Product) intent.getSerializableExtra("food_recycleview");
         } else if (intent.hasExtra("dessert_recycleview")) {
-            product = (Product) intent.getSerializableExtra("dessert_recycleview");
+            selectedProduct = (Product) intent.getSerializableExtra("dessert_recycleview");
         } else if (intent.hasExtra("product_detail")) {
-            product = (Product) intent.getSerializableExtra("product_detail");
+            selectedProduct = (Product) intent.getSerializableExtra("product_detail");
         }
 
-        if (product != null) {
+        // Fetch data từ Firebase dựa trên selectedProduct
+        if (selectedProduct != null) {
+            fetchDataFromFirebase(selectedProduct);
+        }
+
+        if (selectedProduct != null) {
             // Load hình ảnh từ URL vào ImageView bằng Glide
-            if (product.getImgURL() != null && !product.getImgURL().isEmpty()) {
+            if (selectedProduct.getImgURL() != null && !selectedProduct.getImgURL().isEmpty()) {
                 Glide.with(this)
-                        .load(product.getImgURL())
+                        .load(selectedProduct.getImgURL())
                         .into(img_detail); // hoặc vào bất kỳ ImageView nào khác cần hiển thị hình ảnh
             } else {
                 // Xử lý nếu không có URL hình ảnh
                 img_detail.setVisibility(View.GONE);
             }
-            txt_name_detail.setText(product.getName());
-            txt_price_new_detail.setText(product.getPriceNew());
-            if (product.getPriceOld() != null && !product.getPriceOld().isEmpty()) {
-                txt_price_old_chitiet.setText(product.getPriceOld());
+            txt_name_detail.setText(selectedProduct.getName());
+            txt_price_new_detail.setText(selectedProduct.getPriceNew());
+            if (selectedProduct.getPriceOld() != null && !selectedProduct.getPriceOld().isEmpty()) {
+                txt_price_old_chitiet.setText(selectedProduct.getPriceOld());
                 txt_price_old_chitiet.setVisibility(View.VISIBLE);
             } else {
                 txt_price_old_chitiet.setVisibility(View.GONE);
@@ -113,13 +121,13 @@ public class DetailPageUserActivity extends AppCompatActivity {
             }
         }
 
-        //lắng nghe khi click vào button thêm vào giỏ hàng
-        Product finalProduct = product;
-        btn_them.setOnClickListener(new View.OnClickListener() {
 
+        // Lắng nghe khi click vào button thêm vào giỏ hàng
+        Product finalSelectedProduct = selectedProduct;
+        btn_them.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickOpenBottomSheetDialog(finalProduct);
+                clickOpenBottomSheetDialog(finalSelectedProduct);
             }
         });
 
@@ -133,11 +141,40 @@ public class DetailPageUserActivity extends AppCompatActivity {
 
 
     }
-    private List<Product1> getListImgOther() {
-        List<Product1> list = new ArrayList<>();
-        list.add(new Product1(R.drawable.imgslider1, "Salad cá hồi", "", "60 000 VND", "40 000 VND", "Giảm 10 %", ""));
-        return list;
+    private void fetchDataFromFirebase(Product selectedProduct) {
+        // Lắng nghe sự kiện khi có thay đổi dữ liệu trên Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = database.getReference("products");
+
+        mDatabase.orderByChild("name").equalTo(selectedProduct.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                productList.clear(); // Xóa dữ liệu cũ đi để tránh trường hợp dữ liệu bị trùng lặp
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Lấy dữ liệu từ Firebase và thêm vào danh sách sản phẩm
+                    Product product = snapshot.getValue(Product.class);
+                    if (product != null) {
+                        // Kiểm tra nếu có imgURLOther thì thêm vào productList
+                        if (product.getImgURLOther() != null && !product.getImgURLOther().isEmpty()) {
+                            productList.add(product);
+                        }
+                    }
+                }
+                // Cập nhật dữ liệu mới vào adapter
+                adapter.setData(productList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
     }
+
+
+
+
     private void clickOpenBottomSheetDialog(Product product) {
         View viewBottomDialog = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_chitiet, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DetailPageUserActivity.this);
