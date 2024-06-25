@@ -69,5 +69,10 @@
     <string name="action_phanHoi">Phản hồi</string>
     <string name="action_donHang">Đơn hàng</string>
     <string name="action_taiKhoan">Tài khoản</string>
+
+    <!--Trang giỏ hàng-->
+    <string name="title_cart_page">GIỎ HÀNG</string>
+    <string name="sum">Tổng tiền</string>
+    <string name="add_order">Tạo đơn hàng</string>
 </resources>
 
