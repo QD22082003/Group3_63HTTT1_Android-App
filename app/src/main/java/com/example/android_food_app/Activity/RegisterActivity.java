@@ -72,14 +72,20 @@ public class RegisterActivity extends AppCompatActivity {
                 final int DRAWABLE_RIGHT = 2;
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (inputPassword.getRight() - inputPassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // Handle eye icon click
+                        // Xử lý khi nhấn vào biểu tượng mắt
                         if (inputPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-                            // Show password
+                            // Hiển thị mật khẩu
                             inputPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
-                            // Hide password
+                            // Ẩn mật khẩu
                             inputPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPassword.setSelection(inputPassword.getText().length());
                         return true;
                     }
                 }
@@ -93,14 +99,20 @@ public class RegisterActivity extends AppCompatActivity {
                 final int DRAWABLE_RIGHT = 2;
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (inputPassword2.getRight() - inputPassword2.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // Handle eye icon click
+                        // Xử lý khi nhấn vào biểu tượng mắt
                         if (inputPassword2.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
-                            // Show password
+                            // Hiển thị mật khẩu
                             inputPassword2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPassword2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
-                            // Hide password
+                            // Ẩn mật khẩu
                             inputPassword2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPassword2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPassword2.setSelection(inputPassword2.getText().length());
                         return true;
                     }
                 }

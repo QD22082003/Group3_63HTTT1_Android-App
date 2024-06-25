@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android_food_app.Activity.ChangePasswordActivity;
 import com.example.android_food_app.Activity.LoginActivity;
@@ -81,12 +82,19 @@ public class AccountUserFragment extends Fragment {
             public void onClick(View view) {
                 progressDialog.show();
                 FirebaseAuth.getInstance().signOut();
+                progressDialog.dismiss(); // Tắt progress dialog khi đã đăng xuất
+
+                // Hiển thị thông báo đăng xuất thành công
+                Toast.makeText(getActivity(), "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
-                // Optional: Kết thúc hoạt động hiện tại để ngăn người dùng quay lại bằng nút back
+
+                // Kết thúc hoạt động hiện tại để ngăn người dùng quay lại bằng nút back
                 getActivity().finish();
             }
         });
+
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override

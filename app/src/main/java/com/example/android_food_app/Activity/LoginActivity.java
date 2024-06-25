@@ -77,16 +77,23 @@ public class LoginActivity extends AppCompatActivity {
                         if (inputPassword.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
                             // Hiển thị mật khẩu
                             inputPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
                             // Ẩn mật khẩu
                             inputPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPassword.setSelection(inputPassword.getText().length());
                         return true;
                     }
                 }
                 return false;
             }
         });
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang kiểm tra...");
@@ -182,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            progressDialog.dismiss();
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin đăng nhập.", Toast.LENGTH_SHORT).show();
                         }
