@@ -7,18 +7,18 @@ public class Customer {
     private String emailuser;
     private Long id;
     private String name;
-    private String address;
     private String phone;
+    private String address;
 
     public Customer() {
     }
 
-    public Customer(String emailuser, Long id, String name, String address, String phone) {
+    public Customer(String emailuser, Long id, String name, String phone, String address) {
         this.emailuser = emailuser;
         this.id = id;
         this.name = name;
-        this.address = address;
         this.phone = phone;
+        this.address = address;
     }
 
     public String getEmailuser() {
@@ -67,8 +67,8 @@ public class Customer {
                 "emailuser='" + emailuser + '\'' +
                 ", id=" + id +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 
