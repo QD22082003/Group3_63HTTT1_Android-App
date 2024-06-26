@@ -1,6 +1,9 @@
 package com.example.android_food_app.ActivityAdmin;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,6 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_food_app.AdapterAdmin.RevenueAdminAdapter;
 import com.example.android_food_app.Model.Order;
 import com.example.android_food_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -26,6 +34,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,77 +47,84 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
     private RevenueAdminAdapter revenueAdminAdapter;
     private TextView totalRevenue;
     private List<Order> allOrders;
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+    private ProgressDialog progressDialog;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private DatabaseReference ordersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_revenue_page_admin);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang kiểm tra...");
 
-        // anh xa
+        // Ánh xạ các view từ layout
         edt_from_date = findViewById(R.id.edt_from_date);
         edt_to_date = findViewById(R.id.edt_to_date);
         imgBack = findViewById(R.id.imgBack);
         totalRevenue = findViewById(R.id.totalRevenue);
         rcv_revenue = findViewById(R.id.rcv_revenue);
 
-        edt_from_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(edt_from_date);
-            }
-        });
+        // Thiết lập sự kiện click cho các EditText và ImageButton
+        edt_from_date.setOnClickListener(v -> showDatePickerDialog(edt_from_date));
+        edt_to_date.setOnClickListener(v -> showDatePickerDialog(edt_to_date));
+        imgBack.setOnClickListener(v -> finish());
 
-        edt_to_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(edt_to_date);
-            }
-        });
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+        // Thiết lập RecyclerView và Adapter
         revenueAdminAdapter = new RevenueAdminAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_revenue.setLayoutManager(linearLayoutManager);
-        allOrders = getListRevenue();
-        revenueAdminAdapter.setData(allOrders);
         rcv_revenue.setAdapter(revenueAdminAdapter);
 
-        updateTotalRevenue(allOrders);
+        // Khởi tạo Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        ordersRef = database.getReference("Orders");
+
+        // Lấy danh sách đơn hàng từ Firebase và hiển thị lên RecyclerView
+        fetchOrdersFromFirebase();
     }
 
-    private List<Order> getListRevenue() {
-        List<Order> list = new ArrayList<>();
-//        list.add(new Order("12345678", "09-05-2024", 195000));
-//        list.add(new Order("23453523", "15-05-2024", 222000));
-//        list.add(new Order("34523454", "19-05-2024", 333000));
-//        list.add(new Order("23453523", "15-05-2024", 222000));
-//        list.add(new Order("34523454", "19-06-2024", 100000));
-//        list.add(new Order("23453523", "15-06-2024", 400000));
-//        list.add(new Order("34523454", "19-06-2024", 500000));
-        return list;
-    }
+    private void fetchOrdersFromFirebase() {
+        progressDialog.show();
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allOrders = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Order order = dataSnapshot.getValue(Order.class);
+                    if (order != null) {
+                        allOrders.add(order);
+                    }
+                }
 
-    private void updateTotalRevenue(List<Order> list) {
-        double total = 0;
-        for (Order order : list) {
-            total += order.getTotal();
-        }
+                // Sắp xếp các đơn hàng theo ngày giảm dần
+                Collections.sort(allOrders, (o1, o2) -> {
+                    try {
+                        Date date1 = dateFormat.parse(o1.getDate());
+                        Date date2 = dateFormat.parse(o2.getDate());
+                        if (date1 != null && date2 != null) {
+                            return date2.compareTo(date1);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return 0;
+                });
 
-        totalRevenue.setText(formatPrice(total));
+                // Sau khi lấy dữ liệu từ Firebase, gọi hàm lọc để hiển thị theo khoảng ngày đã chọn
+                filterOrders();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Lỗi khi đọc dữ liệu từ Firebase: " + error.getMessage());
+            }
+        });
     }
 
     private void filterOrders() {
@@ -140,11 +157,15 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
         }
     }
 
-    // Thêm phương thức định dạng giá
-    private String formatPrice(double price) {
-        if (price == 0) {
-            return "0 VND";
+    private void updateTotalRevenue(List<Order> list) {
+        double total = 0;
+        for (Order order : list) {
+            total += order.getTotal();
         }
+        totalRevenue.setText(formatPrice(total));
+    }
+
+    private String formatPrice(double price) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(' '); // Sử dụng khoảng trắng làm dấu phân cách nhóm số
         DecimalFormat decimalFormat = new DecimalFormat("#,###", symbols);
@@ -166,7 +187,7 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
 
                     String date = dateFormat.format(calendar.getTime());
                     editText.setText(date);
-                    filterOrders();
+                    filterOrders(); // Gọi lại để lọc đơn hàng khi thay đổi ngày
                 }, year, month, day);
         datePickerDialog.show();
     }
