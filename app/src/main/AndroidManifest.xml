@@ -20,8 +20,11 @@
             android:exported="false" />
         <activity
             android:name=".ActivityAdmin.DetailProductDessertAdminActivity"
-            android:name=".ActivityUser.CreateOrderActivity"
             android:exported="false" />
+        <activity
+            android:name=".ActivityUser.CreateOrderActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".ActivityAdmin.UpdateDrinkAdminActivity"
             android:exported="false" />
