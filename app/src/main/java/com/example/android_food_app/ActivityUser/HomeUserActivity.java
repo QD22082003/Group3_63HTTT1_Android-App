@@ -1,5 +1,6 @@
 package com.example.android_food_app.ActivityUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -9,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.android_food_app.AdapterUser.BottomAdapterViewpager2;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.CartUserFragment;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,8 +89,14 @@ public class HomeUserActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
+        // Nhận Intent để mở fragment giỏ hàng nếu cần
+        Intent intent = getIntent();
+        if (intent != null) {
+            boolean openCart = intent.getBooleanExtra("openCart", false);
+            if (openCart) {
+                viewPager2.setCurrentItem(1); // Chuyển đến fragment giỏ hàng
+            }
+        }
 
     }
 
