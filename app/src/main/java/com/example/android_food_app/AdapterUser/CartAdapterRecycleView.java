@@ -1,5 +1,6 @@
 package com.example.android_food_app.AdapterUser;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CartViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product product = list.get(position);
         if (product == null) {
             return;
