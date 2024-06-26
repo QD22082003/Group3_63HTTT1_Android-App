@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.appcompat.widget.SearchView;
 
 import com.example.android_food_app.ActivityUser.DrinkPageUserActivity;
 import com.example.android_food_app.ActivityUser.FoodPageUserActivity;
@@ -53,6 +54,7 @@ public class HomeUserFragment extends Fragment {
     private CircleImageView category_image_food;
     private CircleImageView category_image_drink;
     private CircleImageView category_image_dessert;
+    private SearchView searchView;
 
     // Handler để cập nhật giao diện người dùng từ các luồng nền
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -122,6 +124,7 @@ public class HomeUserFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.viewPager2);
         indicator3 = view.findViewById(R.id.indicator);
         rcv_trangchu = view.findViewById(R.id.rcv_trangchu);
+        searchView = view.findViewById(R.id.searchView);
 
 
         // Khởi tạo adapter và thiết lập cho ViewPager2
@@ -188,6 +191,22 @@ public class HomeUserFragment extends Fragment {
 
         // Bắt đầu handler lần đầu tiên
         handler.postDelayed(runnable, 3000);
+
+        // Thiết lập SearchView để tìm kiếm
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
 
         return view;
     }
@@ -305,6 +324,17 @@ public class HomeUserFragment extends Fragment {
             }
         });
     }
+    private void filter(String text) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product item : listProductHome) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter_trangchu.setDataProduct(filteredList);
+        adapter_trangchu.notifyDataSetChanged();
+    }
+
 
     @Override
     public void onPause() {

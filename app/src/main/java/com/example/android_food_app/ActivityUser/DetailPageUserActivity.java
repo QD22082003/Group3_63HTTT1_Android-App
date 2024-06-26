@@ -16,10 +16,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
+import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.CartUserFragment;
 import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Product1;
@@ -78,8 +80,8 @@ public class DetailPageUserActivity extends AppCompatActivity {
 
         //khởi tạo adapter
         adapter = new DetailUserAdadpter();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
-        rcv_detail.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rcv_detail.setLayoutManager(linearLayoutManager);
         adapter.setData(productList);
         rcv_detail.setAdapter(adapter);
         rcv_detail.setNestedScrollingEnabled(false);
@@ -113,10 +115,12 @@ public class DetailPageUserActivity extends AppCompatActivity {
                 // Xử lý nếu không có URL hình ảnh
                 img_detail.setVisibility(View.GONE);
             }
+            txt_desc_detail.setText(selectedProduct.getDesc());
+            txt_desc_detail.setVisibility(View.VISIBLE);
             txt_name_detail.setText(selectedProduct.getName());
-            txt_price_new_detail.setText(selectedProduct.getPriceNew());
+            txt_price_new_detail.setText(selectedProduct.getPriceNew() + " VND");
             if (selectedProduct.getPriceOld() != null && !selectedProduct.getPriceOld().isEmpty()) {
-                txt_price_old_chitiet.setText(selectedProduct.getPriceOld());
+                txt_price_old_chitiet.setText(selectedProduct.getPriceOld()+ " VND");
                 txt_price_old_chitiet.setVisibility(View.VISIBLE);
             } else {
                 txt_price_old_chitiet.setVisibility(View.GONE);
@@ -209,10 +213,9 @@ public class DetailPageUserActivity extends AppCompatActivity {
         }
 
         img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
-        txt_gia_chitiet_bottomsheet.setText(product.getName());
-        img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
-        txt_ten_chitiet_bottomsheet.setText(product.getPriceNew());
-        img_chitiet_bottomsheet.setVisibility(View.VISIBLE);
+        txt_gia_chitiet_bottomsheet.setText(product.getPriceNew() + " VND");
+        txt_ten_chitiet_bottomsheet.setText(product.getName());
+
 
         btn_huybo.setOnClickListener(new View.OnClickListener() {
             @Override
