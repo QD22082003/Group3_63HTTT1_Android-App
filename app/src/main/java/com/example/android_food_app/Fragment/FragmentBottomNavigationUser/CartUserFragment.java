@@ -83,7 +83,7 @@ public class CartUserFragment extends Fragment implements CartAdapterRecycleView
     private double calculateTotal() {
         double total = 0.0;
         for (Product product : cartProducts) {
-            float price = CartManager.getInstance().getLinePrice(product);
+            double price = CartManager.getInstance().getLinePrice(product);
             total += price;
         }
 

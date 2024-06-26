@@ -81,7 +81,7 @@ public class RevenueAdminAdapter extends RecyclerView.Adapter<RevenueAdminAdapte
         }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(' '); // Sử dụng khoảng trắng làm dấu phân cách nhóm số
-        DecimalFormat decimalFormat = new DecimalFormat("#,###", symbols);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.000", symbols);
         return decimalFormat.format(price);
     }
 

@@ -68,8 +68,9 @@ public class CreateOrderActivity extends AppCompatActivity {
         edt_phone_order = findViewById(R.id.edt_phone_order);
         edt_address_order = findViewById(R.id.edt_address_order);
         // Get the total amount from the Intent
-        double totalAmount = getIntent().getDoubleExtra("TOTAL_AMOUNT", 0.0);
-        txtTotalAmount.setText(String.format("%.3f VND", totalAmount));
+        double totalAmount = getIntent().getDoubleExtra("TOTAL_AMOUNT", 0.0) * 1000; // Nhân cho 1000 để có 3 số 0 ở cuối
+        String formattedTotalAmount = String.format(Locale.getDefault(), "%.3f VND", totalAmount);
+        txtTotalAmount.setText(formattedTotalAmount);
 
         rcvCreateOrder.setLayoutManager(new LinearLayoutManager(this));
         orderUserAdapter = new OrderUserAdapter(this);

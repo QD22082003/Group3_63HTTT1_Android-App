@@ -44,10 +44,11 @@ public class CartManager {
         return cartProducts.getOrDefault(product, 0);
     }
 
-    public float getLinePrice(Product product) {
+    public double getLinePrice(Product product) {
         int quantity = getProductQuantity(product);
-        return Float.parseFloat(product.getPriceNew()) * quantity;
+        return Double.parseDouble(product.getPriceNew()) * quantity;
     }
+
 
     public List<Product> getCartProducts() {
         return new ArrayList<>(cartProducts.keySet());

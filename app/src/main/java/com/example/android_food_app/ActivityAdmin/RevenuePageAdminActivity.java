@@ -168,7 +168,7 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
     private String formatPrice(double price) {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(' '); // Sử dụng khoảng trắng làm dấu phân cách nhóm số
-        DecimalFormat decimalFormat = new DecimalFormat("#,###", symbols);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.000", symbols);
         return decimalFormat.format(price) + " VND";
     }
 

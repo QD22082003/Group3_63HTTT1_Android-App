@@ -17,6 +17,7 @@ import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecycleView.CartViewHolder> {
@@ -50,7 +51,8 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
         }
 
         holder.txt_name_cart.setText(product.getName());
-        holder.txt_price_cart.setText(String.valueOf(CartManager.getInstance().getLinePrice(product))); // Đặt giá ban đầu
+        holder.txt_price_cart.setText(formatPrice(CartManager.getInstance().getLinePrice(product)));
+        // Đặt giá ban đầu
 
         // Load ảnh sử dụng Glide
         Glide.with(holder.itemView.getContext())
@@ -73,8 +75,8 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
                 CartManager.getInstance().addProduct(product);
 
                 // Update price
-                float totalPrice = CartManager.getInstance().getLinePrice(product);
-                holder.txt_price_cart.setText(String.valueOf(totalPrice));
+                double totalPrice = CartManager.getInstance().getLinePrice(product);
+                holder.txt_price_cart.setText(formatPrice(totalPrice));
 
                 // Notify RecyclerView to update UI for this item
                 notifyItemChanged(holder.getAdapterPosition());
@@ -86,7 +88,6 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
             }
         });
 
-        // Decrease quantity
         holder.btn_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +100,8 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
                     CartManager.getInstance().decreaseProductQuantity(product);
 
                     // Update price
-                    float totalPrice = CartManager.getInstance().getLinePrice(product);
-                    holder.txt_price_cart.setText(String.valueOf(totalPrice));
+                    double totalPrice = CartManager.getInstance().getLinePrice(product);
+                    holder.txt_price_cart.setText(formatPrice(totalPrice));
 
                     // Notify RecyclerView to update UI for this item
                     notifyItemChanged(holder.getAdapterPosition());
@@ -112,6 +113,7 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
                 }
             }
         });
+
         holder.btn_delete_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +132,10 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
             }
         });
 
+    }
+    private String formatPrice(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.000");
+        return decimalFormat.format(price) + " VND";
     }
 
     @Override
