@@ -73,14 +73,15 @@
                     android:text="Tổng đơn hàng:"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_weight="1"/>
 
                 <TextView
                     android:id="@+id/txtTotalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="0"
+                    android:text="100 000 "
                     android:textColor="@color/primaryColor"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -99,6 +100,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp">
+                <Button
+                    android:id="@+id/btn_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/orange"
+                    android:text="Thông tin giao hàng"/>
+
+            </LinearLayout>
+
+            <!-- Name Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,10 +122,20 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="16sp" />
-
+                <EditText
+                    android:id="@+id/edt_name_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/custom_edt_admin"
+                    android:hint="Họ và tên"
+                    android:paddingLeft="14dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/edtColor"
+                    android:enabled="false"/>
             </LinearLayout>
 
-            <!-- Phone Number Input -->
+            <!-- Address Input -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,18 +149,18 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
-                    android:id="@+id/edt_phone"
+                    android:id="@+id/edt_phone_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/custom_edt_admin"
                     android:hint="Số điện thoại"
-                    android:inputType="phone"
+                    android:inputType="number"
                     android:paddingLeft="14dp"
-                    android:textColorHint="@color/edtColor" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/edtColor"
+                    android:enabled="false"/>
             </LinearLayout>
-
-            <!-- Address Input -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,38 +174,17 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
                 <EditText
-                    android:id="@+id/edt_address"
+                    android:id="@+id/edt_address_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/custom_edt_admin"
-                    android:hint="Địa chỉ giao hàng"
+                    android:hint="Địa chỉ"
                     android:inputType="text"
                     android:paddingLeft="14dp"
-                    android:textColorHint="@color/edtColor" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Họ và tên"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/edt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/custom_edt_admin"
-                    android:hint="Họ và tên"
-                    android:inputType="text"
-                    android:paddingLeft="14dp"
-                    android:textColorHint="@color/edtColor" />
+                    android:textColorHint="@color/edtColor"
+                    android:enabled="false"/>
             </LinearLayout>
 
         </LinearLayout>

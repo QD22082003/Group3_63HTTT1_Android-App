@@ -1,9 +1,10 @@
 package com.example.android_food_app.Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Customer {
+public class Customer implements Serializable {
     private String emailuser;
     private Long id;
     private String name;
