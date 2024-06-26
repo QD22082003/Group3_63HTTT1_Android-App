@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAdmin.AddFoodAdminActivity">
+    tools:context=".ActivityAdmin.UpdateAdminActivity">
 
     <!--  Header  -->
     <TextView
         android:id="@+id/txtTitle_add"
-        android:text="@string/heading_1_2"
+        android:text="SỬA MÓN NGON"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
@@ -73,7 +73,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edt_name"
+                    android:id="@+id/update_edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -100,7 +100,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edt_desc"
+                    android:id="@+id/update_edt_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edt_price"
+                        android:id="@+id/update_edt_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
@@ -169,7 +169,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/edt_sale"
+                    android:id="@+id/update_edt_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -196,10 +196,10 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:id="@id/imgUrl"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/update_imgUrl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:src="@drawable/ic_upload"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
@@ -222,10 +222,10 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:id="@+id/imgSlider"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/update_imgSlider"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:background="@drawable/custom_edt_admin"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
@@ -255,7 +255,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rad_popular1"
+                        android:id="@+id/update_rad_popular1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
@@ -266,7 +266,7 @@
                         android:layout_weight="1"/>
 
                     <RadioButton
-                        android:id="@+id/rad_popular2"
+                        android:id="@+id/update_rad_popular2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -296,13 +296,13 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup_product_type"
+                    android:id="@+id/update_radioGroup_product_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/rad_product_type1"
+                        android:id="@+id/update_rad_product_type1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
@@ -313,7 +313,7 @@
                         android:layout_weight="1"/>
 
                     <RadioButton
-                        android:id="@+id/rad_product_type2"
+                        android:id="@+id/update_rad_product_type_drink"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
@@ -324,7 +324,7 @@
                         android:layout_weight="1"/>
 
                     <RadioButton
-                        android:id="@+id/rad_product_type3"
+                        android:id="@+id/update_rad_product_type_dessert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
@@ -352,10 +352,10 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:id  ="@+id/imgOther"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/update_imgOther"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:src="@drawable/ic_upload"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
@@ -364,14 +364,14 @@
 
             <!--   9. Button   -->
             <Button
-                android:id="@+id/btn_add"
+                android:id="@+id/btn_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/custom_btn_admin"
                 app:backgroundTint="@null"
-                android:text="THÊM" />
+                android:text="SỬA" />
 
         </LinearLayout>
     </ScrollView>

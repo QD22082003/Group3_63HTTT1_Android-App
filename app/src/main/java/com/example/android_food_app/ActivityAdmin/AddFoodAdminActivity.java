@@ -40,19 +40,23 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.UUID;
 
 public class AddFoodAdminActivity extends AppCompatActivity {
     private EditText edt_name, edt_desc, edt_price, edt_sale;
     private ImageView imgUrl, imgSlider, imgOther;
     private Uri uriMainImage, uriSliderImage, uriOtherImage;
     private String imgMainURL, imgSliderURL, imgOtherURL;
-    private RadioButton rad_popular1;
+    private RadioButton rad_popular1, rad_popular2;
     private RadioGroup radioGroup_product_type;
     private Button btn_add;
     private ImageButton imgBack;
     private DatabaseReference currentIdReference;
     private long currentProductId;
+    private static int currentId = 1; // Biến static để lưu trữ ID hiện tại
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class AddFoodAdminActivity extends AppCompatActivity {
         imgSlider = findViewById(R.id.imgSlider);
         imgOther = findViewById(R.id.imgOther);
         rad_popular1 = findViewById(R.id.rad_popular1);
+        rad_popular2 = findViewById(R.id.rad_popular2);
         btn_add = findViewById(R.id.btn_add);
         imgBack = findViewById(R.id.imgBack);
         radioGroup_product_type = findViewById(R.id.radioGroup_product_type);
@@ -322,13 +327,20 @@ public class AddFoodAdminActivity extends AppCompatActivity {
             // TH đk đúng, upload dữ liệu
             Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, productType, imgOtherURL);
 
-            // Tăng giá trị currentProductId lên 1
+            // Sinh id theo stt 1++ có node trên firebase để lưu trữ
             currentProductId++;
             currentIdReference.setValue(currentProductId);
             // Tạo ID trên giá trị node currentProductId
-            String id = String.valueOf(currentProductId);
+            String id1 = String.valueOf(currentProductId);
 
-            FirebaseDatabase.getInstance().getReference("products").child(id)
+            // Sinh id chuỗi bit random
+//            UUID uuid = UUID.randomUUID();
+//            String id2 = uuid.toString();
+            // Sinh id theo stt 1++ ko có node trên firebase để lưu trữ
+//            String id3 = String.valueOf(currentId++);
+
+            String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+            FirebaseDatabase.getInstance().getReference("products").child(id1)
                     .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
