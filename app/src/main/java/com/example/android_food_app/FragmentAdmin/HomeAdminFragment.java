@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,7 @@ import me.relex.circleindicator.CircleIndicator3;
  */
 public class HomeAdminFragment extends Fragment {
     private ViewPager2 viewPager2;
+    private SearchView searchView;
     private CircleIndicator3 indicator3;
     private PhotoAdapterViewPager2 adapter;
     private List<Product> list;
@@ -117,6 +119,7 @@ public class HomeAdminFragment extends Fragment {
         category_image_dessert = view.findViewById(R.id.category_image_dessert);
         indicator3 = view.findViewById(R.id.indicator);
         rcv_home_admin = view.findViewById(R.id.rcv_home_admin);
+        searchView = view.findViewById(R.id.searchView);
 
         category_image_food.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,6 +287,17 @@ public class HomeAdminFragment extends Fragment {
         });
 
     }
+    private void filter(String text) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product item : listProductHome) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapterHomeAdmin.setData(filteredList);
+        adapterHomeAdmin.notifyDataSetChanged();
+    }
+
 
     @Override
     public void onPause() {
