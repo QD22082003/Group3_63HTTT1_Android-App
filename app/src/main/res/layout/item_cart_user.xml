@@ -22,6 +22,7 @@
             android:orientation="vertical"
             android:layout_marginStart="10dp"
             >
+
             <TextView
                 android:id="@+id/txt_name_cart"
                 android:layout_width="wrap_content"

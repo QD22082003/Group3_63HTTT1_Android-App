@@ -43,35 +43,48 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
         if (product == null) {
             return;
         }
+
         holder.txt_name_cart.setText(product.getName());
-        holder.txt_price_cart.setText(product.getPriceNew());
-        holder.txt_count.setText("1");
+        holder.txt_price_cart.setText(product.getPriceNew()); // Đặt giá ban đầu
+
+        // Load ảnh sử dụng Glide
         Glide.with(holder.itemView.getContext())
                 .load(product.getImgURL())
                 .into(holder.img_cart);
 
+        // Số lượng ban đầu
+        holder.txt_count.setText("1");
+
+        // Xử lý sự kiện khi nhấn vào nút "Thêm"
         holder.btn_add.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.txt_count.getText().toString());
             count++;
             holder.txt_count.setText(String.valueOf(count));
+            // Cập nhật giá
+            double price = Double.parseDouble(product.getPriceNew());
+            holder.txt_price_cart.setText(String.format("%.3f VND", price * count));
         });
 
+        // Xử lý sự kiện khi nhấn vào nút "Giảm"
         holder.btn_minus.setOnClickListener(v -> {
             int count = Integer.parseInt(holder.txt_count.getText().toString());
             if (count > 1) {
                 count--;
                 holder.txt_count.setText(String.valueOf(count));
+                // Cập nhật giá
+                double price = Double.parseDouble(product.getPriceNew());
+                holder.txt_price_cart.setText(String.format("%.3f VND", price * count));
             }
         });
+
+        // Xử lý sự kiện khi nhấn vào nút "Xóa"
         holder.btn_delete_cart.setOnClickListener(v -> {
             list.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, list.size());
         });
-
-
-
     }
+
 
     @Override
     public int getItemCount() {
