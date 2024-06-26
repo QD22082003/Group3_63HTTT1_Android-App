@@ -1,5 +1,6 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_food_app.ActivityUser.CreateOrderActivity;
 import com.example.android_food_app.AdapterUser.CartAdapterRecycleView;
 import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
@@ -54,7 +56,10 @@ public class CartUserFragment extends Fragment implements CartAdapterRecycleView
         btn_add_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickOpenBottomSheetDialog();
+                Intent intent = new Intent(getActivity(), CreateOrderActivity.class);
+                double totalAmount = calculateTotal();
+                intent.putExtra("TOTAL_AMOUNT", totalAmount);
+                startActivity(intent);
             }
         });
 
@@ -75,7 +80,7 @@ public class CartUserFragment extends Fragment implements CartAdapterRecycleView
         calculateTotal();
     }
 
-    private void calculateTotal() {
+    private double calculateTotal() {
         double total = 0.0;
         for (Product product : cartProducts) {
             float price = CartManager.getInstance().getLinePrice(product);
@@ -83,6 +88,7 @@ public class CartUserFragment extends Fragment implements CartAdapterRecycleView
         }
 
         txt_sum.setText(String.format("%.3f VND", total));
+        return total;
     }
 
     private void clickOpenBottomSheetDialog() {
