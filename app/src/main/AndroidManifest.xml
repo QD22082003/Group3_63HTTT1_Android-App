@@ -16,6 +16,10 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityAdmin.UpdateDessertAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAdmin.DetailProductDessertAdminActivity"
             android:name=".ActivityUser.CreateOrderActivity"
             android:exported="false" />
         <activity
