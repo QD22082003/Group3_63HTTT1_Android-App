@@ -1,17 +1,14 @@
 package com.example.android_food_app.AdapterAdmin;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.android_food_app.ActivityAdmin.DetailProductAdminActivity;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,6 +54,8 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
         holder.txt_sale.setText(mListProduct.get(position).getSale());
         holder.txt_price_old.setText(mListProduct.get(position).getPriceOld());
         holder.txt_popular.setText(mListProduct.get(position).getPopular() ? "Có" : "Không");
+        holder.txt_product_type.setText(mListProduct.get(position).getProductType());
+
 
         // Tính giá mới priceNew sau khi nhập khuyến mãi sale
         try {
@@ -88,7 +84,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             e.printStackTrace();
         }
 
-        // Ấn vào 1 layout item hiển thị sp sang trang DetailProductAdmin
+        // Ấn vào 1 layout item gửi sp sang trang DetailProductAdmin
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,19 +100,15 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
                 intent.putExtra("price", product.getPriceOld());
                 intent.putExtra("sale", product.getSale());
                 intent.putExtra("popular", product.getPopular());
+                intent.putExtra("productType", product.getProductType());
                 intent.putExtra("Key", product.getKey());
 
                 mContext.startActivity(intent);
             }
         });
 
-        // Chức năng xóa sp
-        holder.img_trash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+
     }
 
     @Override
@@ -133,9 +125,9 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_name, txt_desc, txt_sale, txt_price_old, txt_price_new, txt_popular, txt_sale0, txt_sale1, txt_title_price_new;
+        private TextView txt_name, txt_desc, txt_sale, txt_price_old, txt_price_new, txt_popular, txt_product_type, txt_sale0, txt_sale1, txt_title_price_new;
         private CardView recCard;
-        private ImageView imgUrl, img_edit, img_trash;
+        private ImageView imgUrl, imgSlider, imgOther;
         private View line;
 
         public FoodViewHolder(@NonNull View itemView) {
@@ -147,11 +139,12 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
             txt_sale = itemView.findViewById(R.id.txt_sale);
             txt_price_new = itemView.findViewById(R.id.txt_price_new);
             txt_popular = itemView.findViewById(R.id.txt_popular);
+            txt_product_type = itemView.findViewById(R.id.txt_product_type);
             imgUrl = itemView.findViewById(R.id.imgUrl);
-            recCard = itemView.findViewById(R.id.recCard);
+            imgSlider = itemView.findViewById(R.id.imgSlider);
+            imgOther = itemView.findViewById(R.id.imgOther);
 
-            img_trash = itemView.findViewById(R.id.img_trash);
-            img_edit = itemView.findViewById(R.id.img_edit);
+            recCard = itemView.findViewById(R.id.recCard);
 
             line = itemView.findViewById(R.id.line);
             txt_sale0 = itemView.findViewById(R.id.txt_sale0);

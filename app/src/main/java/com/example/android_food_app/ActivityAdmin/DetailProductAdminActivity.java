@@ -28,10 +28,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class DetailProductAdminActivity extends AppCompatActivity {
-    private TextView detail_name, detail_desc, detail_price, detail_sale, detail_popular;
-    private ImageView detail_img, detail_imgOther;
+    private TextView detail_name, detail_desc, detail_price, detail_sale, detail_popular, detail_product_type;
+    private ImageView detail_imgUrl, detail_imgSlider, detail_imgOther;
     private Button btn_back;
-    private FloatingActionButton delete_btn;
+    private FloatingActionButton delete_btn, edt_btn;
     private String key = "";
     private String imgUrl = "";
     private String imgOtherUrl = "";
@@ -54,10 +54,13 @@ public class DetailProductAdminActivity extends AppCompatActivity {
         detail_price = findViewById(R.id.detail_price);
         detail_sale = findViewById(R.id.detail_sale);
         detail_popular = findViewById(R.id.detail_popular);
-        detail_img = findViewById(R.id.detail_img);
+        detail_product_type = findViewById(R.id.detail_product_type);
+        detail_imgUrl = findViewById(R.id.detail_imgUrl);
+        detail_imgSlider = findViewById(R.id.detail_imgSlider);
         detail_imgOther = findViewById(R.id.detail_imgOther);
         btn_back = findViewById(R.id.btn_back);
         delete_btn = findViewById(R.id.delete_btn);
+        edt_btn = findViewById(R.id.edt_btn);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +69,7 @@ public class DetailProductAdminActivity extends AppCompatActivity {
             }
         });
 
+        // Nhận sản phẩm từ adapter
         Bundle bundle= getIntent().getExtras();
         if (bundle != null) {
             detail_name.setText(bundle.getString("name"));
@@ -73,11 +77,13 @@ public class DetailProductAdminActivity extends AppCompatActivity {
             detail_price.setText(bundle.getString("price"));
             detail_sale.setText(bundle.getString("sale"));
             detail_popular.setText(bundle.getBoolean("popular") ? "Có" : "Không");
+            detail_product_type.setText(bundle.getString("productType"));
             key = bundle.getString("Key");
             imgUrl = bundle.getString("imgUrl");
             imgOtherUrl = bundle.getString("imgOther");
             imgSliderUrl = bundle.getString("imgSlider");
-            Glide.with(this).load(bundle.getString("imgUrl")).into(detail_img);
+            Glide.with(this).load(bundle.getString("imgUrl")).into(detail_imgUrl);
+            Glide.with(this).load(bundle.getString("imgSlider")).into(detail_imgSlider);
             Glide.with(this).load(bundle.getString("imgOther")).into(detail_imgOther);
         }
 
@@ -88,8 +94,29 @@ public class DetailProductAdminActivity extends AppCompatActivity {
             }
         });
 
+        // Gửi sản phẩm từ Detail sang trang Update
+        edt_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailProductAdminActivity.this, UpdateAdminActivity.class);
+                intent.putExtra("name", detail_name.getText().toString());
+                intent.putExtra("desc", detail_desc.getText().toString());
+                intent.putExtra("price", detail_price.getText().toString());
+                intent.putExtra("sale", detail_sale.getText().toString());
+                intent.putExtra("popular", detail_popular.getText().toString());
+                intent.putExtra("productType", detail_product_type.getText().toString());
+                intent.putExtra("imgUrl", imgUrl);
+                intent.putExtra("imgOther", imgOtherUrl);
+                intent.putExtra("imgSlider", imgSliderUrl);
+                intent.putExtra("Key", key);
+
+                startActivity(intent);
+            }
+        });
+
     }
 
+    // Phương thức hiển thị hộp thoại xác nhận xóa sản phẩm
     private void showDeleteConfirmationDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Xác nhận xóa")
@@ -106,51 +133,41 @@ public class DetailProductAdminActivity extends AppCompatActivity {
 
     // Phương thức xóa sản phẩm và các ảnh liên quan từ Firebase Storage và Realtime Database
     private void deleteProduct() {
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products");
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReferenceMain = storage.getReferenceFromUrl(imgUrl);
-        StorageReference storageReferenceOther = storage.getReferenceFromUrl(imgOtherUrl);
-        StorageReference storageReferenceSlider = storage.getReferenceFromUrl(imgSliderUrl);
-
-        // Xóa imgUrl
-        storageReferenceMain.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("products").child(key);
+        databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                // Xóa imgOther
-                storageReferenceOther.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        // Xóa imgSlider
-                        storageReferenceSlider.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                // Nếu xóa thành công, xóa dữ liệu sản phẩm khỏi Realtime Database
-                                databaseReference.child(key).removeValue();
-                                Toast.makeText(DetailProductAdminActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh slider thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh phụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // Xóa ảnh chính
+                deleteImageFromStorage(imgUrl);
+                // Xóa ảnh phụ
+                deleteImageFromStorage(imgOtherUrl);
+                // Xóa ảnh slider
+                deleteImageFromStorage(imgSliderUrl);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa ảnh chính thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm khỏi Realtime Database thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void deleteImageFromStorage(String imageUrl) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
+        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

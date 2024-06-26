@@ -88,12 +88,9 @@
                 android:text="45 000"
                 android:textSize="32dp"
                 android:textStyle="bold|italic"
-                android:textColor="@color/red"
                 android:layout_weight="1"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 

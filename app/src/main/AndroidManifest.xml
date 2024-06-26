@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityAdmin.UpdateAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityAdmin.DetailProductAdminActivity"
             android:exported="false" />
         <activity
@@ -59,7 +62,7 @@
             android:exported="false" />
         <activity
             android:name=".ActivityUser.HomeUserActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activity.ChangePasswordActivity"
             android:exported="false" />
