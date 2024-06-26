@@ -93,7 +93,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             txt_status_history = itemView.findViewById(R.id.txt_status_history);
 
 
-            rad_total_order = itemView.findViewById(R.id.rad_total_order);
+//            rad_total_order = itemView.findViewById(R.id.rad_total_order);
         }
 
     }
