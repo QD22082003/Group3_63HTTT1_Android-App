@@ -1,5 +1,6 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.android_food_app.AdapterUser.CartAdapterRecycleView;
@@ -31,6 +33,7 @@ public class CartUserFragment extends Fragment {
     private List<Product> cartProducts = new ArrayList<>();
     private TextView txt_sum;
     private Button btn_add_order;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,6 +84,7 @@ public class CartUserFragment extends Fragment {
         rcvCart = view.findViewById(R.id.rcv_cart);
         txt_sum = view.findViewById(R.id.txt_sum);
         btn_add_order = view.findViewById(R.id.btn_add_order);
+
         rcvCart.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Product> cartProducts = CartManager.getInstance().getCartProducts();
@@ -93,17 +97,14 @@ public class CartUserFragment extends Fragment {
             public void onClick(View v) {
                 // Gọi phương thức để tính tổng tiền và xử lý logic tạo đơn hàng ở đây
                 calculateTotal(); // Tính tổng tiền
-                clickOpenBottomSheetDialog();
                 // Xử lý logic để tạo đơn hàng (có thể gọi phương thức hoặc chuyển sang màn hình tạo đơn hàng)
                 // Ví dụ: startAddOrderActivity();
             }
         });
 
 
-        return view;
-    }
 
-    private void clickOpenBottomSheetDialog() {
+        return view;
     }
 
     public void onResume() {

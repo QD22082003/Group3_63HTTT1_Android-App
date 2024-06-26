@@ -47,12 +47,12 @@ public class HomeAdminAdapter extends RecyclerView.Adapter<HomeAdminAdapter.Home
         }
 
         holder.txt_name.setText(product.getName());
-        holder.txt_price_old.setText(product.getPriceOld());
-        holder.txt_price_new.setText(product.getPriceNew());
+        holder.txt_price_old.setText(product.getPriceOld() + " VNĐ");
+        holder.txt_price_new.setText(product.getPriceNew() + " VNĐ");
 
         // Kiểm tra và hiển thị phần giảm giá khi có
         if (product.getSale() != null && !product.getSale().isEmpty()) {
-            holder.txt_sale.setText(product.getSale());
+            holder.txt_sale.setText("Giảm " + product.getSale() +"%");
             holder.txt_sale.setVisibility(View.VISIBLE);
         } else {
             holder.txt_sale.setVisibility(View.GONE);
