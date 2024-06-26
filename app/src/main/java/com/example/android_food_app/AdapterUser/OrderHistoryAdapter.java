@@ -11,19 +11,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterAdmin.OrderAdminAdapter;
+import com.example.android_food_app.Model.Customer;
 import com.example.android_food_app.Model.Order;
+import com.example.android_food_app.Model.OrderDetail;
 import com.example.android_food_app.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder>{
     private Context mContext;
     private List<Order> mListOrder;
+    private OrderHistoryAdapter.IClickListener iClickListener;
+    public interface IClickListener {
+        void onClickUpdateItem(Order order);
+        void onClickDeleteItem(Order order);
+        void onClick(Order order);
+    }
 
-    public OrderHistoryAdapter(Context mContext) {
-        this.mContext = mContext;
+    public OrderHistoryAdapter(List<Order> mListOrder, OrderHistoryAdapter.IClickListener iClickListener) {
+        this.mListOrder = mListOrder;
+        this.iClickListener = iClickListener;
+
     }
 
     public void setData(List<Order> list) {
@@ -51,6 +62,9 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.txt_address_order.setText(order.getAddress());
         holder.txt_date_order.setText(order.getDate());
         holder.txt_total_order.setText(formatPrice(order.getTotal()));
+        holder.txt_status_history.setText(order.getStatus());
+
+
     }
 
     @Override
@@ -63,7 +77,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
 
     // anh xa id
     public class  OrderViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_id_order, txt_email_order, txt_name_order, txt_phone_order, txt_address_order, txt_menu_order, txt_date_order, txt_total_order, txt_pay_order;
+        private TextView txt_id_order, txt_email_order, txt_name_order, txt_phone_order,
+                txt_address_order, txt_menu_order, txt_date_order, txt_total_order, txt_pay_order, txt_status_history;
         private RadioButton rad_total_order;
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,10 +87,11 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             txt_name_order = itemView.findViewById(R.id.txt_name_order);
             txt_phone_order = itemView.findViewById(R.id.txt_phone_order);
             txt_address_order = itemView.findViewById(R.id.txt_address_order);
-            txt_menu_order = itemView.findViewById(R.id.txt_menu_order);
             txt_date_order = itemView.findViewById(R.id.txt_date_order);
             txt_total_order = itemView.findViewById(R.id.txt_total_order);
             txt_pay_order = itemView.findViewById(R.id.txt_pay_order);
+            txt_status_history = itemView.findViewById(R.id.txt_status_history);
+
 
             rad_total_order = itemView.findViewById(R.id.rad_total_order);
         }

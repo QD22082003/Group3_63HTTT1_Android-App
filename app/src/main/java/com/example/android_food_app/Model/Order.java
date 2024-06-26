@@ -1,5 +1,7 @@
 package com.example.android_food_app.Model;
 
+import java.util.List;
+
 public class Order {
     private String id, userID, name, phone, address, date, status;
     private double total, deliveryCost;
