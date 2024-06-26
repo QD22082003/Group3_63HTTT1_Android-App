@@ -1,8 +1,11 @@
 package com.example.android_food_app.Model;
 
+import java.util.List;
+
 public class Order {
     private String id, userID, name, phone, address, date, status;
     private double total, deliveryCost;
+    private List<OrderDetail> orderDetails; // Đối tượng OrderDetail để lưu trữ danh sách chi tiết đơn hàng
 
     public Order(String id, String userID, String name, String phone, String address, double total, double deliveryCost, String date, String status) {
         this.id = id;
@@ -16,9 +19,7 @@ public class Order {
         this.status = status;
     }
 
-    // Constructor without arguments
     public Order() {
-        // Initialize default values or leave them null
     }
 
     public String getId() {
@@ -91,5 +92,13 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

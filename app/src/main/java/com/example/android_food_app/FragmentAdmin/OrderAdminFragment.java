@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_food_app.AdapterAdmin.OrderAdminAdapter;
 import com.example.android_food_app.Model.Order;
 import com.example.android_food_app.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +80,34 @@ public class OrderAdminFragment extends Fragment {
         initData();
         mAdapter.setData(mListOrder);
         return view;
+
+
     }
 
     private void initData() {
         mListOrder = new ArrayList<>();
-//        mListOrder.add(new Order("1", "gianghoang150503@gmail.com", "User 1", "123456789", "SN 31, ngách 788/26, Thanh Liệt, Thanh Trì, Hà Nội", "Hamburger Bò - SL 01 Salad trộn cá ngừ - SL 02", "09-05-2024, 10:11AM", 195000, "Đã thanh toán"));
+
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mListOrder.clear();
+
+                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                    // Lấy thông tin của đơn hàng và thêm vào danh sách mListOrder
+                    Order order = orderSnapshot.getValue(Order.class);
+                    mListOrder.add(order);
+                }
+
+                mAdapter.setData(mListOrder);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý khi có lỗi xảy ra trong quá trình truy xuất dữ liệu từ Firebase
+            }
+        });
     }
+
+
+
 }

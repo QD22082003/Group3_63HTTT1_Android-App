@@ -77,7 +77,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             txt_total_order = itemView.findViewById(R.id.txt_total_order);
             txt_pay_order = itemView.findViewById(R.id.txt_pay_order);
 
-            rad_total_order = itemView.findViewById(R.id.rad_total_order);
+//            rad_total_order = itemView.findViewById(R.id.rad_total_order);
         }
 
     }
