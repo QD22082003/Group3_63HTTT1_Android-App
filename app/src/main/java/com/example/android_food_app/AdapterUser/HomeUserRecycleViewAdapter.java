@@ -57,18 +57,14 @@ public class HomeUserRecycleViewAdapter extends RecyclerView.Adapter<HomeUserRec
         if (product.getSale() != null && !product.getSale().isEmpty()) {
             holder.txt_sale.setText("Giảm " + product.getSale() +"%");
             holder.txt_sale.setVisibility(View.VISIBLE);
-        } else {
-            holder.txt_sale.setVisibility(View.GONE);
-        }
-
-        // Kiểm tra và hiển thị phần giảm giá và giá cũ khi có
-        if (product.getPriceOld() != null && !product.getPriceOld().isEmpty() && !product.getPriceOld().equals("0")) {
             holder.txt_price_old.setVisibility(View.VISIBLE);
             holder.line.setVisibility(View.VISIBLE);
         } else {
+            holder.txt_sale.setVisibility(View.GONE);
             holder.txt_price_old.setVisibility(View.GONE);
             holder.line.setVisibility(View.GONE);
         }
+
 
         // Load hình ảnh từ URL vào ImageView bằng Glide
         if (product.getImgURL() != null && !product.getImgURL().isEmpty()) {
