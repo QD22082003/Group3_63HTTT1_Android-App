@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     private OrderUserAdapter orderUserAdapter;
     private Button btnCreateOrder, btn_customer;
     private EditText edt_name_order, edt_phone_order, edt_address_order;
+    private ImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +113,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                                 Toast.makeText(CreateOrderActivity.this, "Đơn hàng đã được tạo thành công!", Toast.LENGTH_SHORT).show();
                                 // Có thể thực hiện các hành động tiếp theo như chuyển màn hình hoặc cập nhật giao diện
                                 saveOrderDetails(orderId);
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -120,6 +124,13 @@ public class CreateOrderActivity extends AppCompatActivity {
                                 // Có thể hiển thị thông báo lỗi chi tiết hoặc thực hiện xử lý khác
                             }
                         });
+            }
+        });
+        img_back = findViewById(R.id.imgBack);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -183,9 +194,6 @@ public class CreateOrderActivity extends AppCompatActivity {
                     });
         }
     }
-
-
-
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

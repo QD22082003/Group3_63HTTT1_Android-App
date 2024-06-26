@@ -76,16 +76,20 @@
                     />
             </LinearLayout>
         </LinearLayout>
-        <Button
+
+        <ImageButton
             android:id="@+id/btn_delete_cart"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:text="Xóa"
-            android:backgroundTint="@color/orange"
+            android:layout_width="8dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/fab_size_normal"
-            />
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/orange"
+            android:contentDescription="Xóa"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_trash_detail" />
 
     </LinearLayout>
 
