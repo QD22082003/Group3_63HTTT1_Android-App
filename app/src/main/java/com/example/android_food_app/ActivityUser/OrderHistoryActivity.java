@@ -58,9 +58,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private void fetchOrderHistory() {
         // Điền danh sách orderList với các đối tượng Order
         // Đây chỉ là ví dụ. Thay thế điều này bằng logic lấy dữ liệu thực.
-        orderList.add(new Order("1", "buiquangdao2k3@gmail.com", "John Doe", "123456789", "123 Street", "Pizza", "2023-06-15", 20.5, "Paid"));
-        orderList.add(new Order("2", "buiquangdao2k3@gmail.com", "Jane Doe", "987654321", "456 Avenue", "Burger", "2023-06-16", 15.0, "Paid"));
-
-        orderHistoryAdapter.setData(orderList);
+//        orderList.add(new Order("1", "buiquangdao2k3@gmail.com", "John Doe", "123456789", "123 Street", "Pizza", "2023-06-15", 20.5, "Paid"));
+//        orderList.add(new Order("2", "buiquangdao2k3@gmail.com", "Jane Doe", "987654321", "456 Avenue", "Burger", "2023-06-16", 15.0, "Paid"));
+//
+//        orderHistoryAdapter.setData(orderList);
     }
 }

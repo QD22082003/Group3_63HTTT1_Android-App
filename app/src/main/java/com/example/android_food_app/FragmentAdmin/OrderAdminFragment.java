@@ -78,6 +78,6 @@ public class OrderAdminFragment extends Fragment {
 
     private void initData() {
         mListOrder = new ArrayList<>();
-        mListOrder.add(new Order("1", "gianghoang150503@gmail.com", "User 1", "123456789", "SN 31, ngách 788/26, Thanh Liệt, Thanh Trì, Hà Nội", "Hamburger Bò - SL 01 Salad trộn cá ngừ - SL 02", "09-05-2024, 10:11AM", 195000, "Đã thanh toán"));
+//        mListOrder.add(new Order("1", "gianghoang150503@gmail.com", "User 1", "123456789", "SN 31, ngách 788/26, Thanh Liệt, Thanh Trì, Hà Nội", "Hamburger Bò - SL 01 Salad trộn cá ngừ - SL 02", "09-05-2024, 10:11AM", 195000, "Đã thanh toán"));
     }
 }

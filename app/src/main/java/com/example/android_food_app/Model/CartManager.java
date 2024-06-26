@@ -52,4 +52,10 @@ public class CartManager {
     public List<Product> getCartProducts() {
         return new ArrayList<>(cartProducts.keySet());
     }
+
+    public void removeProduct(Product product) {
+        if (cartProducts.containsKey(product)) {
+            cartProducts.remove(product);
+        }
+    }
 }

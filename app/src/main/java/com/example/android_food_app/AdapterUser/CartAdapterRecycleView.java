@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -110,6 +111,24 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
                 }
             }
         });
+        holder.btn_delete_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Xóa sản phẩm khỏi CartManager
+                CartManager.getInstance().removeProduct(product);
+                // Xóa sản phẩm khỏi danh sách hiển thị
+                list.remove(position);
+                // Thông báo cho RecyclerView về sự thay đổi
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, list.size());
+
+                // Notify the listener about the quantity change
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChanged();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -120,7 +139,7 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
     public class CartViewHolder extends RecyclerView.ViewHolder {
         private ImageView img_cart, btn_minus, btn_add;
         private TextView txt_name_cart, txt_price_cart, txt_count;
-        private Button btn_delete_cart;
+        private ImageButton btn_delete_cart;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
