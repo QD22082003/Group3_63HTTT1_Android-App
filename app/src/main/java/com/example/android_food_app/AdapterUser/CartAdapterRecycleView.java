@@ -11,17 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 
-import java.io.BufferedReader;
 import java.util.List;
 
 public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecycleView.CartViewHolder> {
     private List<Product> list;
+    private OnQuantityChangeListener quantityChangeListener;
 
-    public CartAdapterRecycleView(List<Product> listCart) {
+    public CartAdapterRecycleView(List<Product> listCart, OnQuantityChangeListener quantityChangeListener) {
         this.list = listCart;
+        this.quantityChangeListener = quantityChangeListener;
     }
 
     public void setDataSanPham(List<Product> list) {
@@ -30,10 +32,11 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
             notifyDataSetChanged();
         }
     }
+
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_user, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart_user, parent, false);
         return new CartAdapterRecycleView.CartViewHolder(view);
     }
 
@@ -43,34 +46,70 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
         if (product == null) {
             return;
         }
+
         holder.txt_name_cart.setText(product.getName());
-        holder.txt_price_cart.setText(product.getPriceNew());
-        holder.txt_count.setText("1");
+        holder.txt_price_cart.setText(String.valueOf(CartManager.getInstance().getLinePrice(product))); // Đặt giá ban đầu
+
+        // Load ảnh sử dụng Glide
         Glide.with(holder.itemView.getContext())
                 .load(product.getImgURL())
                 .into(holder.img_cart);
 
-        holder.btn_add.setOnClickListener(v -> {
-            int count = Integer.parseInt(holder.txt_count.getText().toString());
-            count++;
-            holder.txt_count.setText(String.valueOf(count));
-        });
+        // Số lượng ban đầu
+        // Lấy currentQuantity từ CartManager
+        int currentQuantity = CartManager.getInstance().getProductQuantity(product);
+        holder.txt_count.setText(String.valueOf(currentQuantity));
 
-        holder.btn_minus.setOnClickListener(v -> {
-            int count = Integer.parseInt(holder.txt_count.getText().toString());
-            if (count > 1) {
-                count--;
-                holder.txt_count.setText(String.valueOf(count));
+        holder.btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentQuantity = Integer.parseInt(holder.txt_count.getText().toString());
+                int newQuantity = currentQuantity + 1;
+                holder.txt_count.setText(String.valueOf(newQuantity));
+
+                // Update CartManager with the new quantity
+                CartManager.getInstance().addProduct(product);
+
+                // Update price
+                float totalPrice = CartManager.getInstance().getLinePrice(product);
+                holder.txt_price_cart.setText(String.valueOf(totalPrice));
+
+                // Notify RecyclerView to update UI for this item
+                notifyItemChanged(holder.getAdapterPosition());
+
+                // Notify the listener about the quantity change
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChanged();
+                }
             }
         });
-        holder.btn_delete_cart.setOnClickListener(v -> {
-            list.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, list.size());
+
+        // Decrease quantity
+        holder.btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentQuantity = Integer.parseInt(holder.txt_count.getText().toString());
+                if (currentQuantity > 1) { // Ensure quantity does not go below 1
+                    int newQuantity = currentQuantity - 1;
+                    holder.txt_count.setText(String.valueOf(newQuantity));
+
+                    // Update CartManager with the new quantity
+                    CartManager.getInstance().decreaseProductQuantity(product);
+
+                    // Update price
+                    float totalPrice = CartManager.getInstance().getLinePrice(product);
+                    holder.txt_price_cart.setText(String.valueOf(totalPrice));
+
+                    // Notify RecyclerView to update UI for this item
+                    notifyItemChanged(holder.getAdapterPosition());
+
+                    // Notify the listener about the quantity change
+                    if (quantityChangeListener != null) {
+                        quantityChangeListener.onQuantityChanged();
+                    }
+                }
+            }
         });
-
-
-
     }
 
     @Override
@@ -78,10 +117,11 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
         return list != null ? list.size() : 0;
     }
 
-    public class  CartViewHolder extends RecyclerView.ViewHolder {
-        private ImageView img_cart,btn_minus,btn_add;
-        private TextView txt_name_cart, txt_price_cart,txt_count;
+    public class CartViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img_cart, btn_minus, btn_add;
+        private TextView txt_name_cart, txt_price_cart, txt_count;
         private Button btn_delete_cart;
+
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             img_cart = itemView.findViewById(R.id.img_cart);
@@ -92,5 +132,9 @@ public class CartAdapterRecycleView extends RecyclerView.Adapter<CartAdapterRecy
             txt_count = itemView.findViewById(R.id.txt_count);
             btn_delete_cart = itemView.findViewById(R.id.btn_delete_cart);
         }
+    }
+
+    public interface OnQuantityChangeListener {
+        void onQuantityChanged();
     }
 }

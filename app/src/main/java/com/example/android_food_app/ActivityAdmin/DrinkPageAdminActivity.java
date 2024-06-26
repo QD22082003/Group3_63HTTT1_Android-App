@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_food_app.AdapterAdmin.FoodAdminAdapter;
+import com.example.android_food_app.AdapterAdmin.DrinkAdminAdapter;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,20 +30,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodPageAdminActivity extends AppCompatActivity {
-    private RecyclerView rcv_food;
+public class DrinkPageAdminActivity extends AppCompatActivity {
+    private RecyclerView rcv_drink;
     private List<Product> mListProduct;
     private DatabaseReference databaseReference;
     private ValueEventListener eventListener;
     private FloatingActionButton fab_add;
     private ImageButton imgBack;
     private SearchView search_view;
-    private FoodAdminAdapter adapter;
+    private DrinkAdminAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_food_page_admin);
+        setContentView(R.layout.activity_drink_page_admin);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -51,7 +51,7 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         });
 
         // anh xa
-        rcv_food = findViewById(R.id.rcv_food);
+        rcv_drink = findViewById(R.id.rcv_drink);
         fab_add = findViewById(R.id.fab_add);
         imgBack = findViewById(R.id.imgBack);
         search_view = findViewById(R.id.search_view);
@@ -60,8 +60,9 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FoodPageAdminActivity.this, HomeAdminActivity.class);
+                Intent intent = new Intent(DrinkPageAdminActivity.this, HomeAdminActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -69,26 +70,26 @@ public class FoodPageAdminActivity extends AppCompatActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FoodPageAdminActivity.this, AddFoodAdminActivity.class);
+                Intent intent = new Intent(DrinkPageAdminActivity.this, AddDrinkAdminActivity.class);
                 startActivity(intent);
             }
         });
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(FoodPageAdminActivity.this, 1);
-        rcv_food.setLayoutManager(gridLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(DrinkPageAdminActivity.this, 1);
+        rcv_drink.setLayoutManager(gridLayoutManager);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(FoodPageAdminActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DrinkPageAdminActivity.this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_admin_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
 
         mListProduct = new ArrayList<>();
-        adapter = new FoodAdminAdapter(FoodPageAdminActivity.this, mListProduct);
-        rcv_food.setAdapter(adapter);
+        adapter = new DrinkAdminAdapter(DrinkPageAdminActivity.this, mListProduct);
+        rcv_drink.setAdapter(adapter);
 
         DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("products");
-        Query query = productsRef.orderByChild("productType").equalTo("Món ngon");
+        Query query = productsRef.orderByChild("productType").equalTo("Đồ uống");
         dialog.show();
 
         // load data

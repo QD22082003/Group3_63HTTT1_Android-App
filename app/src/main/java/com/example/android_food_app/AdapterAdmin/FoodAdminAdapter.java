@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.android_food_app.ActivityAdmin.DetailProductAdminActivity;
+import com.example.android_food_app.ActivityAdmin.DetailProductFoodAdminActivity;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -91,7 +91,7 @@ public class FoodAdminAdapter extends RecyclerView.Adapter<FoodAdminAdapter.Food
                 int position = holder.getAdapterPosition();
                 Product product = mListProduct.get(position);
 
-                Intent intent = new Intent(mContext, DetailProductAdminActivity.class);
+                Intent intent = new Intent(mContext, DetailProductFoodAdminActivity.class);
                 intent.putExtra("imgUrl", product.getImgURL());
                 intent.putExtra("imgOther", product.getImgURLOther());
                 intent.putExtra("imgSlider", product.getImgURlSlider());

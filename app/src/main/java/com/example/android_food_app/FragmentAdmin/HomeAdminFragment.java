@@ -1,8 +1,6 @@
 package com.example.android_food_app.FragmentAdmin;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +12,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android_food_app.ActivityAdmin.DessertPageAdminActivity;
-import com.example.android_food_app.ActivityAdmin.DrinkPageAminActivity;
+import com.example.android_food_app.ActivityAdmin.DrinkPageAdminActivity;
 import com.example.android_food_app.ActivityAdmin.FoodPageAdminActivity;
 import com.example.android_food_app.AdapterAdmin.HomeAdminAdapter;
 import com.example.android_food_app.AdapterUser.PhotoAdapterViewPager2;
 import com.example.android_food_app.Model.Product;
-import com.example.android_food_app.Model.Photo;
 import com.example.android_food_app.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,7 +129,7 @@ public class HomeAdminFragment extends Fragment {
         category_image_drink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DrinkPageAminActivity.class);
+                Intent intent = new Intent(getActivity(), DrinkPageAdminActivity.class);
                 startActivity(intent);
             }
         });

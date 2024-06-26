@@ -22,6 +22,7 @@
             android:orientation="vertical"
             android:layout_marginStart="10dp"
             >
+
             <TextView
                 android:id="@+id/txt_name_cart"
                 android:layout_width="wrap_content"
@@ -47,7 +48,6 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:weightSum="3">
-
                 <ImageView
                     android:id="@+id/btn_minus"
                     android:layout_width="wrap_content"

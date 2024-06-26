@@ -38,7 +38,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.DecimalFormat;
 
-public class UpdateAdminActivity extends AppCompatActivity {
+public class UpdateFoodAdminActivity extends AppCompatActivity {
     private EditText update_edt_name, update_edt_desc, update_edt_price, update_edt_sale;
     private ImageView update_imgUrl, update_imgSlider, update_imgOther;
     private RadioButton update_rad_popular1, update_rad_popular2, update_rad_product_type1, update_rad_product_type_drink, update_rad_product_type_dessert;
@@ -56,7 +56,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_update_admin);
+        setContentView(R.layout.activity_update_food_admin);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -97,7 +97,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
                             uriImgUrl = data.getData();
                             update_imgUrl.setImageURI(uriImgUrl);
                         } else {
-                            Toast.makeText(UpdateAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateFoodAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -114,7 +114,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
                             uriImgSlider = data.getData();
                             update_imgSlider.setImageURI(uriImgSlider);
                         } else {
-                            Toast.makeText(UpdateAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateFoodAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -131,7 +131,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
                             uriImgOther = data.getData();
                             update_imgOther.setImageURI(uriImgOther);
                         } else {
-                            Toast.makeText(UpdateAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateFoodAdminActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -140,9 +140,9 @@ public class UpdateAdminActivity extends AppCompatActivity {
         // Nhận sản phẩm từ Detail gửi về
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            Glide.with(UpdateAdminActivity.this).load(bundle.getString("imgUrl")).into(update_imgUrl);
-            Glide.with(UpdateAdminActivity.this).load(bundle.getString("imgSlider")).into(update_imgSlider);
-            Glide.with(UpdateAdminActivity.this).load(bundle.getString("imgOther")).into(update_imgOther);
+            Glide.with(UpdateFoodAdminActivity.this).load(bundle.getString("imgUrl")).into(update_imgUrl);
+            Glide.with(UpdateFoodAdminActivity.this).load(bundle.getString("imgSlider")).into(update_imgSlider);
+            Glide.with(UpdateFoodAdminActivity.this).load(bundle.getString("imgOther")).into(update_imgOther);
             update_edt_name.setText(bundle.getString("name"));
             update_edt_desc.setText(bundle.getString("desc"));
             update_edt_price.setText(bundle.getString("price"));
@@ -215,7 +215,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateMainImage();
-                Intent intent = new Intent(UpdateAdminActivity.this, FoodPageAdminActivity.class);
+                Intent intent = new Intent(UpdateFoodAdminActivity.this, FoodPageAdminActivity.class);
                 startActivity(intent);
             }
         });
@@ -229,7 +229,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Save Images")
                     .child(uriImgUrl.getLastPathSegment());
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UpdateAdminActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(UpdateFoodAdminActivity.this);
             builder.setCancelable(false);
             builder.setView(R.layout.progress_admin_layout);
             AlertDialog dialog = builder.create();
@@ -250,7 +250,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     dialog.dismiss();
-                    Toast.makeText(UpdateAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -277,7 +277,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UpdateAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -304,7 +304,7 @@ public class UpdateAdminActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UpdateAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -358,19 +358,32 @@ public class UpdateAdminActivity extends AppCompatActivity {
         String priceNewFormatted = decimalFormat.format(newPriceValue);
 
         // Tạo đối tượng Product với thông tin mới
-        Product product = new Product(name, desc, price, priceNewFormatted, sale, imgUrl, imgSlider, isPopular, productType, imgOther);
+//        Product product = new Product(name, desc, price, priceNewFormatted, sale, imgUrl, imgSlider, isPopular, productType, imgOther);
+
+        // Tạo đối tượng Product mới với thông tin cập nhật
+        Product product = new Product();
+        product.setName(name);
+        product.setDesc(desc);
+        product.setPriceOld(price);
+        product.setPriceNew(priceNewFormatted);
+        product.setSale(sale);
+        product.setImgURL(imgUrl);
+        product.setImgURlSlider(imgSlider);
+        product.setPopular(isPopular);
+        product.setProductType(productType);
+        product.setImgURLOther(imgOther);
 
         databaseReference.child(key).setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                startActivity(new Intent(UpdateAdminActivity.this, FoodPageAdminActivity.class));
-                Toast.makeText(UpdateAdminActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UpdateFoodAdminActivity.this, FoodPageAdminActivity.class));
+                Toast.makeText(UpdateFoodAdminActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UpdateAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UpdateFoodAdminActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
