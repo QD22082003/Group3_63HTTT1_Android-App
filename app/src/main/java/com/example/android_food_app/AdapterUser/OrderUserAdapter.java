@@ -23,7 +23,18 @@ public class OrderUserAdapter extends RecyclerView.Adapter<OrderUserAdapter.Orde
         this.context = context;
         this.productList = CartManager.getInstance().getCartProducts();
     }
-
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+        notifyDataSetChanged(); // Thông báo cho adapter biết rằng dữ liệu đã thay đổi
+    }
+    public int getProductQuantity(Product product) {
+        // Tìm và trả về số lượng của sản phẩm trong giỏ hàng
+        int quantity = CartManager.getInstance().getProductQuantity(product);
+        return quantity; // Trả về 0 nếu không tìm thấy sản phẩm
+    }
+    public List<Product> getProductList() {
+        return productList;
+    }
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android_food_app.AdapterUser.OrderUserAdapter;
 import com.example.android_food_app.Model.Customer;
 import com.example.android_food_app.Model.Order;
+import com.example.android_food_app.Model.OrderDetail;
+import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -106,6 +109,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                                 // Đã lưu thành công đơn hàng
                                 Toast.makeText(CreateOrderActivity.this, "Đơn hàng đã được tạo thành công!", Toast.LENGTH_SHORT).show();
                                 // Có thể thực hiện các hành động tiếp theo như chuyển màn hình hoặc cập nhật giao diện
+                                saveOrderDetails(orderId);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -147,21 +151,41 @@ public class CreateOrderActivity extends AppCompatActivity {
         }
         return randomOrderId.toString();
     }
-//    private void saveOrderDetails(String orderId) {
-//        DatabaseReference orderDetailsRef = FirebaseDatabase.getInstance().getReference().child("OrderDetails");
-//        List<Product> productList = orderUserAdapter.getProductList(); // Get products from adapter
-//
-//        for (Product product : productList) {
-//            int quantity = orderUserAdapter.getProductQuantity(product); // Get quantity from adapter
-//            double totalPrice = product.getPrice() * quantity;
-//
-//            // Create new OrderDetail object
-//            OrderDetail orderDetail = new OrderDetail(orderId, product.getName(), quantity, totalPrice);
-//
-//            // Save order detail to Firebase
-//            orderDetailsRef.push().setValue(orderDetail);
-//        }
-//    }
+    private void saveOrderDetails(String orderId) {
+        DatabaseReference orderDetailsRef = FirebaseDatabase.getInstance().getReference().child("OrderDetails");
+        List<Product> productList = orderUserAdapter.getProductList(); // Get products from adapter
+
+        for (Product product : productList) {
+            int quantity = orderUserAdapter.getProductQuantity(product); // Get quantity from adapter
+            double price = Double.parseDouble(product.getPriceNew());
+            double totalPrice = price * quantity;
+
+            // Create new OrderDetail object
+            OrderDetail orderDetail = new OrderDetail(orderId, product.getName(), quantity, totalPrice);
+
+            // Save order detail to Firebase
+            String orderDetailId = orderDetailsRef.push().getKey(); // Generate unique key for OrderDetail
+            orderDetailsRef.child(orderDetailId).setValue(orderDetail)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // OrderDetail saved successfully
+                            // You may add further logic here if needed
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Handle errors here
+                            Toast.makeText(CreateOrderActivity.this, "Failed to save order detail: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+
+
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
