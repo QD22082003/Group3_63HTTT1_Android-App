@@ -83,13 +83,11 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             txt_id_order = itemView.findViewById(R.id.txt_id_order);
-            txt_email_order = itemView.findViewById(R.id.txt_email_order);
             txt_name_order = itemView.findViewById(R.id.txt_name_order);
             txt_phone_order = itemView.findViewById(R.id.txt_phone_order);
             txt_address_order = itemView.findViewById(R.id.txt_address_order);
             txt_date_order = itemView.findViewById(R.id.txt_date_order);
             txt_total_order = itemView.findViewById(R.id.txt_total_order);
-            txt_pay_order = itemView.findViewById(R.id.txt_pay_order);
             txt_status_history = itemView.findViewById(R.id.txt_status_history);
 
 

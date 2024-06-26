@@ -101,8 +101,8 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
                         allOrders.add(order);
                     }
                 }
-
-                // Sắp xếp các đơn hàng theo ngày giảm dần
+                progressDialog.dismiss();
+                // Sắp xếp các đơn hà   ng theo ngày giảm dần
                 Collections.sort(allOrders, (o1, o2) -> {
                     try {
                         Date date1 = dateFormat.parse(o1.getDate());

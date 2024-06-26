@@ -15,16 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
-import com.example.android_food_app.Fragment.FragmentBottomNavigationUser.CartUserFragment;
 import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
-import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;

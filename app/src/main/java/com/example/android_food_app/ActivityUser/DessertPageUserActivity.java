@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.DessertUserRecycleViewAdapter;
 import com.example.android_food_app.Model.Product;
-import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
