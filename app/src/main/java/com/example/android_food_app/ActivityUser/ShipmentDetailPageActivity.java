@@ -68,7 +68,7 @@ public class ShipmentDetailPageActivity extends AppCompatActivity {
         rcv_address.addItemDecoration(dividerItemDecoration);
 
         customerList = new ArrayList<>();
-        adapter = new ShipAddressRecycleviewAdapter(customerList, new ShipAddressRecycleviewAdapter.IClickListener() {
+        adapter = new ShipAddressRecycleviewAdapter( customerList, new ShipAddressRecycleviewAdapter.IClickListener() {
             @Override
             public void onClickUpdateItem(Customer customer) {
                 //tương tác với Realtime database chỉnh sửa 1 item nào đấy
@@ -79,6 +79,15 @@ public class ShipmentDetailPageActivity extends AppCompatActivity {
             @Override
             public void onClickDeleteItem(Customer customer) {
                 onClickDeleteData(customer);
+
+            }
+
+            @Override
+            public void onClick(Customer customer) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selected_customer", customer);
+                setResult(RESULT_OK, resultIntent);
+                finish();
 
             }
         });
@@ -124,6 +133,7 @@ public class ShipmentDetailPageActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
 
     private void openDialogUpdateItem(Customer customer) {
         Dialog dialog = new Dialog(this);
