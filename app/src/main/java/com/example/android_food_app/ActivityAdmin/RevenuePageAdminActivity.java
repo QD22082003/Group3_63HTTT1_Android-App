@@ -55,8 +55,8 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
         edt_from_date = findViewById(R.id.edt_from_date);
         edt_to_date = findViewById(R.id.edt_to_date);
         imgBack = findViewById(R.id.imgBack);
-        rcv_revenue = findViewById(R.id.rcv_revenue);
         totalRevenue = findViewById(R.id.totalRevenue);
+        rcv_revenue = findViewById(R.id.rcv_revenue);
 
         edt_from_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,26 +110,6 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
         totalRevenue.setText(formatPrice(total));
     }
 
-    private void showDatePickerDialog(final EditText editText) {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                RevenuePageAdminActivity.this,
-                (view, selectedYear, selectedMonth, selectedDay) -> {
-                    calendar.set(Calendar.YEAR, selectedYear);
-                    calendar.set(Calendar.MONTH, selectedMonth);
-                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
-
-                    String date = dateFormat.format(calendar.getTime());
-                    editText.setText(date);
-                    filterOrders();
-                }, year, month, day);
-        datePickerDialog.show();
-    }
-
     private void filterOrders() {
         String fromDateString = edt_from_date.getText().toString();
         String toDateString = edt_to_date.getText().toString();
@@ -144,9 +124,6 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
             Date fromDate = dateFormat.parse(fromDateString);
             Date toDate = dateFormat.parse(toDateString);
 
-            Log.d("RevenuePageAdminActivity", "From date: " + fromDateString);
-            Log.d("RevenuePageAdminActivity", "To date: " + toDateString);
-
             List<Order> filteredList = new ArrayList<>();
             for (Order order : allOrders) {
                 Date orderDate = dateFormat.parse(order.getDate());
@@ -154,8 +131,6 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
                     filteredList.add(order);
                 }
             }
-
-            Log.d("RevenuePageAdminActivity", "Filtered list size: " + filteredList.size());
 
             revenueAdminAdapter.setData(filteredList);
             updateTotalRevenue(filteredList);
@@ -174,5 +149,25 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
         symbols.setGroupingSeparator(' '); // Sử dụng khoảng trắng làm dấu phân cách nhóm số
         DecimalFormat decimalFormat = new DecimalFormat("#,###", symbols);
         return decimalFormat.format(price) + " VND";
+    }
+
+    private void showDatePickerDialog(final EditText editText) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                RevenuePageAdminActivity.this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    calendar.set(Calendar.YEAR, selectedYear);
+                    calendar.set(Calendar.MONTH, selectedMonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+
+                    String date = dateFormat.format(calendar.getTime());
+                    editText.setText(date);
+                    filterOrders();
+                }, year, month, day);
+        datePickerDialog.show();
     }
 }
