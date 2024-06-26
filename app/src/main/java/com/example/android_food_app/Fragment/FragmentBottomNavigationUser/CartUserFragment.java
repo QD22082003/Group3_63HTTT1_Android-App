@@ -102,9 +102,9 @@ public class CartUserFragment extends Fragment {
 
     private void loadCartProducts() {
         // Reload cart products from CartManager
-        List<Product> updatedProducts = CartManager.getInstance().getCartProducts();
+//        List<Product> updatedProducts = CartManager.getInstance().getCartProducts();
         cartProducts.clear();  // Clear the current list
-        cartProducts.addAll(updatedProducts);  // Add all products from CartManager
+//        cartProducts.addAll(updatedProducts);  // Add all products from CartManager
         cartAdapter.notifyDataSetChanged();
 
         // Calculate total after loading cart products
