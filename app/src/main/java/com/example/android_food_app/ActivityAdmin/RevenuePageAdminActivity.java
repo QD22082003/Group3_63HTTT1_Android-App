@@ -91,13 +91,13 @@ public class RevenuePageAdminActivity extends AppCompatActivity {
 
     private List<Order> getListRevenue() {
         List<Order> list = new ArrayList<>();
-        list.add(new Order("12345678", "09-05-2024", 195000));
-        list.add(new Order("23453523", "15-05-2024", 222000));
-        list.add(new Order("34523454", "19-05-2024", 333000));
-        list.add(new Order("23453523", "15-05-2024", 222000));
-        list.add(new Order("34523454", "19-06-2024", 100000));
-        list.add(new Order("23453523", "15-06-2024", 400000));
-        list.add(new Order("34523454", "19-06-2024", 500000));
+//        list.add(new Order("12345678", "09-05-2024", 195000));
+//        list.add(new Order("23453523", "15-05-2024", 222000));
+//        list.add(new Order("34523454", "19-05-2024", 333000));
+//        list.add(new Order("23453523", "15-05-2024", 222000));
+//        list.add(new Order("34523454", "19-06-2024", 100000));
+//        list.add(new Order("23453523", "15-06-2024", 400000));
+//        list.add(new Order("34523454", "19-06-2024", 500000));
         return list;
     }
 

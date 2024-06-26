@@ -1,28 +1,24 @@
 package com.example.android_food_app.Model;
 
 public class Order {
-    private String id, email, name, phone, address, menu, date;
-    private double total;
-    private String pay;
+    private String id, userID, name, phone, address, date, status;
+    private double total, deliveryCost;
 
-    // Constructo cho Đơn Hàng (Order)
-    public Order(String id, String email, String name, String phone, String address, String menu, String date, double total, String pay) {
+    public Order(String id, String userID, String name, String phone, String address, double total, double deliveryCost, String date, String status) {
         this.id = id;
-        this.email = email;
+        this.userID = userID;
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.menu = menu;
-        this.date = date;
         this.total = total;
-        this.pay = pay;
+        this.deliveryCost = deliveryCost;
+        this.date = date;
+        this.status = status;
     }
 
-    // Constructo cho Doanh thu (Revenue)
-    public Order(String id, String date, double total) {
-        this.id = id;
-        this.date = date;
-        this.total = total;
+    // Constructor without arguments
+    public Order() {
+        // Initialize default values or leave them null
     }
 
     public String getId() {
@@ -33,12 +29,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getName() {
@@ -65,14 +61,6 @@ public class Order {
         this.address = address;
     }
 
-    public String getMenu() {
-        return menu;
-    }
-
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
-
     public String getDate() {
         return date;
     }
@@ -89,11 +77,19 @@ public class Order {
         this.total = total;
     }
 
-    public String getPay() {
-        return pay;
+    public double getDeliveryCost() {
+        return deliveryCost;
     }
 
-    public void setPay(String pay) {
-        this.pay = pay;
+    public void setDeliveryCost(double deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

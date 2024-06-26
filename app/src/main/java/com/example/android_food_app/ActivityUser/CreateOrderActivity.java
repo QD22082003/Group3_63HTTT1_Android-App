@@ -3,11 +3,14 @@ package com.example.android_food_app.ActivityUser;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,7 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.OrderUserAdapter;
 import com.example.android_food_app.Model.Customer;
+import com.example.android_food_app.Model.Order;
 import com.example.android_food_app.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Random;
 
 public class CreateOrderActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_SELECT_CUSTOMER = 1;
@@ -27,7 +42,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     private OrderUserAdapter orderUserAdapter;
     private Button btnCreateOrder, btn_customer;
     private EditText edt_name_order, edt_phone_order, edt_address_order;
-    @SuppressLint("DefaultLocale")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +73,96 @@ public class CreateOrderActivity extends AppCompatActivity {
             Intent intent = new Intent(CreateOrderActivity.this, ShipmentDetailPageActivity.class);
             startActivityForResult(intent, REQUEST_CODE_SELECT_CUSTOMER);
         });
+        btnCreateOrder = findViewById(R.id.btnCreateOrder);
+        btnCreateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lấy thông tin từ các ô nhập liệu
+                String name = edt_name_order.getText().toString().trim();
+                String phone = edt_phone_order.getText().toString().trim();
+                String address = edt_address_order.getText().toString().trim();
+                double total = getIntent().getDoubleExtra("TOTAL_AMOUNT", 0.0);
+                double deliveryCost = 20000; // Chi phí giao hàng mặc định
+                String currentDate = getCurrentDateTime(); // Lấy ngày giờ hiện tại
+
+                // Lấy userID của tài khoản đang đăng nhập
+                String userID = getCurrentUserID();
+
+                // Tạo ID ngẫu nhiên cho đơn hàng
+                String orderId = generateRandomOrderId();
+
+                // Trạng thái mặc định của đơn hàng
+                String status = "Chưa xác nhận";
+
+                // Tạo đối tượng Order mới
+                Order newOrder = new Order(orderId, userID, name, phone, address, total, deliveryCost, currentDate, status);
+
+                // Lưu đơn hàng vào Realtime Database (ví dụ Firebase)
+                DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+                ordersRef.child(orderId).setValue(newOrder)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Đã lưu thành công đơn hàng
+                                Toast.makeText(CreateOrderActivity.this, "Đơn hàng đã được tạo thành công!", Toast.LENGTH_SHORT).show();
+                                // Có thể thực hiện các hành động tiếp theo như chuyển màn hình hoặc cập nhật giao diện
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Đã xảy ra lỗi trong quá trình lưu đơn hàng
+                                Toast.makeText(CreateOrderActivity.this, "Đã xảy ra lỗi khi tạo đơn hàng: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Có thể hiển thị thông báo lỗi chi tiết hoặc thực hiện xử lý khác
+                            }
+                        });
+            }
+        });
     }
+
+    // Method to get current date and time
+    private String getCurrentDateTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    // Method to get current user ID
+    private String getCurrentUserID() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            return user.getUid();
+        } else {
+            // Handle the case where user is not authenticated or null
+            return ""; // Or throw an exception, based on your app's logic
+        }
+    }
+
+    // Method to generate a random order ID
+    private String generateRandomOrderId() {
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomOrderId = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            randomOrderId.append(allowedChars.charAt(random.nextInt(allowedChars.length())));
+        }
+        return randomOrderId.toString();
+    }
+//    private void saveOrderDetails(String orderId) {
+//        DatabaseReference orderDetailsRef = FirebaseDatabase.getInstance().getReference().child("OrderDetails");
+//        List<Product> productList = orderUserAdapter.getProductList(); // Get products from adapter
+//
+//        for (Product product : productList) {
+//            int quantity = orderUserAdapter.getProductQuantity(product); // Get quantity from adapter
+//            double totalPrice = product.getPrice() * quantity;
+//
+//            // Create new OrderDetail object
+//            OrderDetail orderDetail = new OrderDetail(orderId, product.getName(), quantity, totalPrice);
+//
+//            // Save order detail to Firebase
+//            orderDetailsRef.push().setValue(orderDetail);
+//        }
+//    }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SELECT_CUSTOMER && resultCode == RESULT_OK && data != null) {

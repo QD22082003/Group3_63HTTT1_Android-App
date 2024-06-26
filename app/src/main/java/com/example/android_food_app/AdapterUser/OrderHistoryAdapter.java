@@ -46,14 +46,11 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
 
         holder.txt_id_order.setText(order.getId());
-        holder.txt_email_order.setText(order.getEmail());
         holder.txt_name_order.setText(order.getName());
         holder.txt_phone_order.setText(order.getPhone());
         holder.txt_address_order.setText(order.getAddress());
-        holder.txt_menu_order.setText(order.getMenu());
         holder.txt_date_order.setText(order.getDate());
         holder.txt_total_order.setText(formatPrice(order.getTotal()));
-        holder.txt_pay_order.setText(order.getPay());
     }
 
     @Override
