@@ -16,14 +16,19 @@
         android:theme="@style/Theme.AndroidFoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityAdmin.UpdateAdminActivity"
+            android:name=".ActivityAdmin.UpdateDrinkAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAdmin.DetailProductDrinkAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAdmin.UpdateFoodAdminActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityUser.AddShipmentActivity"
             android:exported="false" />
-        />
         <activity
-            android:name=".ActivityAdmin.DetailProductAdminActivity"
+            android:name=".ActivityAdmin.DetailProductFoodAdminActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityUser.UserFeedbackActivity"
@@ -38,7 +43,7 @@
             android:name=".ActivityAdmin.DessertPageAdminActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityAdmin.DrinkPageAminActivity"
+            android:name=".ActivityAdmin.DrinkPageAdminActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityAdmin.FoodPageAdminActivity"

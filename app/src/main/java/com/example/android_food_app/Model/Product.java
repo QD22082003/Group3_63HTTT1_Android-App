@@ -1,8 +1,11 @@
 package com.example.android_food_app.Model;
 
 import java.io.Serializable;
+import java.util.Random;
+import java.util.UUID;
 
 public class Product implements Serializable {
+    private int id;
     private String name, desc, priceOld, priceNew, sale;
     private String imgURL, imgURlSlider;
     private Boolean popular;
@@ -10,9 +13,11 @@ public class Product implements Serializable {
     private String productType;
     private String key;
     public Product(){
+        this.id = generateRandomId();
     }
 
-    public Product(String name, String desc, String priceOld, String priceNew, String sale, String imgURL, String imgURlSlider, Boolean popular, String productType, String imgURLOther) {
+    public Product(int id, String name, String desc, String priceOld, String priceNew, String sale, String imgURL, String imgURlSlider, Boolean popular, String productType, String imgURLOther) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.priceOld = priceOld;
@@ -23,6 +28,18 @@ public class Product implements Serializable {
         this.popular = popular;
         this.productType = productType;
         this.imgURLOther = imgURLOther;
+    }
+
+    private int generateRandomId() {
+        Random random = new Random();
+        return random.nextInt(1000000);
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

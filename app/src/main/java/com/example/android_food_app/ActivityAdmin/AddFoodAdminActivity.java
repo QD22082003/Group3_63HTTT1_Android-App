@@ -325,29 +325,35 @@ public class AddFoodAdminActivity extends AppCompatActivity {
             String productType = selectedProductTypeRadioButton.getText().toString();
 
             // TH đk đúng, upload dữ liệu
-            Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, productType, imgOtherURL);
+//            Product product = new Product(name, desc, price, priceNewFormatted, sale, imgMainURL, imgSliderURL, popular, productType, imgOtherURL);
+            // Tạo một sản phẩm mới với ID tự sinh
+            Product product = new Product();
+            product.setName(name);
+            product.setDesc(desc);
+            product.setPriceOld(price);
+            product.setPriceNew(priceNewFormatted);
+            product.setSale(sale);
+            product.setImgURL(imgMainURL);
+            product.setImgURlSlider(imgSliderURL);
+            product.setPopular(popular);
+            product.setProductType(productType);
+            product.setImgURLOther(imgOtherURL);
 
             // Sinh id theo stt 1++ có node trên firebase để lưu trữ
             currentProductId++;
             currentIdReference.setValue(currentProductId);
             // Tạo ID trên giá trị node currentProductId
-            String id1 = String.valueOf(currentProductId);
+            String id = String.valueOf(currentProductId);
 
-            // Sinh id chuỗi bit random
-//            UUID uuid = UUID.randomUUID();
-//            String id2 = uuid.toString();
-            // Sinh id theo stt 1++ ko có node trên firebase để lưu trữ
-//            String id3 = String.valueOf(currentId++);
-
-            String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-            FirebaseDatabase.getInstance().getReference("products").child(id1)
+            FirebaseDatabase.getInstance().getReference("products").child(id)
                     .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(AddFoodAdminActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                                finish();
+                                Intent intent = new Intent(AddFoodAdminActivity.this, FoodPageAdminActivity.class);
+                                startActivity(intent);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
