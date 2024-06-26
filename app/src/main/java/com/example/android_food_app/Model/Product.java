@@ -9,7 +9,6 @@ public class Product implements Serializable {
     private String imgURLOther;
     private String productType;
     private String key;
-
     public Product(){
     }
 

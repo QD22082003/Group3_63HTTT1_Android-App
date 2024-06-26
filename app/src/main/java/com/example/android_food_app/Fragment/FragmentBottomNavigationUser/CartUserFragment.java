@@ -1,16 +1,15 @@
 package com.example.android_food_app.Fragment.FragmentBottomNavigationUser;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_food_app.AdapterUser.CartAdapterRecycleView;
 import com.example.android_food_app.Model.CartManager;
@@ -20,25 +19,18 @@ import com.example.android_food_app.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartUserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CartUserFragment extends Fragment {
     private RecyclerView rcvCart;
     private CartAdapterRecycleView cartAdapter;
-    private List<Product> cartProducts = new ArrayList<>();
+    private List<Product> cartProducts;  // Use the global variable here
     private TextView txt_sum;
     private Button btn_add_order;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // Constants for arguments
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Parameters for fragment initialization
     private String mParam1;
     private String mParam2;
 
@@ -46,15 +38,7 @@ public class CartUserFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GioHangFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    // Factory method to create a new instance of this fragment using the provided parameters
     public static CartUserFragment newInstance(String param1, String param2) {
         CartUserFragment fragment = new CartUserFragment();
         Bundle args = new Bundle();
@@ -71,6 +55,9 @@ public class CartUserFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Initialize cartProducts here to avoid null pointer exception
+        cartProducts = new ArrayList<>();  // Initialize an empty list
     }
 
     @Override
@@ -78,60 +65,62 @@ public class CartUserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart_user, container, false);
+
         rcvCart = view.findViewById(R.id.rcv_cart);
         txt_sum = view.findViewById(R.id.txt_sum);
         btn_add_order = view.findViewById(R.id.btn_add_order);
-        rcvCart.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Product> cartProducts = CartManager.getInstance().getCartProducts();
+        rcvCart.setLayoutManager(new LinearLayoutManager(getContext()));
         cartAdapter = new CartAdapterRecycleView(cartProducts);
         rcvCart.setAdapter(cartAdapter);
 
-        // Xử lý sự kiện khi click vào nút "Tạo đơn hàng"
+        // Calculate and display total initially
+        calculateTotal();
+
+        // Handle click event for "Tạo đơn hàng" button
         btn_add_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Gọi phương thức để tính tổng tiền và xử lý logic tạo đơn hàng ở đây
-                calculateTotal(); // Tính tổng tiền
+                // You can add logic here for creating an order
                 clickOpenBottomSheetDialog();
-                // Xử lý logic để tạo đơn hàng (có thể gọi phương thức hoặc chuyển sang màn hình tạo đơn hàng)
-                // Ví dụ: startAddOrderActivity();
             }
         });
-
 
         return view;
     }
 
     private void clickOpenBottomSheetDialog() {
+        // Implement logic to open bottom sheet dialog
     }
 
+    @Override
     public void onResume() {
         super.onResume();
-        // Load lại danh sách sản phẩm từ CartManager khi fragment hiển thị lại
+        // Reload cart products when fragment is resumed
         loadCartProducts();
     }
+
     private void loadCartProducts() {
-        // Lấy danh sách sản phẩm từ CartManager
-        cartProducts.clear();
-        cartProducts.addAll(CartManager.getInstance().getCartProducts());
-        // Cập nhật lại adapter khi có thay đổi
+        // Reload cart products from CartManager
+        List<Product> updatedProducts = CartManager.getInstance().getCartProducts();
+        cartProducts.clear();  // Clear the current list
+        cartProducts.addAll(updatedProducts);  // Add all products from CartManager
         cartAdapter.notifyDataSetChanged();
+
+        // Calculate total after loading cart products
+        calculateTotal();
     }
-    // Phương thức để tính tổng tiền của giỏ hàng
+
     private void calculateTotal() {
         double total = 0.0;
         for (Product product : cartProducts) {
-            // Lấy giá của từng sản phẩm
-            double price = Double.parseDouble(product.getPriceNew()); // Chuyển đổi giá sản phẩm sang dạng double (nếu cần)
-
-            // Tính tổng tiền của từng sản phẩm và cộng dồn vào biến tổng
-            total +=  price;
+            // Parse product price to double
+            double price = Double.parseDouble(product.getPriceNew());
+            // Calculate total price
+            total += price;
         }
 
-        // Hiển thị tổng tiền đã tính được lên TextView txt_sum
-        txt_sum.setText(String.format("%.3f VND", total)); // Định dạng và hiển thị tổng tiền theo đơn vị VND (Ví dụ)
+        // Format and display total on txt_sum TextView
+        txt_sum.setText(String.format("%.3f VND", total));
     }
-
-
 }
