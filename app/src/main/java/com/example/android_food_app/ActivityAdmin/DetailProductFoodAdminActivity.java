@@ -3,6 +3,7 @@ package com.example.android_food_app.ActivityAdmin;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class DetailProductAdminActivity extends AppCompatActivity {
+public class DetailProductFoodAdminActivity extends AppCompatActivity {
     private TextView detail_name, detail_desc, detail_price, detail_sale, detail_popular, detail_product_type;
     private ImageView detail_imgUrl, detail_imgSlider, detail_imgOther;
     private Button btn_back;
@@ -41,7 +42,7 @@ public class DetailProductAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_detail_product_admin);
+        setContentView(R.layout.activity_detail_product_food_admin);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -98,7 +99,7 @@ public class DetailProductAdminActivity extends AppCompatActivity {
         edt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailProductAdminActivity.this, UpdateAdminActivity.class);
+                Intent intent = new Intent(DetailProductFoodAdminActivity.this, UpdateFoodAdminActivity.class);
                 intent.putExtra("name", detail_name.getText().toString());
                 intent.putExtra("desc", detail_desc.getText().toString());
                 intent.putExtra("price", detail_price.getText().toString());
@@ -138,36 +139,33 @@ public class DetailProductAdminActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 // Xóa ảnh chính
-                deleteImageFromStorage(imgUrl);
+                deleteImageFromStorageAndFinish(imgUrl);
                 // Xóa ảnh phụ
-                deleteImageFromStorage(imgOtherUrl);
+                deleteImageFromStorageAndFinish(imgOtherUrl);
                 // Xóa ảnh slider
-                deleteImageFromStorage(imgSliderUrl);
+                deleteImageFromStorageAndFinish(imgSliderUrl);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm khỏi Realtime Database thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailProductFoodAdminActivity.this, "Xóa sản phẩm khỏi Realtime Database thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void deleteImageFromStorage(String imageUrl) {
+    // Phương thức xóa ảnh từ Firebase Storage và kết thúc hoạt động nếu thành công hoặc thất bại
+    private void deleteImageFromStorageAndFinish(String imageUrl) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
         storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailProductFoodAdminActivity.this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), FoodPageAdminActivity.class));
                 finish();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailProductAdminActivity.this, "Xóa sản phẩm thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
     }
+
 
 }

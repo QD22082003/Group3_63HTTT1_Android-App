@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAdmin.DetailProductAdminActivity">
+    tools:context=".ActivityAdmin.DetailProductFoodAdminActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,10 +17,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên sản phẩm"
+                android:text="Chi tiết món ngon"
                 android:textSize="28sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -33,8 +32,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quay lại"
-                android:backgroundTint="@color/primaryColor"
-                android:layout_gravity="right" />
+                android:backgroundTint="@color/grey"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Tên sản phẩm"
+                android:textSize="28sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_corners"
+                android:padding="10dp" />
+
+
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/detail_imgUrl"
