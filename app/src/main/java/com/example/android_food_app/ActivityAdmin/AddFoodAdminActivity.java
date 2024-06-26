@@ -40,10 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.UUID;
 
 public class AddFoodAdminActivity extends AppCompatActivity {
     private EditText edt_name, edt_desc, edt_price, edt_sale;

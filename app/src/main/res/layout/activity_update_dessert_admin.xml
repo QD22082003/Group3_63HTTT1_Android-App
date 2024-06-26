@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAdmin.UpdateDrinkAdminActivity">
+    tools:context=".ActivityAdmin.UpdateDessertAdminActivity">
 
     <!--  Header  -->
     <TextView
         android:id="@+id/txtTitle_add"
-        android:text="SỬA ĐỒ UỐNG"
+        android:text="SỬA TRÁNG MIỆNG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
