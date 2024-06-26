@@ -11,18 +11,25 @@
     android:padding="10dp">
 
     <EditText
+        android:background="@color/grey"
+        android:padding="10dp"
         android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email User"
         android:enabled="false"
+        android:textColor="@color/white"
         />
     <EditText
+        android:background="@color/grey"
+        android:padding="10dp"
         android:id="@+id/edit_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="ID"
+        android:textColor="@color/white"
         android:enabled="false"
+        android:layout_marginTop="15dp"
         />
     <EditText
         android:id="@+id/edit_name"

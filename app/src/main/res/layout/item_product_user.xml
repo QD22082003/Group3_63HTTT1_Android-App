@@ -79,6 +79,16 @@
             android:text="10 000 VNĐ"
             android:textSize="18dp"
             />
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_semibold"
+            android:text="aaaaaaaaaaaaaaaa"
+            android:textSize="18dp"
+            android:visibility="gone"
+            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
