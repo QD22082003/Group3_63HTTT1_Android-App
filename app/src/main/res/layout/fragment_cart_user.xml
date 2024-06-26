@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="28dp"
                 android:textStyle="bold|italic"
+
                 android:layout_weight="1"
                 android:layout_marginStart="15dp"
                 android:textColor="@color/orange"/>
@@ -98,6 +99,7 @@
                 android:text="@string/add_order"
                 android:backgroundTint="@color/orange"
                 android:layout_marginEnd="10dp"/>
+                android:layout_weight="1"/>
 
         </LinearLayout>
 

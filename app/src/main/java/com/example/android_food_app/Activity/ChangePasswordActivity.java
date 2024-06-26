@@ -60,10 +60,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         if (inputPasswordOld.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
                             // Hiển thị mật khẩu
                             inputPasswordOld.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPasswordOld.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
                             // Ẩn mật khẩu
                             inputPasswordOld.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPasswordOld.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPasswordOld.setSelection(inputPasswordOld.getText().length());
                         return true;
                     }
                 }
@@ -81,10 +87,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         if (inputPasswordNew.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
                             // Hiển thị mật khẩu
                             inputPasswordNew.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPasswordNew.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
                             // Ẩn mật khẩu
                             inputPasswordNew.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPasswordNew.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPasswordNew.setSelection(inputPasswordNew.getText().length());
                         return true;
                     }
                 }
@@ -102,10 +114,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         if (inputPasswordNew2.getTransformationMethod() == PasswordTransformationMethod.getInstance()) {
                             // Hiển thị mật khẩu
                             inputPasswordNew2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bị gạch ngang
+                            inputPasswordNew2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0);
                         } else {
                             // Ẩn mật khẩu
                             inputPasswordNew2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                            // Đổi biểu tượng mắt thành mắt bình thường
+                            inputPasswordNew2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye, 0);
                         }
+                        // Đảm bảo con trỏ vẫn ở cuối text
+                        inputPasswordNew2.setSelection(inputPasswordNew2.getText().length());
                         return true;
                     }
                 }
