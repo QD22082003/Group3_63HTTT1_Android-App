@@ -43,35 +43,6 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:weightSum="3">
-
-                <ImageView
-                    android:id="@+id/btn_giam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dau_tru"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    />
-                <TextView
-                    android:id="@+id/txt_soluong_chitiet"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="1"
-                    android:gravity="center"
-                    android:textSize="28dp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:textColor="@color/orange"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp" />
-                <ImageView
-                    android:id="@+id/btn_tang"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dau_cong"
-                    android:layout_weight="1"
-                    />
             </LinearLayout>
 
 
@@ -82,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp">
         <Button
             android:id="@+id/btn_huybo"
             android:layout_width="wrap_content"

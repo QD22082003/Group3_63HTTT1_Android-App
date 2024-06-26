@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android_food_app.AdapterUser.DetailUserAdadpter;
+import com.example.android_food_app.Model.CartManager;
 import com.example.android_food_app.Model.Product;
 import com.example.android_food_app.Model.Product1;
 import com.example.android_food_app.R;
@@ -49,6 +50,7 @@ public class DetailPageUserActivity extends AppCompatActivity {
     private ImageView img_chitiet_bottomsheet;
     private TextView txt_ten_chitiet_bottomsheet, txt_gia_chitiet_bottomsheet;
     private List<Product> productList = new ArrayList<>();
+    private ImageView img_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class DetailPageUserActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
         line = findViewById(R.id.line);
         btn_them = findViewById(R.id.btn_them);
+        img_cart = findViewById(R.id.img_cart);
 
 
 
@@ -120,6 +123,15 @@ public class DetailPageUserActivity extends AppCompatActivity {
                 line.setVisibility(View.GONE);
             }
         }
+        // Lắng nghe khi click vào img_cart để chuyển đến giỏ hàng
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPageUserActivity.this, HomeUserActivity.class);
+                intent.putExtra("openCart", true);
+                startActivity(intent);
+            }
+        });
 
 
         // Lắng nghe khi click vào button thêm vào giỏ hàng
@@ -211,7 +223,20 @@ public class DetailPageUserActivity extends AppCompatActivity {
         btn_themvaogiohang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                CartManager.getInstance().addProduct(product);
+//                Toast.makeText(DetailPageUserActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+//
+//                // Sau khi thêm sản phẩm vào giỏ hàng, chuyển đến HomeUserActivity và mở fragment giỏ hàng
+//                Intent intent = new Intent(DetailPageUserActivity.this, HomeUserActivity.class);
+//                intent.putExtra("openCart", true);
+//                startActivity(intent);
+//                finish(); // Đóng activity chi tiết nếu không cần thiết
+//
+//                bottomSheetDialog.dismiss();
+
+                CartManager.getInstance().addProduct(product);
                 Toast.makeText(DetailPageUserActivity.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                bottomSheetDialog.dismiss();
             }
         });
 
