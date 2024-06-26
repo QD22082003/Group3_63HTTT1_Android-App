@@ -84,15 +84,15 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:srcCompat="@drawable/tiktok" />
+            app:srcCompat="@drawable/ic_tiktok" />
 
         <ImageView
-            android:id="@+id/intasgram"
+            android:id="@+id/ic_insta"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            app:srcCompat="@drawable/mdi_instagram" />
+            app:srcCompat="@drawable/ic_insta" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
